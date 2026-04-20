@@ -1,0 +1,14 @@
+.img-box {
+    padding: 17px;
+    border: 1px solid #dfe5ef;
+    border-radius: 15px;
+    position: relative;
+
+    .remove-btn {
+        position: absolute;
+        top: -12px;
+        .btn {
+            padding: 1px 5px;
+        }
+    }
+}

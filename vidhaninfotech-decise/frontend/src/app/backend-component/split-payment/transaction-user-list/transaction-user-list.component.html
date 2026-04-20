@@ -1,0 +1,180 @@
+<div class="app-page-title mb-3">
+    <div class="page-title-wrapper">
+        <div class="page-title-heading">
+            <div>
+                <h4 class="mb-0">
+                    <strong>Transactions</strong>
+                </h4>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="main-card mb-3 card">
+    <div class="card-body">
+        <div class="row mb-3">
+            <div class="col-12 col-md-6 d-flex align-items-center gap-2">
+                <label class="mb-0 mr-2">Show</label>
+                <div class="d-flex flex-grow-03">
+                    <select name="example_length" [(ngModel)]="itemPerPage" (change)="itemPerPageChange()"
+                        aria-controls="example"
+                        class="custom-select custom-select-sm form-control form-control-sm flex-grow-03 mr-3">
+                        <option value="10">10</option>
+                        <option value="25">25</option>
+                        <option value="50">50</option>
+                        <option value="100">100</option>
+                    </select>
+                </div>
+                <label class="mb-0">entries</label>
+            </div>
+            <div class="col-12 col-md-6 gap-2 d-flex justify-content-md-end align-items-center">
+                <label class="mb-0 mr-2">Search:</label>
+                <div class="d-flex flex-grow-01">
+                    <input type="search" (input)="search()" [(ngModel)]="searchTerm"
+                        class="form-control form-control-sm flex-grow-01" placeholder="" aria-controls="example">
+                </div>
+            </div>
+        </div>
+        <div class="table-responsive">
+            <table class="table table-hover table-striped table-bordered">
+                <thead>
+                    <tr>
+                        <th>&nbsp;</th>
+                        <th>Transaction ID</th>
+                        <th>Sender</th>
+                        <th>Receiver</th>
+                        <th>Amount</th>
+                        <th>Fees</th>
+                        <th>Net Amount</th>
+                        <th>Status</th>
+                        <th>Created Date</th>
+                    </tr>
+                </thead>
+                <tbody
+                    *ngFor="let item of userTransactionList | paginate : { itemsPerPage: l, currentPage: p };let index = index">
+                    <tr>
+                        <td>
+                            <a *ngIf="item?.platformFeesList.length > 0" (click)="expand((l * (p-1)) + index)">
+                                <span data-toggle="collapse" *ngIf="!item.expand" data-target="#collapseOne"
+                                    aria-expanded="true" class="badge fw-semibold bg-primary-subtle text-primary">
+                                    <i class="ti ti-plus"></i>
+                                </span>
+                                <span data-toggle="collapse" *ngIf="item.expand" data-target="#collapseOne"
+                                    aria-expanded="true" class="badge fw-semibold bg-primary-subtle text-primary">
+                                    <i class="ti ti-minus"></i>
+                                </span>
+                            </a>
+                        </td>
+                        <td>{{item?.id}}</td>
+                        <td>{{item?.senderUserName}}</td>
+                        <td>{{item?.receiverUserName}}</td>
+                        <td>{{item?.amount}}</td>
+                        <td>{{item?.platformFees}}</td>
+                        <td>{{item?.netAmount}}</td>
+                        <td>{{item?.type}}</td>
+                        <td>{{item?.createdAt | date : 'dd/MM/yyyy hh:mm:ss a'}}</td>
+                    </tr>
+                    <tr *ngIf="item.expand==true">
+                        <td colspan="9" class="p-0">
+                            <table class="table table-hover table-striped table-bordered">
+                                <thead>
+                                    <tr>
+                                        <th>Transaction ID</th>
+                                        <th>Sender Name</th>
+                                        <th>Receiver Name</th>
+                                        <th>Platform Fees</th>
+                                        <th>Status</th>
+                                        <th>Create Date</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr *ngFor="let pitem of item.platformFeesList; let index = index">
+                                        <td>{{pitem.transactionId}}</td>
+                                        <td>{{pitem.senderName}}</td>
+                                        <td>{{pitem.receiverName}}</td>
+                                        <td>{{pitem.paymentObject.amount}}</td>
+                                        <td>{{pitem.paymentObject.status}}</td>
+                                        <td>{{pitem.createdAt | date : 'dd/MM/yyyy hh:mm:ss a'}}</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </td>
+                    </tr>
+                </tbody>
+                <tbody *ngIf="userTransactionList.length == 0">
+                    <tr>
+                        <td colspan="9" class="text-center">
+                            No Data Available
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="d-sm-flex flex-column justify-content-sm-between text-center mt-3 flex-sm-row align-items-center">
+            <span class="fw-semi-bold">
+                Showing {{userTransactionList.length > 0 ? l * (p - 1) + 1 : 0}} to {{l * (p - 1) + l
+                < userTransactionList.length ? l * (p - 1) + l : userTransactionList.length}} of
+                    {{userTransactionList.length}} entries </span>
+                    <p class="mb-0 fs--1">
+                        <pagination-controls (pageChange)="p = $event"></pagination-controls>
+                    </p>
+        </div>
+    </div>
+</div>
+
+
+<!-- <div class="mat-card">
+    <mat-table [dataSource]="dataSource" matSort>
+        <ng-container matColumnDef="expand">
+            <mat-header-cell *matHeaderCellDef> </mat-header-cell>
+            <mat-cell *matCellDef="let item">
+                <span data-toggle="collapse" data-target="#collapseOne" aria-expanded="true">
+                    <i class="ti ti-plus"></i>
+                </span>
+            </mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="transactionId">
+            <mat-header-cell *matHeaderCellDef> Transaction ID </mat-header-cell>
+            <mat-cell *matCellDef="let item"> {{item.id}} </mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="sender">
+            <mat-header-cell *matHeaderCellDef> Sender </mat-header-cell>
+            <mat-cell *matCellDef="let item"> {{item.senderUserName}} </mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="receiver">
+            <mat-header-cell *matHeaderCellDef> Receiver </mat-header-cell>
+            <mat-cell *matCellDef="let item"> {{item.receiverUserName}} </mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="amount">
+            <mat-header-cell *matHeaderCellDef> Amount </mat-header-cell>
+            <mat-cell *matCellDef="let item"> {{item.paymentObject.amount}} </mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="fees">
+            <mat-header-cell *matHeaderCellDef> Fees </mat-header-cell>
+            <mat-cell *matCellDef="let item"> {{item.paymentObject.platformFees}} </mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="netAmount">
+            <mat-header-cell *matHeaderCellDef> Net Amount </mat-header-cell>
+            <mat-cell *matCellDef="let item"> {{item.paymentObject.netAmount}} </mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="status">
+            <mat-header-cell *matHeaderCellDef> Status </mat-header-cell>
+            <mat-cell *matCellDef="let item"> {{item.paymentObject.paymentStatus}} </mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="createdDate">
+            <mat-header-cell *matHeaderCellDef> Created Date </mat-header-cell>
+            <mat-cell *matCellDef="let item"> {{item.createdAt | date : 'dd/MM/yyyy hh:mm:ss a'}} </mat-cell>
+        </ng-container>
+
+        <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+        <mat-row *matRowDef="let row; columns: displayedColumns"></mat-row>
+    </mat-table>
+</div> -->

@@ -1,0 +1,106 @@
+<div class="app-page-title mb-3">
+    <div class="page-title-wrapper">
+        <div class="d-flex align-items-center justify-content-between">
+            <div class="page-title-heading">
+                <div>
+                    <h4 class="mb-0">
+                        <strong>Payment Category List</strong>
+                    </h4>
+                </div>
+            </div>
+            <div class="page-title-actions">
+                <div class="d-inline-block">
+                    <button type="button" routerLink="/admin/payment/category/create"
+                        class="btn-shadow  btn btn-primary">
+                        <i class="fa fa-plus fa-w-20"></i>
+                        Add New
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="main-card mb-3 card">
+    <div class="card-body">
+        <div class="row mb-3">
+            <div class="col-12 col-md-6 d-flex align-items-center gap-2">
+                <label class="mb-0 mr-2">Show</label>
+                <div class="d-flex flex-grow-03">
+                    <select name="example_length" [(ngModel)]="itemPerPage" (change)="itemPerPageChange()"
+                        aria-controls="example"
+                        class="custom-select custom-select-sm form-control form-control-sm flex-grow-03 mr-3">
+                        <option value="10">10</option>
+                        <option value="25">25</option>
+                        <option value="50">50</option>
+                        <option value="100">100</option>
+                    </select>
+                </div>
+                <label class="mb-0">Entries</label>
+            </div>
+            <div class="col-12 col-md-6 gap-2 d-flex justify-content-md-end align-items-center">
+                <label class="mb-0 mr-2">Search:</label>
+                <div class="d-flex flex-grow-01">
+                    <input type="search" (input)="search()" [(ngModel)]="searchTerm"
+                        class="form-control form-control-sm flex-grow-01" placeholder="" aria-controls="example">
+                </div>
+            </div>
+        </div>
+        <div class="table-responsive">
+            <table class="table table-hover table-striped table-bordered">
+                <thead>
+                    <tr>
+                        <th>No.</th>
+                        <th>Name</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr
+                        *ngFor="let item of paymentCategoryList | paginate : { itemsPerPage: l, currentPage: p };let index = index">
+                        <td>{{ (l * (p-1)) + index + 1}}</td>
+                        <td>{{item?.name}}</td>
+                        <td>
+                            <div class="d-flex gap-2" *ngIf="item.isEditable">
+                                <button
+                                    class="btn mb-1 btn-primary btn-circle btn-sm d-inline-flex align-items-center justify-content-center"
+                                    routerLink="/admin/payment/category/update/{{item.id}}">
+                                    <i class="fs-5 ti ti-edit"></i>
+                                </button>
+                                <button *ngIf="item?.status == 1"
+                                    class="btn mb-1 btn-danger btn-circle btn-sm d-inline-flex align-items-center justify-content-center"
+                                    (click)="delete(item.id,2)">
+                                    <i class="fs-5 ti ti-trash"></i>
+                                </button>
+                                <button *ngIf="item?.status == 2"
+                                    class="btn mb-1 btn-success btn-circle btn-sm d-inline-flex align-items-center justify-content-center"
+                                    (click)="delete(item.id,1)">
+                                    <i class="fs-5 ti ti-plus"></i>
+                                </button>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr *ngIf="paymentCategoryList.length == 0">
+                        <td colspan="5" class="text-center">
+                            No Data Available
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="d-sm-flex flex-column justify-content-sm-between text-center mt-3 flex-sm-row align-items-center">
+            <span class="fw-semi-bold">
+                Showing
+                {{
+                paymentCategoryList.length > 0 ? l * (p - 1) + 1 : 0
+                }}
+                to
+                {{
+                l * (p - 1) + l < paymentCategoryList.length ? l * (p - 1) + l : paymentCategoryList.length }} of
+                    {{paymentCategoryList.length}} entries </span>
+                    <p class="mb-0 fs--1">
+                        <pagination-controls (pageChange)="p = $event"></pagination-controls>
+                    </p>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,126 @@
+<div class="app-page-title mb-3">
+    <div class="page-title-wrapper">
+        <div class="d-flex align-items-center justify-content-between">
+            <div class="page-title-heading">
+                <div>
+                    <h4 class="mb-0">
+                        <strong *ngIf="!isEdit">Add Monitization Data</strong>
+                        <strong *ngIf="isEdit">Update Monitization Data</strong>
+                    </h4>
+                </div>
+            </div>
+            <div class="page-title-actions">
+                <div class="d-inline-block">
+                    <button type="button" class="btn-shadow btn btn-primary" routerLink="/admin/monitization-list">
+                        <i class="fa fa-angle-left fa-w-20"></i>
+                        Back To List
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="main-card mb-3 card">
+            <div class="card-body">
+                <form [formGroup]="monitizationForm">
+                    <div class="row">
+                        <div class="col-lg-6">
+                            <div class="position-relative form-group">
+                                <label for="minAmount">Minimum Amount</label>
+                                <input name="minAmount" id="minAmount" placeholder="Minimum Amount" type="number"
+                                    class="form-control" formControlName="minAmount">
+                                <div *ngIf="submittedData && fMonitizationData['minAmount'].errors">
+                                    <div *ngIf="fMonitizationData['minAmount'].errors['required']">
+                                        <span class="text-danger">This Field is Required.</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-6">
+                            <div class="position-relative form-group">
+                                <label for="maxAmount">Maximum Amount</label>
+                                <input name="maxAmount" id="maxAmount" placeholder="Maximum Amount" type="number"
+                                    class="form-control" formControlName="maxAmount">
+                                <div *ngIf="submittedData && fMonitizationData['maxAmount'].errors">
+                                    <div *ngIf="fMonitizationData['maxAmount'].errors['required']">
+                                        <span class="text-danger">This Field is Required.</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-6">
+                            <div class="position-relative form-group">
+                                <label for="paymentMode" class>Payment Mode</label>
+                                <select name="select" placeholder="Please Select" (change)="changeMode()"
+                                    formControlName="paymentMode" id="paymentMode" class="form-control">
+                                    <option *ngFor="let modeData of paymentModeList" [value]="modeData.value">
+                                        {{modeData.name}}
+                                    </option>
+                                </select>
+                                <div *ngIf="submittedData && fMonitizationData['paymentMode'].errors">
+                                    <div *ngIf="fMonitizationData['paymentMode'].errors['required']">
+                                        <span class="text-danger">This Field is Required.</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-6" *ngIf="fMonitizationData['paymentMode'].value == 2">
+                            <div class="position-relative form-group">
+                                <label for="percentage">Percentage</label>
+                                <input name="percentage" id="percentage" placeholder="Percentage" type="number"
+                                    class="form-control" formControlName="percentage">
+                                <div *ngIf="submittedData && fMonitizationData['percentage'].errors">
+                                    <div *ngIf="fMonitizationData['percentage'].errors['required']">
+                                        <span class="text-danger">This Field is Required.</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-6" *ngIf="fMonitizationData['paymentMode'].value == 1">
+                            <div class="position-relative form-group">
+                                <label for="amount">Amount</label>
+                                <input name="amount" id="amount" placeholder="Amount" type="number" class="form-control"
+                                    formControlName="amount">
+                                <div *ngIf="submittedData && fMonitizationData['amount'].errors">
+                                    <div *ngIf="fMonitizationData['amount'].errors['required']">
+                                        <span class="text-danger">This Field is Required.</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-6">
+                            <div class="position-relative form-group">
+                                <label for="paymentType" class>Payment Type</label>
+                                <select name="select" placeholder="Please Select" formControlName="paymentType"
+                                    id="paymentType" class="form-control">
+                                    <option *ngFor="let item of paymentType" [value]="item.value">{{item.name}}</option>
+                                </select>
+                                <div *ngIf="submittedData && fMonitizationData['paymentType'].errors">
+                                    <div *ngIf="fMonitizationData['paymentType'].errors['required']">
+                                        <span class="text-danger">This Field is Required.</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-12">
+                            <div class="position-relative form-group">
+                                <label for="description" class>Description</label>
+                                <textarea rows="5" formControlName="description" class="form-control"></textarea>
+                                <div *ngIf="submittedData && fMonitizationData['description'].errors">
+                                    <div *ngIf="fMonitizationData['description'].errors['required']">
+                                        <span class="text-danger">This Field is Required.</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <button (click)="save()" *ngIf="!isEdit" class="mt-1 btn btn-primary">Save</button>
+                    <button (click)="update()" *ngIf="isEdit" class="mt-1 btn btn-primary">Update</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

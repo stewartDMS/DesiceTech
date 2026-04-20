@@ -1,0 +1,179 @@
+<aside class="left-sidebar with-vertical">
+    <div>
+        <div class="brand-logo d-flex align-items-center justify-content-center">
+            <a href="/" class="text-nowrap logo-img">
+                <img src="../../../assets/images/logo.png" width="150" style="padding: 20px 0;"
+                    class="dark-logo img-fluid" alt="Logo-Dark">
+                <!-- <h4 class="mb-0"><strong>Decise Development</strong></h4> -->
+            </a>
+            <a href="javascript:void(0)" class="sidebartoggler ms-auto text-decoration-none fs-5 d-block d-xl-none">
+                <i class="ti ti-x"></i>
+            </a>
+        </div>
+
+        <nav class="sidebar-nav scroll-sidebar" data-simplebar="">
+            <ul id="sidebarnav">
+                <!-- Dashboard -->
+                <li class="sidebar-item ">
+                    <a class="sidebar-link" routerLink="/admin" [routerLinkActiveOptions]="{exact: true}"
+                        routerLinkActive="active" aria-expanded="false">
+                        <span>
+                            <i class="ti ti-aperture"></i>
+                        </span>
+                        <span class="hide-menu">Dashboard</span>
+                    </a>
+                </li>
+                
+                <li class="sidebar-item ">
+                    <a class="sidebar-link" routerLink="/admin/subscribed-list" routerLinkActive="active"
+                        aria-expanded="false">
+                        <span>
+                            <i class="ti ti-list"></i>
+                        </span>
+                        <span class="hide-menu">Subscribed List</span>
+                    </a>
+                </li>
+                <li class="sidebar-item ">
+                    <a class="sidebar-link" routerLink="/admin/monitization-list" routerLinkActive="active"
+                        aria-expanded="false">
+                        <span>
+                            <i class="ti ti-percentage"></i>
+                        </span>
+                        <span class="hide-menu">Monitization</span>
+                    </a>
+                </li>
+                <li class="sidebar-item ">
+                    <a class="sidebar-link" routerLink="/admin/admin-account-list" routerLinkActive="active"
+                        aria-expanded="false">
+                        <span>
+                            <i class="ti ti-building-bank"></i>
+                        </span>
+                        <span class="hide-menu">Admin Accounts</span>
+                    </a>
+                </li>
+                <li class="sidebar-item ">
+                    <a class="sidebar-link" routerLink="/admin/payment/category/list" routerLinkActive="active"
+                        aria-expanded="false">
+                        <span>
+                            <i class="ti ti-list"></i>
+                        </span>
+                        <span class="hide-menu">Payment Category</span>
+                    </a>
+                </li>
+                <li class="sidebar-item ">
+                    <a class="sidebar-link" routerLink="/admin/financial-goal" routerLinkActive="active"
+                        aria-expanded="false">
+                        <span class="d-flex">
+                            <img src="../../../assets/images/goal.png" height="21" width="21.23" alt="">
+                        </span>
+                        <span class="hide-menu">Financial Goals</span>
+                    </a>
+                </li>
+                <li class="sidebar-item ">
+                    <a class="sidebar-link" routerLink="/admin/registered-user" routerLinkActive="active"
+                        aria-expanded="false">
+                        <span>
+                            <i class="ti ti-user"></i>
+                        </span>
+                        <span class="hide-menu">App Access Request</span>
+                    </a>
+                </li>
+                <li class="sidebar-item" [ngClass]="(router.url.includes('/admin/support-ticket')) ? 'active' : ''">
+                    <a class="sidebar-link has-arrow" aria-expanded="false">
+                        <span class="d-flex">
+                            <img src="../../../assets/images/support.png" height="21" width="21.23" alt="">
+                        </span>
+                        <span class="hide-menu">Support Ticket</span>
+                    </a>
+                    <ul aria-expanded="false" class="collapse first-level">
+                        <li class="sidebar-item">
+                            <a routerLink="/admin/support-ticket/category" routerLinkActive="active"
+                                class="sidebar-link">
+                                <div class="round-16 d-flex align-items-center justify-content-center">
+                                    <i class="ti ti-circle"></i>
+                                </div>
+                                <span class="hide-menu">Category</span>
+                            </a>
+                        </li>
+                        <li class="sidebar-item">
+                            <a routerLink="/admin/support-ticket" [routerLinkActiveOptions]="{exact: true}"
+                                routerLinkActive="mm-active" class="sidebar-link">
+                                <div class="round-16 d-flex align-items-center justify-content-center">
+                                    <i class="ti ti-circle"></i>
+                                </div>
+                                <span class="hide-menu">Tickets</span>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+
+                <li class="sidebar-item" [ngClass]="(router.url.includes('/admin/transactions')) ? 'active' : ''">
+                    <a class="sidebar-link has-arrow" aria-expanded="false">
+                        <span class="d-flex">
+                            <i class="ti ti-exchange"></i>
+                            <!-- <img src="../../../assets/images/support.png" height="21" width="21.23" alt=""> -->
+                        </span>
+                        <span class="hide-menu">Transactions</span>
+                    </a>
+                    <ul aria-expanded="false" class="collapse first-level">
+                        <!-- <li class="sidebar-item">
+                            <a routerLink="/admin/transactions/platform-fees" [routerLinkActiveOptions]="{exact: true}"
+                                routerLinkActive="mm-active" class="sidebar-link">
+                                <div class="round-16 d-flex align-items-center justify-content-center">
+                                    <i class="ti ti-circle"></i>
+                                </div>
+                                <span class="hide-menu">Platform Fees</span>
+                            </a>
+                        </li> -->
+                        <li class="sidebar-item">
+                            <a routerLink="/admin/transactions/list" [routerLinkActiveOptions]="{exact: true}"
+                                routerLinkActive="mm-active" class="sidebar-link">
+                                <div class="round-16 d-flex align-items-center justify-content-center">
+                                    <i class="ti ti-circle"></i>
+                                </div>
+                                <span class="hide-menu">Transactions</span>
+                            </a>
+                        </li>
+                        <li class="sidebar-item">
+                            <a routerLink="/admin/split-payments" [routerLinkActiveOptions]="{exact: true}"
+                                routerLinkActive="mm-active" class="sidebar-link">
+                                <div class="round-16 d-flex align-items-center justify-content-center">
+                                    <i class="ti ti-circle"></i>
+                                </div>
+                                <span class="hide-menu">Split Payments</span>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+
+                <li class="sidebar-item"
+                    [ngClass]="(router.url.includes('/admin/setting/admin-users')) ? 'active' : ''">
+                    <a class="sidebar-link has-arrow" aria-expanded="false">
+                        <span class="d-flex">
+                            <i class="ti ti-settings"></i>
+                        </span>
+                        <span class="hide-menu">Setting</span>
+                    </a>
+                    <ul aria-expanded="false" class="collapse first-level">
+                        <li class="sidebar-item">
+                            <a routerLink="/admin/setting/admin-users" [routerLinkActiveOptions]="{exact: true}"
+                                routerLinkActive="active" class="sidebar-link">
+                                <div class="round-16 d-flex align-items-center justify-content-center">
+                                    <i class="ti ti-circle"></i>
+                                </div>
+                                <span class="hide-menu">Admin User's</span>
+                            </a>
+                            <a routerLink="/admin/setting/akahu-users" [routerLinkActiveOptions]="{exact: true}"
+                                routerLinkActive="active" class="sidebar-link">
+                                <div class="round-16 d-flex align-items-center justify-content-center">
+                                    <i class="ti ti-circle"></i>
+                                </div>
+                                <span class="hide-menu">Akahu User's</span>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+        </nav>
+    </div>
+</aside>

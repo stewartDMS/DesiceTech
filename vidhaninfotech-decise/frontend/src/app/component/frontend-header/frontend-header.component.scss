@@ -1,0 +1,141 @@
+.fronted-nav {
+    // height: 10vh;
+    position: fixed;
+    width: 100%;
+    background-color: transparent !important;
+    padding: 1.5rem 0;
+    z-index: 999;
+
+    &.fixed {
+        background: linear-gradient(20deg, #01204C -0.18%, #2269CF 118.88%);
+    }
+
+    .heder {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+
+        a {
+            .dark-logo {
+                width: 70%;
+            }
+        }
+
+        .navbar-toggler {
+            background-color: #fff;
+            border: 0;
+        }
+    }
+
+    .navbar-collapse {
+        ul {
+            gap: 0 20px;
+
+            li {
+                a {
+                    color: #fff;
+                    font-size: 16px;
+                    font-weight: 500;
+                }
+            }
+        }
+    }
+}
+
+.container-fluid {
+    padding: 0;
+}
+
+@media only screen and (min-width: 1024px) and (max-width: 1200px) {
+    .container-fluid {
+        padding: 0 12px;
+    }
+}
+
+@media only screen and (min-width: 768px) and (max-width: 1023px) {
+    .fronted-nav {
+        background-color: #11438b !important;
+        padding: 0;
+
+        .heder {
+            width: 100%;
+            padding: 1rem;
+
+            a {
+                .dark-logo {
+                    width: 70%;
+                }
+            }
+
+            // position: relative;
+            .navbar-toggler {
+                background-color: #fff;
+                border: 0;
+            }
+        }
+
+        .navbar-collapse {
+            background-color: #1b4d95;
+            // padding: 1rem;
+
+            ul {
+                li {
+                    border-bottom: 1px dashed #4976b5;
+                    padding: 1rem;
+
+                    a {
+                        padding: 0;
+                    }
+
+                    &:last-child {
+                        border: 0;
+                    }
+                }
+            }
+        }
+    }
+}
+
+@media only screen and (min-width: 320px) and (max-width: 479px) {
+    .fronted-nav {
+        background-color: #11438b !important;
+        padding: 0;
+
+        .heder {
+            width: 100%;
+            padding: 1rem;
+
+            a {
+                .dark-logo {
+                    width: 70%;
+                }
+            }
+
+            // position: relative;
+            .navbar-toggler {
+                background-color: #fff;
+                border: 0;
+            }
+        }
+
+        .navbar-collapse {
+            background-color: #1b4d95;
+            // padding: 1rem;
+
+            ul {
+                li {
+                    border-bottom: 1px dashed #4976b5;
+                    padding: 1rem;
+
+                    a {
+                        padding: 0;
+                    }
+
+                    &:last-child {
+                        border: 0;
+                    }
+                }
+            }
+        }
+    }
+}

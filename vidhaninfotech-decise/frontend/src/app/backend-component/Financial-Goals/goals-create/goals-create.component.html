@@ -1,0 +1,63 @@
+<div class="app-page-title mb-3">
+    <div class="page-title-wrapper">
+        <div class="d-flex align-items-center justify-content-between">
+            <div class="page-title-heading">
+                <div>
+                    <h4 class="mb-0">
+                        <strong *ngIf="!isEdit">Add Financial Goal</strong>
+                        <strong *ngIf="isEdit">Update Financial Goal</strong>
+                    </h4>
+                </div>
+            </div>
+            <div class="page-title-actions">
+                <div class="d-inline-block">
+                    <button type="button" class="btn-shadow btn btn-primary" routerLink="/admin/financial-goal">
+                        <i class="fa fa-angle-left fa-w-20"></i>
+                        Back To List
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="main-card mb-3 card">
+            <div class="card-body">
+                <form [formGroup]="financialGoalForm">
+                    <div class="row">
+                        <div class="col-lg-6">
+                            <div class="position-relative form-group">
+                                <label for="group" class>Group</label>
+                                <select name="select" placeholder="Please Select" formControlName="group" id="group"
+                                    class="form-control">
+                                    <option *ngFor="let item of groupList" [value]="item.value">{{item.name}}</option>
+                                </select>
+                                <div *ngIf="submittedData && fFinancialGoalData['group'].errors">
+                                    <div *ngIf="fFinancialGoalData['group'].errors['required']">
+                                        <span class="text-danger">This Field is Required.</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-6">
+                            <div class="position-relative form-group">
+                                <label for="name">Name</label>
+                                <input name="name" id="name" placeholder="Name" type="text"
+                                    class="form-control" formControlName="name">
+                                <div *ngIf="submittedData && fFinancialGoalData['name'].errors">
+                                    <div *ngIf="fFinancialGoalData['name'].errors['required']">
+                                        <span class="text-danger">This Field is Required.</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <button (click)="save()" *ngIf="!isEdit" class="mt-1 btn btn-primary">Save</button>
+                    <button (click)="update()" *ngIf="isEdit" class="mt-1 btn btn-primary">Update</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

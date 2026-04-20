@@ -1,0 +1,100 @@
+<div class="app-page-title mb-3">
+    <div class="page-title-wrapper">
+        <div class="d-flex align-items-center justify-content-between">
+            <div class="page-title-heading">
+                <div>
+                    <h4 class="mb-0">
+                        <strong *ngIf="!isEdit">Add Monitization Data</strong>
+                        <strong *ngIf="isEdit">Update Monitization Data</strong>
+                    </h4>
+                </div>
+            </div>
+            <div class="page-title-actions">
+                <div class="d-inline-block">
+                    <button type="button" class="btn-shadow  btn btn-primary" routerLink="/admin/setting/admin-users">
+                        <i class="fa fa-angle-left fa-w-20"></i>
+                        Back To List
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="main-card mb-3 card">
+            <div class="card-body">
+                <form [formGroup]="adminUserForm" autocomplete="off">
+                    <div class="row">
+                        <div class="col-lg-6">
+                            <div class="position-relative form-group">
+                                <label for="firstName">First Name</label>
+                                <input name="firstName" id="firstName" placeholder="First Name" type="text"
+                                    class="form-control" formControlName="firstName">
+                                <div *ngIf="submittedData && fAdminUserData['firstName'].errors">
+                                    <div *ngIf="fAdminUserData['firstName'].errors['required']">
+                                        <span class="text-danger">This Field is Required.</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-6">
+                            <div class="position-relative form-group">
+                                <label for="lastName">Last Name</label>
+                                <input name="lastName" id="lastName" placeholder="Last Name" type="text"
+                                    class="form-control" formControlName="lastName">
+                                <div *ngIf="submittedData && fAdminUserData['lastName'].errors">
+                                    <div *ngIf="fAdminUserData['lastName'].errors['required']">
+                                        <span class="text-danger">This Field is Required.</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-6">
+                            <div class="position-relative form-group">
+                                <label for="email">Email</label>
+                                <input name="email" id="email" [readonly]="isEdit" placeholder="Email" type="text"
+                                    class="form-control" formControlName="email">
+                                <div *ngIf="submittedData && fAdminUserData['email'].errors">
+                                    <div *ngIf="fAdminUserData['email'].errors['required']">
+                                        <span class="text-danger">This Field is Required.</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-6" *ngIf="!isEdit">
+                            <div class="position-relative form-group">
+                                <label for="password">Password</label>
+                                <input name="password" id="password" placeholder="Password" type="password"
+                                    class="form-control" formControlName="password">
+                                <div *ngIf="submittedData && fAdminUserData['password'].errors">
+                                    <div *ngIf="fAdminUserData['password'].errors['required']">
+                                        <span class="text-danger">This Field is Required.</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-6">
+                            <div class="position-relative form-group">
+                                <label for="role" class>Role</label>
+                                <select name="select" placeholder="Please Select" [attr.disabled]="true"
+                                    formControlName="role" id="role" class="form-control">
+                                    <option *ngFor="let item of roleList" value="2">{{item.name}}</option>
+                                </select>
+                                <div *ngIf="submittedData && fAdminUserData['role'].errors">
+                                    <div *ngIf="fAdminUserData['role'].errors['required']">
+                                        <span class="text-danger">This Field is Required.</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                    <button (click)="save()" *ngIf="!isEdit" class="mt-1 btn btn-primary">Save</button>
+                    <button (click)="update()" *ngIf="isEdit" class="mt-1 btn btn-primary">Update</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

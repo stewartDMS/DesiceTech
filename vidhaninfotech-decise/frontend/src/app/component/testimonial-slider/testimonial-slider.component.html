@@ -1,0 +1,5 @@
+<div #owlCarousel class="owl-carousel">
+  <div *ngFor="let testimonial of testimonials" class="item" [ngClass]="{ 'active': testimonial === activeTestimonial }">
+    <img [src]="testimonial.img" alt="Testimonial Image">
+  </div>
+</div>

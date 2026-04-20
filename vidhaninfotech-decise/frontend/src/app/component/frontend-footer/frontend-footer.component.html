@@ -1,0 +1,77 @@
+<footer>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-4">
+                <div class="logo-sec">
+                    <img src="../../../assets/images/frontedLogo.png" class="img-fluid footer-logo" alt="">
+                    <p>Gain control, get precise and make your money work for you with Desice. The smart way to manage
+                        money.</p>
+                    <ul>
+                        <li>
+                            <img src="../../../assets/images/facebook.svg" alt="">
+                        </li>
+                        <li>
+                            <img src="../../../assets/images/twitter.svg" alt="">
+                        </li>
+                        <li>
+                            <img src="../../../assets/images/insta.svg" alt="">
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="col-md-3 company">
+                <div class="title">
+                    <h3>Company</h3>
+                </div>
+                <ul>
+                    <li routerLink="/">Home</li>
+                    <li routerLink="/about">About us</li>
+                    <li routerLink="/features">Features</li>
+                    <!-- <li>Plans</li> -->
+                    <li routerLink="/contact-us">Contact Us</li>
+                </ul>
+            </div>
+            <div class="col-md-5 subscribe">
+                <div class="title">
+                    <h3>Subscribe</h3>
+                </div>
+                <form [formGroup]="registerForm" class="form-group">
+                    <input name="email" id="email" formControlName="email" type="email" class="form-control"
+                        placeholder="Enter your email">
+                    <button (click)="save()"><img src="../../../assets/images/sendArrows.svg" alt=""></button>
+                </form>
+                <div *ngIf="submittedData && fRegisterData['email'].errors">
+                    <div *ngIf="fRegisterData['email'].errors['required']">
+                        <span class="text-danger">This Field is Required.</span>
+                    </div>
+                    <div *ngIf="fRegisterData['email'].hasError('pattern')">
+                        <span class="text-danger">Invalid email format.</span>
+                    </div>
+                </div>
+                <span>Stay in the loop with our newsletter!</span>
+                <p>Subscribe to our newsletter and unlock a world of exclusive benefits. Be the first to know about our latest products, special promotions, and exciting updates.</p>
+            </div>
+        </div>
+    </div>
+    <div class="copyright">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-md-6">
+                    <p class="m-0">© 2024 Desice. All rights reserved</p>
+                </div>
+                <div class="col-md-6">
+                    <ul>
+                        <li>
+                            <a routerLink="terms-condition" routerLinkActive="active" aria-expanded="false">Terms &
+                                Conditions</a>
+                        </li>
+                        <li>
+                            <a routerLink="/privacy-policy" routerLinkActive="active" aria-expanded="false">Privacy
+                                Policy</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</footer>

@@ -1,0 +1,87 @@
+<div class="app-page-title mb-3">
+    <div class="page-title-wrapper">
+        <div class="d-flex align-items-center justify-content-between">
+            <div class="page-title-heading">
+                <div>
+                    <h4 class="mb-0">
+                        <strong *ngIf="!isEdit">Add Account Data</strong>
+                        <strong *ngIf="isEdit">Update Account Data</strong>
+                    </h4>
+                </div>
+            </div>
+            <div class="page-title-actions">
+                <div class="d-inline-block">
+                    <button type="button" class="btn-shadow  btn btn-primary" routerLink="/admin/admin-account-list">
+                        <span class="btn-icon-wrapper pr-2 opacity-7">
+                            <i class="fa fa-angle-left fa-w-20"></i>
+                        </span>
+                        Back To List
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="main-card mb-3 card">
+            <div class="card-body">
+                <form [formGroup]="accountForm">
+                    <div class="row">
+                        <div class="col-lg-6">
+                            <div class="position-relative form-group">
+                                <label for="accountID">Account ID</label>
+                                <input name="accountID" id="accountID" placeholder="Account ID" type="text"
+                                    class="form-control" formControlName="accountID">
+                                <div *ngIf="submittedData && fAccountData['accountID'].errors">
+                                    <div *ngIf="fAccountData['accountID'].errors['required']">
+                                        <span class="text-danger">This Field is Required.</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-6">
+                            <div class="position-relative form-group">
+                                <label for="accountHolderName">Account Holder Name</label>
+                                <input name="accountHolderName" id="accountHolderName" placeholder="Account Holder Name"
+                                    type="text" class="form-control" formControlName="accountHolderName">
+                                <div *ngIf="submittedData && fAccountData['accountHolderName'].errors">
+                                    <div *ngIf="fAccountData['accountHolderName'].errors['required']">
+                                        <span class="text-danger">This Field is Required.</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-6">
+                            <div class="position-relative form-group">
+                                <label for="bankName">Bank Name</label>
+                                <input name="bankName" id="bankName" placeholder="Bank Name" type="text"
+                                    class="form-control" formControlName="bankName">
+                                <div *ngIf="submittedData && fAccountData['bankName'].errors">
+                                    <div *ngIf="fAccountData['bankName'].errors['required']">
+                                        <span class="text-danger">This Field is Required.</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-6">
+                            <div class="position-relative form-group">
+                                <label for="prefixCode">Prefix Code</label>
+                                <input name="prefixCode" id="prefixCode" placeholder="Prefix Code" type="text"
+                                    class="form-control" formControlName="prefixCode">
+                                <div *ngIf="submittedData && fAccountData['prefixCode'].errors">
+                                    <div *ngIf="fAccountData['prefixCode'].errors['required']">
+                                        <span class="text-danger">This Field is Required.</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <button (click)="save()" *ngIf="!isEdit" class="mt-1 btn btn-primary">Save</button>
+                    <button (click)="update()" *ngIf="isEdit" class="mt-1 btn btn-primary">Update</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

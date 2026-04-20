@@ -1,0 +1,234 @@
+<div class="owl-carousel counter-carousel owl-theme">
+    <div class="item">
+        <div class="card border-0 zoom-in bg-primary-subtle shadow-none">
+            <div class="card-body">
+                <div class="text-center">
+                    <img src="../../../assets/images/icon-user-male.svg" width="50" height="50" class="mb-3" alt="">
+                    <p class="fw-semibold fs-3 text-primary mb-1">
+                        Users
+                    </p>
+                    <h5 class="fw-semibold text-primary mb-0">{{count?.akahuUserCount}}</h5>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="item">
+        <div class="card border-0 zoom-in bg-warning-subtle shadow-none">
+            <div class="card-body">
+                <div class="text-center">
+                    <img src="../../../assets/images/icon-briefcase.svg" width="50" height="50" class="mb-3" alt="">
+                    <p class="fw-semibold fs-3 text-warning mb-1">Monitizations</p>
+                    <h5 class="fw-semibold text-warning mb-0">{{count?.monitizationCount}}</h5>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="item">
+        <div class="card border-0 zoom-in bg-info-subtle shadow-none">
+            <div class="card-body">
+                <div class="text-center">
+                    <img src="../../../assets/images/icon-mailbox.svg" width="50" height="50" class="mb-3" alt="">
+                    <p class="fw-semibold fs-3 text-info mb-1">Payment Category</p>
+                    <h5 class="fw-semibold text-info mb-0">{{count?.paymentCategoryCount}}</h5>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- <div class="item">
+        <div class="card border-0 zoom-in bg-danger-subtle shadow-none">
+            <div class="card-body">
+                <div class="text-center">
+                    <img src="../../../assets/images/icon-favorites.svg" width="50" height="50" class="mb-3" alt="">
+                    <p class="fw-semibold fs-3 text-danger mb-1">Events</p>
+                    <h5 class="fw-semibold text-danger mb-0">696</h5>
+                </div>
+            </div>
+        </div>
+    </div> -->
+    <div class="item">
+        <div class="card border-0 zoom-in bg-primary-subtle shadow-none">
+            <div class="card-body">
+                <div class="text-center">
+                    <img src="../../../assets/images/icon-user-male.svg" width="50" height="50" class="mb-3" alt="">
+                    <p class="fw-semibold fs-3 text-primary mb-1">
+                        Admin Users
+                    </p>
+                    <h5 class="fw-semibold text-primary mb-0">{{count?.adminUserCount}}</h5>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="item">
+        <div class="card border-0 zoom-in bg-success-subtle shadow-none">
+            <div class="card-body">
+                <div class="text-center">
+                    <img src="../../../assets/images/icon-speech-bubble.svg" width="50" height="50" class="mb-3" alt="">
+                    <p class="fw-semibold fs-3 text-success mb-1">Transactions</p>
+                    <h5 class="fw-semibold text-success mb-0">{{count?.transactionCount}}</h5>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="item">
+        <div class="card border-0 zoom-in bg-info-subtle shadow-none">
+            <div class="card-body">
+                <div class="text-center">
+                    <img src="../../../assets/images/icon-connect.svg" width="50" height="50" class="mb-3" alt="">
+                    <p class="fw-semibold fs-3 text-info mb-1">Split Payments</p>
+                    <h5 class="fw-semibold text-info mb-0">{{count?.splitPaymentCount}}</h5>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-lg-8 d-flex align-items-strech">
+        <div class="card w-100">
+            <div class="card-body">
+                <div class="d-sm-flex d-block align-items-center justify-content-between mb-9">
+                    <div class="mb-3 mb-sm-0">
+                        <h5 class="card-title fw-semibold">Revenue Updates</h5>
+                        <p class="card-subtitle mb-0">Overview of Profit</p>
+                    </div>
+
+                    <select class="form-select w-auto" [(ngModel)]="selectedMonthandYear" (change)="getRevenueChart()">
+                        <option value="{{item.value}}" *ngFor="let item of monthYearList">{{item.name}}</option>
+                    </select>
+                </div>
+                <div class="row align-items-center">
+                    <div class="col-md-8">
+                        <div id="chart">
+                            <apx-chart [series]="revenueChartOption.series" [chart]="revenueChartOption.chart"
+                                [plotOptions]="revenueChartOption.plotOptions"
+                                [dataLabels]="revenueChartOption.dataLabels" [labels]="revenueChartOption.labels"
+                                [legend]="revenueChartOption.legend" [stroke]="revenueChartOption.stroke"
+                                [tooltip]="revenueChartOption.tooltip"></apx-chart>
+                        </div>
+
+                    </div>
+                    <div class="col-md-4">
+                        <div class="hstack mb-4 pb-1">
+                            <div
+                                class="p-8 bg-primary-subtle rounded-1 me-3 d-flex align-items-center justify-content-center">
+                                <i class="ti ti-grid-dots text-primary fs-6"></i>
+                            </div>
+                            <div>
+                                <h4 class="mb-0 fs-7 fw-semibold">${{TotalExpenseEarning}}</h4>
+                                <p class="fs-3 mb-0">Total Earnings</p>
+                            </div>
+                        </div>
+                        <div>
+                            <!-- <div class="d-flex align-items-baseline mb-4">
+                                <span class="round-8 text-bg-primary rounded-circle me-6"></span>
+                                <div>
+                                    <p class="fs-3 mb-1">Earnings this month</p>
+                                    <h6 class="fs-5 fw-semibold mb-0">$48,820</h6>
+                                </div>
+                            </div> -->
+                            <div class="d-flex align-items-baseline mb-4 pb-1">
+                                <span class="round-8 text-bg-secondary rounded-circle me-6"></span>
+                                <div>
+                                    <p class="fs-3 mb-1">Expense this month</p>
+                                    <h6 class="fs-5 fw-semibold mb-0">${{totalCurrentMonthExpenseEarning}}</h6>
+                                </div>
+                            </div>
+                            <!-- <div>
+                                <button class="btn btn-primary w-100">
+                                    View Full Report
+                                </button>
+                            </div> -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-4">
+        <div class="row">
+            <div class="col-lg-12 col-md-6">
+                <!-- Yearly Breakup -->
+                <div class="card">
+                    <div class="card-body">
+                        <div class="row align-items-center">
+                            <div class="col-8">
+                                <h5 class="card-title mb-9 fw-semibold">
+                                    Yearly Breakup
+                                </h5>
+                                <h4 class="fw-semibold mb-3">${{totalOfYearlyBreakupEarnings}}</h4>
+                                <div class="d-flex align-items-center mb-3">
+                                    <!-- <span
+                                        class="me-1 rounded-circle bg-success-subtle round-20 d-flex align-items-center justify-content-center">
+                                        <i class="ti ti-arrow-up-left text-success"></i>
+                                    </span>
+                                    <p class="text-dark me-1 fs-3 mb-0">+9%</p> -->
+                                    <p class="fs-3 mb-0">last 3 year's</p>
+                                </div>
+                                <!-- <div class="d-flex align-items-center">
+                                    <div class="me-4">
+                                        <span class="round-8 text-bg-primary rounded-circle me-2 d-inline-block"></span>
+                                        <span class="fs-2">2023</span>
+                                    </div>
+                                    <div>
+                                        <span
+                                            class="round-8 bg-primary-subtle rounded-circle me-2 d-inline-block"></span>
+                                        <span class="fs-2">2023</span>
+                                    </div>
+                                </div> -->
+                            </div>
+                            <div class="col-4">
+                                <div class="d-flex justify-content-center">
+                                    <div id="breakup">
+                                        <apx-chart [series]="breakupChartOption.series"
+                                            [chart]="breakupChartOption.chart"
+                                            [plotOptions]="breakupChartOption.plotOptions"
+                                            [dataLabels]="breakupChartOption.dataLabels"
+                                            [labels]="breakupChartOption.labels" [legend]="breakupChartOption.legend"
+                                            [stroke]="breakupChartOption.stroke"
+                                            [tooltip]="breakupChartOption.tooltip"></apx-chart>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-12 col-md-6">
+                <!-- Monthly Earnings -->
+                <div class="card">
+                    <div class="card-body">
+                        <div class="row align-items-start">
+                            <div class="col-8">
+                                <h5 class="card-title mb-9 fw-semibold">
+                                    Monthly Earnings
+                                </h5>
+                                <h4 class="fw-semibold mb-3">${{totalOfMonthlyEarnings}}</h4>
+                                <div class="d-flex align-items-center pb-1">
+                                    <!-- <span
+                                        class="me-2 rounded-circle bg-danger-subtle round-20 d-flex align-items-center justify-content-center">
+                                        <i class="ti ti-arrow-down-right text-danger"></i>
+                                    </span>
+                                    <p class="text-dark me-1 fs-3 mb-0">+9%</p> -->
+                                    <p class="fs-3 mb-0">Current year month wise earnings</p>
+                                </div>
+                            </div>
+                            <div class="col-4">
+                                <div class="d-flex justify-content-end">
+                                    <div
+                                        class="text-white text-bg-secondary rounded-circle p-6 d-flex align-items-center justify-content-center">
+                                        <i class="ti ti-currency-dollar fs-6"></i>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div id="earning">
+                        <apx-chart [series]="earningChartOption.series" [chart]="earningChartOption.chart"
+                            [fill]="earningChartOption.fill" [markers]="earningChartOption.markers"
+                            [stroke]="earningChartOption.stroke" [tooltip]="earningChartOption.tooltip"></apx-chart>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

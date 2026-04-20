@@ -1,0 +1,2036 @@
+{
+    "swagger": "2.0",
+    "info": {
+        "version": "1.0",
+        "title": "Desice Development API [Admin]",
+        "contact": {}
+    },
+    "host": "desice.tech",
+    "basePath": "/v1",
+    "securityDefinitions": {
+        "Bearer": {
+            "type": "apiKey",
+            "name": "Authorization",
+            "in": "header",
+            "scheme": "bearer"
+        }
+    },
+    "security": [
+        {
+            "Bearer": []
+        }
+    ],
+    "schemes": [
+        "http",
+        "https"
+    ],
+    "consumes": [
+        "application/json"
+    ],
+    "produces": [
+        "application/json"
+    ],
+    "paths": {
+        "/adminAuth/login": {
+            "post": {
+                "summary": "login",
+                "tags": [
+                    "Admin Authentication"
+                ],
+                "security": [
+                    {
+                        "Bearer": []
+                    }
+                ],
+                "operationId": "login",
+                "deprecated": false,
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "Body",
+                        "in": "body",
+                        "required": true,
+                        "description": "",
+                        "schema": {
+                            "$ref": "#/definitions/authLogin"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "",
+                        "headers": {}
+                    }
+                }
+            }
+        },
+        "/adminAuth/register": {
+            "post": {
+                "summary": "Register Admin User",
+                "tags": [
+                    "Admin Authentication"
+                ],
+                "security": [
+                    {
+                        "Bearer": []
+                    }
+                ],
+                "operationId": "adminUserRegister",
+                "deprecated": false,
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "Body",
+                        "in": "body",
+                        "required": true,
+                        "description": "",
+                        "schema": {
+                            "$ref": "#/definitions/registerAdminUser"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "",
+                        "headers": {}
+                    }
+                }
+            }
+        },
+        "/adminAuth/update-user-details": {
+            "put": {
+                "summary": "Update Admin User Details",
+                "tags": [
+                    "Admin Authentication"
+                ],
+                "security": [
+                    {
+                        "Bearer": []
+                    }
+                ],
+                "operationId": "adminUserDetailsUpdate",
+                "deprecated": false,
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "query",
+                        "type": "string",
+                        "required": false,
+                        "description": ""
+                    },
+                    {
+                        "name": "Body",
+                        "in": "body",
+                        "required": true,
+                        "description": "",
+                        "schema": {
+                            "$ref": "#/definitions/registerAdminUser"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "",
+                        "headers": {}
+                    }
+                }
+            }
+        },
+        "/adminAuth/getAll-AdminUser-List": {
+            "get": {
+                "summary": "Get All List Of Admin User",
+                "tags": [
+                    "Admin Authentication"
+                ],
+                "security": [
+                    {
+                        "Bearer": []
+                    }
+                ],
+                "operationId": "getAllAdminUserList",
+                "deprecated": false,
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [],
+                "responses": {
+                    "200": {
+                        "description": "",
+                        "headers": {}
+                    }
+                }
+            }
+        },
+        "/adminAuth/getAdminUser-details-byID": {
+            "get": {
+                "summary": "Single Admin User Data Get By ID",
+                "tags": [
+                    "Admin Authentication"
+                ],
+                "security": [
+                    {
+                        "Bearer": []
+                    }
+                ],
+                "operationId": "getAdminUserDetailsByID",
+                "deprecated": false,
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "query",
+                        "type": "string",
+                        "required": false,
+                        "description": ""
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "",
+                        "headers": {}
+                    }
+                }
+            }
+        },
+        "/adminAuth/send-otp": {
+            "post": {
+                "summary": "send otp using email",
+                "tags": [
+                    "Admin Authentication"
+                ],
+                "security": [
+                    {
+                        "Bearer": []
+                    }
+                ],
+                "operationId": "send otp",
+                "deprecated": false,
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "Body",
+                        "in": "body",
+                        "required": true,
+                        "description": "",
+                        "schema": {
+                            "$ref": "#/definitions/sendOTP"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "",
+                        "headers": {}
+                    }
+                }
+            }
+        },
+        "/adminAuth/verify-otp": {
+            "post": {
+                "summary": "Verify OTP",
+                "tags": [
+                    "Admin Authentication"
+                ],
+                "security": [
+                    {
+                        "Bearer": []
+                    }
+                ],
+                "operationId": "verify otp",
+                "deprecated": false,
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "Body",
+                        "in": "body",
+                        "required": true,
+                        "description": "",
+                        "schema": {
+                            "$ref": "#/definitions/verifyOTP"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "",
+                        "headers": {}
+                    }
+                }
+            }
+        },
+        "/adminAuth/password-update": {
+            "put": {
+                "summary": "Update Password (Enter New Password)",
+                "tags": [
+                    "Admin Authentication"
+                ],
+                "security": [
+                    {
+                        "Bearer": []
+                    }
+                ],
+                "operationId": "Update Password",
+                "deprecated": false,
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "Body",
+                        "in": "body",
+                        "required": true,
+                        "description": "",
+                        "schema": {
+                            "$ref": "#/definitions/updatePassword"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "",
+                        "headers": {}
+                    }
+                }
+            }
+        },
+        "/adminAuth/change-password": {
+            "put": {
+                "summary": "Change Password (Enter New Password and old password and Token)",
+                "tags": [
+                    "Admin Authentication"
+                ],
+                "security": [
+                    {
+                        "Bearer": []
+                    }
+                ],
+                "operationId": "Change Password",
+                "deprecated": false,
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "Body",
+                        "in": "body",
+                        "required": true,
+                        "description": "",
+                        "schema": {
+                            "$ref": "#/definitions/changePassword"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "",
+                        "headers": {}
+                    }
+                }
+            }
+        },
+        "/transaction/monthlyEarnings": {
+            "get": {
+                "summary": "Monthly Earnings Current Year wise",
+                "tags": [
+                    "Dashboard"
+                ],
+                "security": [
+                    {
+                        "Bearer": []
+                    }
+                ],
+                "operationId": "monthlyEarningCurrentyearwiseList",
+                "deprecated": false,
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [],
+                "responses": {
+                    "200": {
+                        "description": "",
+                        "headers": {}
+                    }
+                }
+            }
+        },
+        "/transaction/lastthreeYearEarnings": {
+            "get": {
+                "summary": "Last Three Year's Breakups",
+                "tags": [
+                    "Dashboard"
+                ],
+                "security": [
+                    {
+                        "Bearer": []
+                    }
+                ],
+                "operationId": "lastThreeYearsBreakUps",
+                "deprecated": false,
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [],
+                "responses": {
+                    "200": {
+                        "description": "",
+                        "headers": {}
+                    }
+                }
+            }
+        },
+        "/transaction/monthYearList": {
+            "get": {
+                "summary": "Month Year List For Bar Chart",
+                "tags": [
+                    "Dashboard"
+                ],
+                "security": [
+                    {
+                        "Bearer": []
+                    }
+                ],
+                "operationId": "monthYearListBarChart",
+                "deprecated": false,
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [],
+                "responses": {
+                    "200": {
+                        "description": "",
+                        "headers": {}
+                    }
+                }
+            }
+        },
+        "/transaction/revenuseUpdate": {
+            "get": {
+                "summary": "Revenue Chart's",
+                "tags": [
+                    "Dashboard"
+                ],
+                "security": [
+                    {
+                        "Bearer": []
+                    }
+                ],
+                "operationId": "revenuecharts",
+                "deprecated": false,
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "month",
+                        "in": "query",
+                        "type": "string",
+                        "required": true,
+                        "description": "Please add month value as two digit as a string (e.g. '02','03)"
+                    },
+                    {
+                        "name": "year",
+                        "in": "query",
+                        "type": "string",
+                        "required": true,
+                        "description": ""
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "",
+                        "headers": {}
+                    }
+                }
+            }
+        },
+        "/split-payment/count": {
+            "get": {
+                "summary": "Home Dashboard Count",
+                "tags": [
+                    "Dashboard"
+                ],
+                "security": [
+                    {
+                        "Bearer": []
+                    }
+                ],
+                "operationId": "homeDashboardCounts",
+                "deprecated": false,
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [],
+                "responses": {
+                    "200": {
+                        "description": "",
+                        "headers": {}
+                    }
+                }
+            }
+        },
+        "/monitization/add": {
+            "post": {
+                "summary": "create new data (paymentType : [1: 'auto', 2: 'manual'];paymentMode : [1: 'amount', 2: 'percentage'])",
+                "tags": [
+                    "Monitization Module"
+                ],
+                "security": [
+                    {
+                        "Bearer": []
+                    }
+                ],
+                "operationId": "createNewMonitization",
+                "deprecated": false,
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "Body",
+                        "in": "body",
+                        "required": true,
+                        "description": "",
+                        "schema": {
+                            "$ref": "#/definitions/addMonitization"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "",
+                        "headers": {}
+                    }
+                }
+            }
+        },
+        "/monitization/update": {
+            "put": {
+                "summary": "update data (paymentType : [1: 'auto', 2: 'manual'];paymentMode : [1: 'amount', 2: 'percentage'])",
+                "tags": [
+                    "Monitization Module"
+                ],
+                "security": [
+                    {
+                        "Bearer": []
+                    }
+                ],
+                "operationId": "updateDataOfMonitization",
+                "deprecated": false,
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "query",
+                        "type": "string",
+                        "required": true,
+                        "description": ""
+                    },
+                    {
+                        "name": "Body",
+                        "in": "body",
+                        "required": true,
+                        "description": "",
+                        "schema": {
+                            "$ref": "#/definitions/updateMonitization"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "",
+                        "headers": {}
+                    }
+                }
+            }
+        },
+        "/monitization/all-list": {
+            "get": {
+                "summary": "Get All List Of Monitization",
+                "tags": [
+                    "Monitization Module"
+                ],
+                "security": [
+                    {
+                        "Bearer": []
+                    }
+                ],
+                "operationId": "getMonitizationAllList",
+                "deprecated": false,
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [],
+                "responses": {
+                    "200": {
+                        "description": "",
+                        "headers": {}
+                    }
+                }
+            }
+        },
+        "/monitization/monitization-data-ByID": {
+            "get": {
+                "summary": "Single Data Get By ID",
+                "tags": [
+                    "Monitization Module"
+                ],
+                "security": [
+                    {
+                        "Bearer": []
+                    }
+                ],
+                "operationId": "getDataByIDOFMonitization",
+                "deprecated": false,
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "query",
+                        "type": "string",
+                        "required": false,
+                        "description": ""
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "",
+                        "headers": {}
+                    }
+                }
+            }
+        },
+        "/monitization/delete": {
+            "delete": {
+                "summary": "Delete By Monitization ID",
+                "tags": [
+                    "Monitization Module"
+                ],
+                "security": [
+                    {
+                        "Bearer": []
+                    }
+                ],
+                "operationId": "deleteDataByIDOFMonitization",
+                "deprecated": false,
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "query",
+                        "type": "string",
+                        "required": false,
+                        "description": ""
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "",
+                        "headers": {}
+                    }
+                }
+            }
+        },
+        "/admin-account/add": {
+            "post": {
+                "summary": "Add New Account Details",
+                "tags": [
+                    "Account Module"
+                ],
+                "security": [
+                    {
+                        "Bearer": []
+                    }
+                ],
+                "operationId": "addNewAccountDetails",
+                "deprecated": false,
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "Body",
+                        "in": "body",
+                        "required": true,
+                        "description": "",
+                        "schema": {
+                            "$ref": "#/definitions/addAdminAccount"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "",
+                        "headers": {}
+                    }
+                }
+            }
+        },
+        "/admin-account/update": {
+            "put": {
+                "summary": "Update Account Details",
+                "tags": [
+                    "Account Module"
+                ],
+                "security": [
+                    {
+                        "Bearer": []
+                    }
+                ],
+                "operationId": "updateAccountDetails",
+                "deprecated": false,
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "query",
+                        "type": "string",
+                        "required": false,
+                        "description": ""
+                    },
+                    {
+                        "name": "Body",
+                        "in": "body",
+                        "required": true,
+                        "description": "",
+                        "schema": {
+                            "$ref": "#/definitions/updateAdminAccount"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "",
+                        "headers": {}
+                    }
+                }
+            }
+        },
+        "/admin-account/all-list": {
+            "get": {
+                "summary": "Get All List Of Admin Account",
+                "tags": [
+                    "Account Module"
+                ],
+                "security": [
+                    {
+                        "Bearer": []
+                    }
+                ],
+                "operationId": "getAdminAccountAllList",
+                "deprecated": false,
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [],
+                "responses": {
+                    "200": {
+                        "description": "",
+                        "headers": {}
+                    }
+                }
+            }
+        },
+        "/admin-account/admin-account-data-ByID": {
+            "get": {
+                "summary": "Account Details By ID",
+                "tags": [
+                    "Account Module"
+                ],
+                "security": [
+                    {
+                        "Bearer": []
+                    }
+                ],
+                "operationId": "adminAccountDetailsByID",
+                "deprecated": false,
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "query",
+                        "type": "string",
+                        "required": false,
+                        "description": ""
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "",
+                        "headers": {}
+                    }
+                }
+            }
+        },
+        "/admin-account/delete": {
+            "delete": {
+                "summary": "Delete By Account ID",
+                "tags": [
+                    "Account Module"
+                ],
+                "security": [
+                    {
+                        "Bearer": []
+                    }
+                ],
+                "operationId": "deleteByAccountID",
+                "deprecated": false,
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "query",
+                        "type": "string",
+                        "required": false,
+                        "description": ""
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "",
+                        "headers": {}
+                    }
+                }
+            }
+        },
+        "/admin-account/set-primary-account": {
+            "get": {
+                "summary": "Set Primary Account By ID",
+                "tags": [
+                    "Account Module"
+                ],
+                "security": [
+                    {
+                        "Bearer": []
+                    }
+                ],
+                "operationId": "setPrimaryAccount",
+                "deprecated": false,
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "query",
+                        "type": "string",
+                        "required": false,
+                        "description": ""
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "",
+                        "headers": {}
+                    }
+                }
+            }
+        },
+        "/admin-account/primary-account-details": {
+            "get": {
+                "summary": "Get Primary Account Details",
+                "tags": [
+                    "Account Module"
+                ],
+                "security": [
+                    {
+                        "Bearer": []
+                    }
+                ],
+                "operationId": "getPrimaryAccountDetails",
+                "deprecated": false,
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [],
+                "responses": {
+                    "200": {
+                        "description": "",
+                        "headers": {}
+                    }
+                }
+            }
+        },
+        "/support-ticket/category/create": {
+            "post": {
+                "summary": "Add new category for support ticket",
+                "tags": [
+                    "Support Ticket Category Module"
+                ],
+                "security": [
+                    {
+                        "Bearer": []
+                    }
+                ],
+                "operationId": "addNewAccountDetails",
+                "deprecated": false,
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "Body",
+                        "in": "body",
+                        "required": true,
+                        "description": "",
+                        "schema": {
+                            "$ref": "#/definitions/supportCategoryCreate"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "",
+                        "headers": {}
+                    }
+                }
+            }
+        },
+        "/support-ticket/category/update": {
+            "put": {
+                "summary": "Update Support-Ticket Category Details",
+                "tags": [
+                    "Support Ticket Category Module"
+                ],
+                "security": [
+                    {
+                        "Bearer": []
+                    }
+                ],
+                "operationId": "updateSupportTicketCategory",
+                "deprecated": false,
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "query",
+                        "type": "string",
+                        "required": false,
+                        "description": ""
+                    },
+                    {
+                        "name": "Body",
+                        "in": "body",
+                        "required": true,
+                        "description": "",
+                        "schema": {
+                            "$ref": "#/definitions/updateSupportTicketCategory"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "",
+                        "headers": {}
+                    }
+                }
+            }
+        },
+        "/support-ticket/category/all-list": {
+            "get": {
+                "summary": "Get All List Of Support-Ticket Category",
+                "tags": [
+                    "Support Ticket Category Module"
+                ],
+                "security": [
+                    {
+                        "Bearer": []
+                    }
+                ],
+                "operationId": "getAllListOfSupportTicketCategory",
+                "deprecated": false,
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [],
+                "responses": {
+                    "200": {
+                        "description": "",
+                        "headers": {}
+                    }
+                }
+            }
+        },
+        "/support-ticket/category/supportTicket-Category-ByID": {
+            "get": {
+                "summary": "Support-Ticket Category Details By ID",
+                "tags": [
+                    "Support Ticket Category Module"
+                ],
+                "security": [
+                    {
+                        "Bearer": []
+                    }
+                ],
+                "operationId": "supportTicketCategoryDetailsByID",
+                "deprecated": false,
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "query",
+                        "type": "string",
+                        "required": false,
+                        "description": ""
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "",
+                        "headers": {}
+                    }
+                }
+            }
+        },
+        "/support-ticket/category/delete": {
+            "delete": {
+                "summary": "Delete Category By ID",
+                "tags": [
+                    "Support Ticket Category Module"
+                ],
+                "security": [
+                    {
+                        "Bearer": []
+                    }
+                ],
+                "operationId": "deleteSupportCategoryByID",
+                "deprecated": false,
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "query",
+                        "type": "string",
+                        "required": false,
+                        "description": ""
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "",
+                        "headers": {}
+                    }
+                }
+            }
+        },
+        "/support-ticket/reply-ticket": {
+            "post": {
+                "summary": "Support Ticket Reply",
+                "tags": [
+                    "Support Ticket Module"
+                ],
+                "security": [
+                    {
+                        "Bearer": []
+                    }
+                ],
+                "operationId": "supportTicketReply",
+                "deprecated": false,
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "isMobile",
+                        "in": "query",
+                        "type": "string",
+                        "required": true,
+                        "description": "if reply from mobile side then pass 0 otherwise admin side then set it 1"
+                    },
+                    {
+                        "name": "ticketID",
+                        "in": "formData",
+                        "type": "string",
+                        "required": true,
+                        "description": "If Continue on old ticket then add that ticketID"
+                    },
+                    {
+                        "name": "description",
+                        "in": "formData",
+                        "type": "string",
+                        "required": true,
+                        "description": ""
+                    },
+                    {
+                        "name": "supportTicketFile",
+                        "in": "formData",
+                        "type": "file",
+                        "required": false,
+                        "description": ""
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "",
+                        "headers": {}
+                    }
+                }
+            }
+        },
+        "/support-ticket/close-ticket": {
+            "get": {
+                "summary": "Support Ticket Closed By Admin Side",
+                "tags": [
+                    "Support Ticket Module"
+                ],
+                "security": [
+                    {
+                        "Bearer": []
+                    }
+                ],
+                "operationId": "supportTicketClosed",
+                "deprecated": false,
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "query",
+                        "type": "string",
+                        "required": true,
+                        "description": ""
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "",
+                        "headers": {}
+                    }
+                }
+            }
+        },
+        "/support-ticket/get-ticket-data-fAdmin": {
+            "get": {
+                "summary": "Support Ticket Data For Admin",
+                "description": "If Get All List then not pass ticketID and if you are showing ticket data then pass Ticket ID",
+                "tags": [
+                    "Support Ticket Module"
+                ],
+                "security": [
+                    {
+                        "Bearer": []
+                    }
+                ],
+                "operationId": "supportTicketDataByTicketID",
+                "deprecated": false,
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "ticketID",
+                        "in": "query",
+                        "type": "string",
+                        "required": false,
+                        "description": ""
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "",
+                        "headers": {}
+                    }
+                }
+            }
+        },
+        "/akahu/users/getAllUserList": {
+            "get": {
+                "summary": "Akahu User List",
+                "description": "",
+                "tags": [
+                    "Akahu Users"
+                ],
+                "security": [
+                    {
+                        "Bearer": []
+                    }
+                ],
+                "operationId": "akahuUserList",
+                "deprecated": false,
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [],
+                "responses": {
+                    "200": {
+                        "description": "",
+                        "headers": {}
+                    }
+                }
+            }
+        },
+        "/split-payment/category/create": {
+            "post": {
+                "summary": "Split Payment Category (Add New Category)",
+                "tags": [
+                    "Split Payment Category"
+                ],
+                "security": [
+                    {
+                        "Bearer": []
+                    }
+                ],
+                "operationId": "createNewSplitPaymentCategory",
+                "deprecated": false,
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "name",
+                        "in": "formData",
+                        "type": "string",
+                        "required": true,
+                        "description": ""
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "",
+                        "headers": {}
+                    }
+                }
+            }
+        },
+        "/split-payment/category/update": {
+            "put": {
+                "summary": "Update Split Payment Category",
+                "tags": [
+                    "Split Payment Category"
+                ],
+                "security": [
+                    {
+                        "Bearer": []
+                    }
+                ],
+                "operationId": "updateSplitPaymentCategory",
+                "deprecated": false,
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "query",
+                        "type": "string",
+                        "required": true,
+                        "description": ""
+                    },
+                    {
+                        "name": "name",
+                        "in": "formData",
+                        "type": "string",
+                        "required": true,
+                        "description": ""
+                    },
+                    {
+                        "name": "icon",
+                        "in": "formData",
+                        "type": "file",
+                        "required": false,
+                        "description": ""
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "",
+                        "headers": {}
+                    }
+                }
+            }
+        },
+        "/split-payment/category/all-list": {
+            "get": {
+                "summary": "Get All List Of Category",
+                "tags": [
+                    "Split Payment Category"
+                ],
+                "security": [
+                    {
+                        "Bearer": []
+                    }
+                ],
+                "operationId": "getSplitPaymentCategoryAllList",
+                "deprecated": false,
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [],
+                "responses": {
+                    "200": {
+                        "description": "",
+                        "headers": {}
+                    }
+                }
+            }
+        },
+        "/split-payment/category/dataget-byID": {
+            "get": {
+                "summary": "Single Data Get By ID",
+                "tags": [
+                    "Split Payment Category"
+                ],
+                "security": [
+                    {
+                        "Bearer": []
+                    }
+                ],
+                "operationId": "getDataOfSplitPaymentCategoryByID",
+                "deprecated": false,
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "query",
+                        "type": "string",
+                        "required": true,
+                        "description": ""
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "",
+                        "headers": {}
+                    }
+                }
+            }
+        },
+        "/split-payment/category/active-deactive": {
+            "get": {
+                "summary": "Soft Delete of Split payment Category",
+                "tags": [
+                    "Split Payment Category"
+                ],
+                "security": [
+                    {
+                        "Bearer": []
+                    }
+                ],
+                "operationId": "activeDeactiveSplitPaymentCategory",
+                "deprecated": false,
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "query",
+                        "type": "string",
+                        "required": true,
+                        "description": ""
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "",
+                        "headers": {}
+                    }
+                }
+            }
+        },
+        "/split-payment/all-list-fAdmin": {
+            "get": {
+                "summary": "Split Payment All List for Admin",
+                "tags": [
+                    "Split Payment Module"
+                ],
+                "security": [
+                    {
+                        "Bearer": []
+                    }
+                ],
+                "operationId": "splitPaymentListForAdmin",
+                "deprecated": false,
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "query",
+                        "type": "string",
+                        "required": false,
+                        "description": ""
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "",
+                        "headers": {}
+                    }
+                }
+            }
+        },
+        "/split-payment/user-transactions": {
+            "get": {
+                "summary": "Split Payment User Transaction List",
+                "tags": [
+                    "Split Payment Module"
+                ],
+                "security": [
+                    {
+                        "Bearer": []
+                    }
+                ],
+                "operationId": "splitPaymentUserTransactionList",
+                "deprecated": false,
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [],
+                "responses": {
+                    "200": {
+                        "description": "",
+                        "headers": {}
+                    }
+                }
+            }
+        },
+        "/financialGoals/create": {
+            "post": {
+                "summary": "create Financial Goal Data (Group : [1: 'Debt', 2: 'Savings', 3: 'Invest', 4: 'Billings'])",
+                "tags": [
+                    "Financial Goals"
+                ],
+                "security": [
+                    {
+                        "Bearer": []
+                    }
+                ],
+                "operationId": "createFinancialGoal",
+                "deprecated": false,
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "Body",
+                        "in": "body",
+                        "required": true,
+                        "description": "",
+                        "schema": {
+                            "$ref": "#/definitions/addFinancialGoal"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "",
+                        "headers": {}
+                    }
+                }
+            }
+        },
+        "/financialGoals/update": {
+            "put": {
+                "summary": "update Financial Goal Data (Group : [1: 'Debt', 2: 'Savings', 3: 'Invest', 4: 'Billings'])",
+                "tags": [
+                    "Financial Goals"
+                ],
+                "security": [
+                    {
+                        "Bearer": []
+                    }
+                ],
+                "operationId": "updateFinancialGoals",
+                "deprecated": false,
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "query",
+                        "type": "string",
+                        "required": true,
+                        "description": ""
+                    },
+                    {
+                        "name": "Body",
+                        "in": "body",
+                        "required": true,
+                        "description": "",
+                        "schema": {
+                            "$ref": "#/definitions/addFinancialGoal"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "",
+                        "headers": {}
+                    }
+                }
+            }
+        },
+        "/financialGoals/all-list": {
+            "get": {
+                "summary": "Get All List Of Financial Goals",
+                "tags": [
+                    "Financial Goals"
+                ],
+                "security": [
+                    {
+                        "Bearer": []
+                    }
+                ],
+                "operationId": "getAllFinancialGoals",
+                "deprecated": false,
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [],
+                "responses": {
+                    "200": {
+                        "description": "",
+                        "headers": {}
+                    }
+                }
+            }
+        },
+        "/financialGoals/financialGoals-data-ByID": {
+            "get": {
+                "summary": "Single Data Get By ID",
+                "tags": [
+                    "Financial Goals"
+                ],
+                "security": [
+                    {
+                        "Bearer": []
+                    }
+                ],
+                "operationId": "getDataByIdOfFinancialGoals",
+                "deprecated": false,
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "query",
+                        "type": "string",
+                        "required": false,
+                        "description": ""
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "",
+                        "headers": {}
+                    }
+                }
+            }
+        },
+        "/financialGoals/activeDeactive": {
+            "delete": {
+                "summary": "Delete By Financial Goals ID",
+                "tags": [
+                    "Financial Goals"
+                ],
+                "security": [
+                    {
+                        "Bearer": []
+                    }
+                ],
+                "operationId": "deleteFinancialGoals",
+                "deprecated": false,
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "query",
+                        "type": "string",
+                        "required": false,
+                        "description": ""
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "",
+                        "headers": {}
+                    }
+                }
+            }
+        },
+        "/inquiry/all-list": {
+            "get": {
+                "summary": "Get All List Of Inquiry Registeration",
+                "tags": [
+                    "Inquiry Registration List"
+                ],
+                "security": [
+                    {
+                        "Bearer": []
+                    }
+                ],
+                "operationId": "getAllInquiryRegistration",
+                "deprecated": false,
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [],
+                "responses": {
+                    "200": {
+                        "description": "",
+                        "headers": {}
+                    }
+                }
+            }
+        },
+        "/newLetterSubscription/all-list": {
+            "get": {
+                "summary": "Get all news subscription list",
+                "tags": [
+                    "News Letter Subscription"
+                ],
+                "security": [
+                    {
+                        "Bearer": []
+                    }
+                ],
+                "operationId": "getAllNewsSubscriptionList",
+                "deprecated": false,
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [],
+                "responses": {
+                    "200": {
+                        "description": "",
+                        "headers": {}
+                    }
+                }
+            }
+        },
+        "/token/getWebhooks": {
+            "get": {
+                "summary": "Get webhook list",
+                "tags": [
+                    "News Letter Subscription"
+                ],
+                "security": [
+                    {
+                        "Bearer": []
+                    }
+                ],
+                "operationId": "getWebhooks",
+                "deprecated": false,
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [],
+                "responses": {
+                    "200": {
+                        "description": "",
+                        "headers": {}
+                    }
+                }
+            }
+        }
+    },
+    "definitions": {
+        "authLogin": {
+            "title": "Login",
+            "example": {
+                "email": "admin@yopmail.com",
+                "password": "SuperAdmin@1234"
+            },
+            "type": "object",
+            "properties": {
+                "email": {
+                    "type": "string"
+                },
+                "password": {
+                    "type": "string"
+                }
+            },
+            "required": [
+                "email",
+                "password"
+            ]
+        },
+        "registerAdminUser": {
+            "title": "Register Admin User",
+            "example": {
+                "firstName": "Example",
+                "lastName": "Ex",
+                "email": "example123@yopmail.com",
+                "password": "Example@123",
+                "role": 2
+            },
+            "type": "object",
+            "properties": {
+                "firstName": {
+                    "type": "string"
+                },
+                "lastName": {
+                    "type": "string"
+                },
+                "email": {
+                    "type": "string"
+                },
+                "password": {
+                    "type": "string"
+                },
+                "role": {
+                    "type": "number",
+                    "description": "1 : Super Admin, 2: Admin User , 3 : Other "
+                }
+            },
+            "required": [
+                "firstName",
+                "lastName",
+                "email",
+                "password",
+                "role"
+            ]
+        },
+        "sendOTP": {
+            "title": "send otp",
+            "example": {
+                "email": "admin@yopmail.com"
+            },
+            "type": "object",
+            "properties": {
+                "email": {
+                    "type": "string"
+                }
+            },
+            "required": [
+                "email"
+            ]
+        },
+        "verifyOTP": {
+            "title": "verify otp",
+            "example": {
+                "id": "6576bf867857a719486b4af4",
+                "otp": "8287"
+            },
+            "type": "object",
+            "properties": {
+                "id": {
+                    "type": "string"
+                },
+                "otp": {
+                    "type": "string"
+                }
+            },
+            "required": [
+                "id",
+                "otp"
+            ]
+        },
+        "updatePassword": {
+            "title": "Update Password",
+            "example": {
+                "id": "6576bf867857a719486b4af4",
+                "password": "India@1234"
+            },
+            "type": "object",
+            "properties": {
+                "id": {
+                    "type": "string"
+                },
+                "password": {
+                    "type": "string"
+                }
+            },
+            "required": [
+                "id",
+                "password"
+            ]
+        },
+        "changePassword": {
+            "title": "Change Password",
+            "example": {
+                "id": "6576bf867857a719486b4af4",
+                "oldPassword": "India@1234",
+                "newPassword": "SuperAdmin@1234"
+            },
+            "type": "object",
+            "properties": {
+                "id": {
+                    "type": "string"
+                },
+                "oldPassword": {
+                    "type": "string"
+                },
+                "newPassword": {
+                    "type": "string"
+                }
+            },
+            "required": [
+                "id",
+                "oldPassword",
+                "newPassword"
+            ]
+        },
+        "addMonitization": {
+            "title": "Add Monitization",
+            "example": {
+                "description": "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.",
+                "minAmount": 0,
+                "maxAmount": 100,
+                "percentage": 2.5,
+                "amount": "",
+                "paymentType": 2,
+                "paymentMode": 1
+            },
+            "type": "object",
+            "properties": {
+                "minAmount": {
+                    "type": "number"
+                },
+                "maxAmount": {
+                    "type": "number"
+                },
+                "percentage": {
+                    "type": "number"
+                },
+                "amount": {
+                    "type": "number"
+                },
+                "paymentType": {
+                    "type": "number"
+                },
+                "paymentMode": {
+                    "type": "number"
+                },
+                "description": {
+                    "type": "string"
+                }
+            },
+            "required": [
+                "minAmount",
+                "maxAmount",
+                "paymentType",
+                "paymentMode"
+            ]
+        },
+        "updateMonitization": {
+            "title": "Update Monitization",
+            "example": {
+                "description": "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.",
+                "minAmount": 0,
+                "maxAmount": 100,
+                "percentage": 2.5,
+                "amount": "",
+                "paymentType": 2,
+                "paymentMode": 1
+            },
+            "type": "object",
+            "properties": {
+                "minAmount": {
+                    "type": "number"
+                },
+                "maxAmount": {
+                    "type": "number"
+                },
+                "percentage": {
+                    "type": "number"
+                },
+                "amount": {
+                    "type": "number"
+                },
+                "paymentType": {
+                    "type": "number"
+                },
+                "paymentMode": {
+                    "type": "number"
+                },
+                "description": {
+                    "type": "string"
+                }
+            },
+            "required": [
+                "minAmount",
+                "maxAmount",
+                "paymentType",
+                "paymentMode"
+            ]
+        },
+        "addAdminAccount": {
+            "title": "Add Account Details",
+            "example": {
+                "accountID": "789456123",
+                "bankName": "Example Bank Of India",
+                "accountHolderName": "Example Ex",
+                "prefixCode": "123"
+            },
+            "type": "object",
+            "properties": {
+                "accountID": {
+                    "type": "string"
+                },
+                "bankName": {
+                    "type": "string"
+                },
+                "accountHolderName": {
+                    "type": "string"
+                },
+                "prefixCode": {
+                    "type": "string"
+                }
+            },
+            "required": [
+                "accountID",
+                "bankName",
+                "accountHolderName",
+                "prefixCode"
+            ]
+        },
+        "updateAdminAccount": {
+            "title": "Update Account Details",
+            "example": {
+                "accountID": "789456123",
+                "bankName": "Example Bank Of India",
+                "accountHolderName": "Example Ex",
+                "prefixCode": "123"
+            },
+            "type": "object",
+            "properties": {
+                "accountID": {
+                    "type": "string"
+                },
+                "bankName": {
+                    "type": "string"
+                },
+                "accountHolderName": {
+                    "type": "string"
+                },
+                "prefixCode": {
+                    "type": "string"
+                }
+            },
+            "required": [
+                "accountID",
+                "bankName",
+                "accountHolderName",
+                "prefixCode"
+            ]
+        },
+        "supportCategoryCreate": {
+            "title": "Support-Ticket Category Create",
+            "example": {
+                "name": "ABC"
+            },
+            "type": "object",
+            "properties": {
+                "name": {
+                    "type": "string"
+                }
+            },
+            "required": [
+                "name"
+            ]
+        },
+        "updateSupportTicketCategory": {
+            "title": "Support-Ticket Category Update",
+            "example": {
+                "name": "ABC"
+            },
+            "type": "object",
+            "properties": {
+                "name": {
+                    "type": "string"
+                }
+            },
+            "required": [
+                "name"
+            ]
+        },
+        "addFinancialGoal": {
+            "title": "Add FinancialGoals",
+            "example": {
+                "name": "Pay less Intrest",
+                "group": 1
+            },
+            "type": "object",
+            "properties": {
+                "name": {
+                    "type": "string"
+                },
+                "group": {
+                    "type": "number"
+                }
+            },
+            "required": [
+                "name",
+                "group"
+            ]
+        }
+    },
+    "tags": [
+        {
+            "name": "Admin Authentication"
+        },
+        {
+            "name": "Dashboard"
+        },
+        {
+            "name": "Monitization Module"
+        },
+        {
+            "name": "Financial Goals"
+        },
+        {
+            "name": "Account Module"
+        },
+        {
+            "name": "Support Ticket Category Module"
+        },
+        {
+            "name": "Support Ticket Module"
+        },
+        {
+            "name": "Akahu Users"
+        },
+        {
+            "name": "Split Payment Module"
+        },
+        {
+            "name": "Split Payment Category"
+        },
+        {
+            "name": "Inquiry Registration List"
+        },
+        {
+            "name": "News Letter Subscription"
+        }
+    ]
+}

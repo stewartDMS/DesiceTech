@@ -1,0 +1,1978 @@
+{
+    "swagger": "2.0",
+    "info": {
+        "version": "1.0",
+        "title": "Desice Development API [Mobile]",
+        "contact": {}
+    },
+    "host": "desice.tech",
+    "basePath": "/v1",
+    "securityDefinitions": {
+        "Bearer": {
+            "type": "apiKey",
+            "name": "Authorization",
+            "in": "header",
+            "scheme": "bearer"
+        }
+    },
+    "security": [
+        {
+            "Bearer": []
+        }
+    ],
+    "schemes": [
+        "http",
+        "https"
+    ],
+    "consumes": [
+        "application/json"
+    ],
+    "produces": [
+        "application/json"
+    ],
+    "paths": {
+        "/monitization/range-wise-list": {
+            "get": {
+                "summary": "Range Wise List By Enter Amount",
+                "tags": [
+                    "Monitization Module"
+                ],
+                "security": [
+                    {
+                        "Bearer": []
+                    }
+                ],
+                "operationId": "rangeWiseDataOfMonitization",
+                "deprecated": false,
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "amount",
+                        "in": "query",
+                        "type": "number",
+                        "required": false,
+                        "description": ""
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "",
+                        "headers": {}
+                    }
+                }
+            }
+        },
+        "/financialGoals/all-active-list": {
+            "get": {
+                "summary": "Get All List Of Financial Goals",
+                "tags": [
+                    "Financial Goals"
+                ],
+                "security": [
+                    {
+                        "Bearer": []
+                    }
+                ],
+                "operationId": "getAllFinancialGoals",
+                "deprecated": false,
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [],
+                "responses": {
+                    "200": {
+                        "description": "",
+                        "headers": {}
+                    }
+                }
+            }
+        },
+        "/akahu/users/all-userList": {
+            "get": {
+                "summary": "Akahu User List",
+                "description": "",
+                "tags": [
+                    "Akahu API's"
+                ],
+                "security": [
+                    {
+                        "Bearer": []
+                    }
+                ],
+                "operationId": "akahuUserList",
+                "deprecated": false,
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "splitPaymentId",
+                        "in": "query",
+                        "type": "string",
+                        "required": false,
+                        "description": ""
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "",
+                        "headers": {}
+                    }
+                }
+            }
+        },
+        "/akahu/users/getUser-details": {
+            "get": {
+                "summary": "Get User Details ",
+                "tags": [
+                    "Akahu API's"
+                ],
+                "security": [
+                    {
+                        "Bearer": []
+                    }
+                ],
+                "operationId": "getAkahuUserDetails",
+                "deprecated": false,
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [],
+                "responses": {
+                    "200": {
+                        "description": "",
+                        "headers": {}
+                    }
+                }
+            }
+        },
+        "/akahu/users/update-user-details": {
+            "post": {
+                "summary": "Update Akahu User Details",
+                "tags": [
+                    "Akahu API's"
+                ],
+                "security": [
+                    {
+                        "Bearer": []
+                    }
+                ],
+                "operationId": "updateAkahuUserDetails",
+                "deprecated": false,
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "formData",
+                        "type": "string",
+                        "required": true,
+                        "description": ""
+                    },
+                    {
+                        "name": "first_name",
+                        "in": "formData",
+                        "type": "string",
+                        "required": true,
+                        "description": ""
+                    },
+                    {
+                        "name": "last_name",
+                        "in": "formData",
+                        "type": "string",
+                        "required": true,
+                        "description": ""
+                    },
+                    {
+                        "name": "preferred_name",
+                        "in": "formData",
+                        "type": "string",
+                        "required": true,
+                        "description": ""
+                    },
+                    {
+                        "name": "email",
+                        "in": "formData",
+                        "type": "string",
+                        "required": true,
+                        "description": ""
+                    },
+                    {
+                        "name": "mobile",
+                        "in": "formData",
+                        "type": "string",
+                        "required": true,
+                        "description": ""
+                    },
+                    {
+                        "name": "mpin",
+                        "in": "formData",
+                        "type": "number",
+                        "required": true,
+                        "description": ""
+                    },
+                    {
+                        "name": "profile_picture",
+                        "in": "formData",
+                        "type": "file",
+                        "required": false,
+                        "description": ""
+                    },
+                    {
+                        "name": "autoPayment",
+                        "in": "formData",
+                        "type": "boolean",
+                        "required": true,
+                        "description": ""
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "",
+                        "headers": {}
+                    }
+                }
+            }
+        },
+        "/akahu/users/update-financial-goals": {
+            "post": {
+                "summary": "Update User Financial Goals",
+                "tags": [
+                    "Akahu API's"
+                ],
+                "security": [
+                    {
+                        "Bearer": []
+                    }
+                ],
+                "operationId": "updateFinancialGoals",
+                "deprecated": false,
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "Body",
+                        "in": "body",
+                        "required": true,
+                        "description": "",
+                        "schema": {
+                            "$ref": "#/definitions/updateFinancialGoals"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "",
+                        "headers": {}
+                    }
+                }
+            }
+        },
+        "/akahu/loginMPIN": {
+            "post": {
+                "summary": "Login with MPIN",
+                "tags": [
+                    "Akahu API's"
+                ],
+                "security": [
+                    {
+                        "Bearer": []
+                    }
+                ],
+                "operationId": "loginWithMPIN",
+                "deprecated": false,
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "Body",
+                        "in": "body",
+                        "required": true,
+                        "description": "",
+                        "schema": {
+                            "$ref": "#/definitions/loginMPIN"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "",
+                        "headers": {}
+                    }
+                }
+            }
+        },
+        "/akahu/sendOTP-forgotMPIN": {
+            "post": {
+                "summary": "send otp using email",
+                "tags": [
+                    "Akahu API's"
+                ],
+                "security": [
+                    {
+                        "Bearer": []
+                    }
+                ],
+                "operationId": "send otp",
+                "deprecated": false,
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "Body",
+                        "in": "body",
+                        "required": true,
+                        "description": "",
+                        "schema": {
+                            "$ref": "#/definitions/sendOTP-forgotMPIN"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "",
+                        "headers": {}
+                    }
+                }
+            }
+        },
+        "/akahu/verifyOTP-forgotMPIN": {
+            "post": {
+                "summary": "Verify OTP",
+                "tags": [
+                    "Akahu API's"
+                ],
+                "security": [
+                    {
+                        "Bearer": []
+                    }
+                ],
+                "operationId": "verify otp",
+                "deprecated": false,
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "Body",
+                        "in": "body",
+                        "required": true,
+                        "description": "",
+                        "schema": {
+                            "$ref": "#/definitions/verifyOTP-forgotMPIN"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "",
+                        "headers": {}
+                    }
+                }
+            }
+        },
+        "/akahu/create-newMPIN": {
+            "put": {
+                "summary": "Update MPIN (Enter New MPIN)",
+                "tags": [
+                    "Akahu API's"
+                ],
+                "security": [
+                    {
+                        "Bearer": []
+                    }
+                ],
+                "operationId": "Update MPIN",
+                "deprecated": false,
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "Body",
+                        "in": "body",
+                        "required": true,
+                        "description": "",
+                        "schema": {
+                            "$ref": "#/definitions/updateMPIN"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "",
+                        "headers": {}
+                    }
+                }
+            }
+        },
+        "/akahu/change-MPIN": {
+            "put": {
+                "summary": "Change MPIN (Enter New MPIN and old MPIN and Token)",
+                "tags": [
+                    "Akahu API's"
+                ],
+                "security": [
+                    {
+                        "Bearer": []
+                    }
+                ],
+                "operationId": "Change MPIN",
+                "deprecated": false,
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "Body",
+                        "in": "body",
+                        "required": true,
+                        "description": "",
+                        "schema": {
+                            "$ref": "#/definitions/changeMPIN"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "",
+                        "headers": {}
+                    }
+                }
+            }
+        },
+        "/akahu/account/all-accounts": {
+            "get": {
+                "summary": "Get User Account List ",
+                "tags": [
+                    "Akahu API's For Accounts"
+                ],
+                "security": [
+                    {
+                        "Bearer": []
+                    }
+                ],
+                "operationId": "getUserAccountListAPI",
+                "deprecated": false,
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [],
+                "responses": {
+                    "200": {
+                        "description": "",
+                        "headers": {}
+                    }
+                }
+            }
+        },
+        "/akahu/account/set-as-primary": {
+            "get": {
+                "summary": "Primary account set",
+                "tags": [
+                    "Akahu API's For Accounts"
+                ],
+                "security": [
+                    {
+                        "Bearer": []
+                    }
+                ],
+                "operationId": "setPrimaryAccount",
+                "deprecated": false,
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "query",
+                        "type": "string",
+                        "required": true,
+                        "description": ""
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "",
+                        "headers": {}
+                    }
+                }
+            }
+        },
+        "/akahu/account/loan-details": {
+            "get": {
+                "summary": "Get All Upcoming Loan Payments",
+                "tags": [
+                    "Akahu API's For Accounts"
+                ],
+                "security": [
+                    {
+                        "Bearer": []
+                    }
+                ],
+                "operationId": "getallUpcomginLoanPayments",
+                "deprecated": false,
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [],
+                "responses": {
+                    "200": {
+                        "description": "",
+                        "headers": {}
+                    }
+                }
+            }
+        },
+        "/akahu/account/loan-upcoming-payment-update": {
+            "post": {
+                "summary": "Update Loan Upcoming Payments",
+                "tags": [
+                    "Akahu API's For Accounts"
+                ],
+                "security": [
+                    {
+                        "Bearer": []
+                    }
+                ],
+                "operationId": "updateLoanUpcomingPayments",
+                "deprecated": false,
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "Body",
+                        "in": "body",
+                        "required": true,
+                        "description": "",
+                        "schema": {
+                            "$ref": "#/definitions/updateUpcomingLoanAmount"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "",
+                        "headers": {}
+                    }
+                }
+            }
+        },
+        "/support-ticket/category/all-list": {
+            "get": {
+                "summary": "Get All List Of Support-Ticket Category",
+                "tags": [
+                    "Support Ticket Module"
+                ],
+                "security": [
+                    {
+                        "Bearer": []
+                    }
+                ],
+                "operationId": "getAllListOfSupportTicketCategory",
+                "deprecated": false,
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [],
+                "responses": {
+                    "200": {
+                        "description": "",
+                        "headers": {}
+                    }
+                }
+            }
+        },
+        "/support-ticket/create-ticket": {
+            "post": {
+                "summary": "Support Ticket Create",
+                "tags": [
+                    "Support Ticket Module"
+                ],
+                "security": [
+                    {
+                        "Bearer": []
+                    }
+                ],
+                "operationId": "supportTicketCreate",
+                "deprecated": false,
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "categoryID",
+                        "in": "formData",
+                        "type": "string",
+                        "required": true,
+                        "description": "List of Category please select any one"
+                    },
+                    {
+                        "name": "priority",
+                        "in": "formData",
+                        "type": "number",
+                        "required": true,
+                        "description": "1: 'Normal', 2: 'High', 3: 'Urgent', 4: 'Emergency'"
+                    },
+                    {
+                        "name": "subject",
+                        "in": "formData",
+                        "type": "string",
+                        "required": true,
+                        "description": ""
+                    },
+                    {
+                        "name": "description",
+                        "in": "formData",
+                        "type": "string",
+                        "required": true,
+                        "description": ""
+                    },
+                    {
+                        "name": "supportTicketFile",
+                        "in": "formData",
+                        "type": "file",
+                        "required": false,
+                        "description": ""
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "",
+                        "headers": {}
+                    }
+                }
+            }
+        },
+        "/support-ticket/reply-ticket": {
+            "post": {
+                "summary": "Support Ticket Reply",
+                "tags": [
+                    "Support Ticket Module"
+                ],
+                "security": [
+                    {
+                        "Bearer": []
+                    }
+                ],
+                "operationId": "supportTicketReply",
+                "deprecated": false,
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "isMobile",
+                        "in": "query",
+                        "type": "string",
+                        "value": 0,
+                        "required": true,
+                        "description": "if reply from mobile side then pass 0 otherwise admin side then set it 1"
+                    },
+                    {
+                        "name": "ticketID",
+                        "in": "formData",
+                        "type": "string",
+                        "required": true,
+                        "description": "If Continue on old ticket then add that ticketID"
+                    },
+                    {
+                        "name": "description",
+                        "in": "formData",
+                        "type": "string",
+                        "required": true,
+                        "description": ""
+                    },
+                    {
+                        "name": "supportTicketFile",
+                        "in": "formData",
+                        "type": "file",
+                        "required": false,
+                        "description": ""
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "",
+                        "headers": {}
+                    }
+                }
+            }
+        },
+        "/support-ticket/get-ticket-data-fMobile": {
+            "get": {
+                "summary": "Support Ticket Data For Mobile",
+                "description": "If Get All List then not pass ticketID and if you are showing ticket data then pass Ticket ID",
+                "tags": [
+                    "Support Ticket Module"
+                ],
+                "security": [
+                    {
+                        "Bearer": []
+                    }
+                ],
+                "operationId": "supportTicketDataByTicketIDForMobile",
+                "deprecated": false,
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "ticketID",
+                        "in": "query",
+                        "type": "string",
+                        "required": false,
+                        "description": ""
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "",
+                        "headers": {}
+                    }
+                }
+            }
+        },
+        "/split-payment/category/active-list": {
+            "get": {
+                "summary": "Get All Active List Of Category",
+                "tags": [
+                    "Split Payment Module"
+                ],
+                "security": [
+                    {
+                        "Bearer": []
+                    }
+                ],
+                "operationId": "getSplitPaymentCategoryAllActiveList",
+                "deprecated": false,
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [],
+                "responses": {
+                    "200": {
+                        "description": "",
+                        "headers": {}
+                    }
+                }
+            }
+        },
+        "/split-payment/transaction-create": {
+            "post": {
+                "summary": "Split Payment Transaction Create",
+                "tags": [
+                    "Split Payment Module"
+                ],
+                "security": [
+                    {
+                        "Bearer": []
+                    }
+                ],
+                "operationId": "splitPaymentCreate",
+                "deprecated": false,
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "categoryId",
+                        "in": "formData",
+                        "type": "string",
+                        "value": 0,
+                        "required": true,
+                        "description": ""
+                    },
+                    {
+                        "name": "purpose",
+                        "in": "formData",
+                        "type": "string",
+                        "required": true,
+                        "description": ""
+                    },
+                    {
+                        "name": "totalAmount",
+                        "in": "formData",
+                        "type": "number",
+                        "required": true,
+                        "description": ""
+                    },
+                    {
+                        "name": "forWhom",
+                        "in": "formData",
+                        "type": "array",
+                        "required": true,
+                        "description": "[{'userId' : string, 'splitAmount' : number},{'userId' : string, 'splitAmount' : number}]"
+                    },
+                    {
+                        "name": "splitPaymentPicture",
+                        "in": "formData",
+                        "type": "file",
+                        "required": false,
+                        "description": ""
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "",
+                        "headers": {}
+                    }
+                }
+            }
+        },
+        "/split-payment/update-splitPayment-Users": {
+            "post": {
+                "summary": "Split Payment Transaction Update user or update user payment",
+                "tags": [
+                    "Split Payment Module"
+                ],
+                "security": [
+                    {
+                        "Bearer": []
+                    }
+                ],
+                "operationId": "splitPaymentUpdateUserOrRemoveUser",
+                "deprecated": false,
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "splitPaymentId",
+                        "in": "query",
+                        "type": "string",
+                        "value": 0,
+                        "required": true,
+                        "description": ""
+                    },
+                    {
+                        "name": "Body",
+                        "in": "body",
+                        "required": true,
+                        "description": "",
+                        "schema": {
+                            "$ref": "#/definitions/updateUserorRemoveUser"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "",
+                        "headers": {}
+                    }
+                }
+            }
+        },
+        "/split-payment/all-list": {
+            "get": {
+                "summary": "User Wise Split Payment List",
+                "tags": [
+                    "Split Payment Module"
+                ],
+                "security": [
+                    {
+                        "Bearer": []
+                    }
+                ],
+                "operationId": "userWiseSplitPaymentTransactionAllList",
+                "deprecated": false,
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "query",
+                        "type": "string",
+                        "required": false,
+                        "description": "only get split payment details then add this id"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "",
+                        "headers": {}
+                    }
+                }
+            }
+        },
+        "/split-payment/delete-splitPayment": {
+            "delete": {
+                "summary": "Delete Split Payment and Order Data",
+                "tags": [
+                    "Split Payment Module"
+                ],
+                "security": [
+                    {
+                        "Bearer": []
+                    }
+                ],
+                "operationId": "deleteSplitPaymentandOrerData",
+                "deprecated": false,
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "query",
+                        "type": "string",
+                        "required": true,
+                        "description": ""
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "",
+                        "headers": {}
+                    }
+                }
+            }
+        },
+        "/split-payment/payment-request": {
+            "get": {
+                "summary": "Transaction Details (payment order details)",
+                "tags": [
+                    "Split Payment Module"
+                ],
+                "security": [
+                    {
+                        "Bearer": []
+                    }
+                ],
+                "operationId": "orderDetailsRequestWise",
+                "deprecated": false,
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "paymentOrderId",
+                        "in": "query",
+                        "type": "string",
+                        "required": false,
+                        "description": ""
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "",
+                        "headers": {}
+                    }
+                }
+            }
+        },
+        "/split-payment/make-split-payment": {
+            "post": {
+                "summary": "Make Payment",
+                "tags": [
+                    "Split Payment Module"
+                ],
+                "security": [
+                    {
+                        "Bearer": []
+                    }
+                ],
+                "operationId": "makePaymentUsingOrderID",
+                "deprecated": false,
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "Body",
+                        "in": "body",
+                        "required": true,
+                        "description": "",
+                        "schema": {
+                            "$ref": "#/definitions/makePaymentData"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "",
+                        "headers": {}
+                    }
+                }
+            }
+        },
+        "/transaction/list": {
+            "get": {
+                "summary": "Transaction List",
+                "tags": [
+                    "Split Payment Module"
+                ],
+                "security": [
+                    {
+                        "Bearer": []
+                    }
+                ],
+                "operationId": "transactionList",
+                "deprecated": false,
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [],
+                "responses": {
+                    "200": {
+                        "description": "",
+                        "headers": {}
+                    }
+                }
+            }
+        },
+        "/transaction/typeWiseListOfTransactions": {
+            "get": {
+                "summary": "Dashboard Box Transaction Data",
+                "tags": [
+                    "Split Payment Module"
+                ],
+                "security": [
+                    {
+                        "Bearer": []
+                    }
+                ],
+                "operationId": "typeWiseListData",
+                "deprecated": false,
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "type",
+                        "in": "query",
+                        "type": "number",
+                        "required": true,
+                        "description": ""
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "",
+                        "headers": {}
+                    }
+                }
+            }
+        },
+        "/transaction/home-count": {
+            "get": {
+                "summary": "Transaction Wise Total Count List",
+                "tags": [
+                    "Split Payment Module"
+                ],
+                "security": [
+                    {
+                        "Bearer": []
+                    }
+                ],
+                "operationId": "totalCountListAPI",
+                "deprecated": false,
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [],
+                "responses": {
+                    "200": {
+                        "description": "",
+                        "headers": {}
+                    }
+                }
+            }
+        },
+        "/transaction/repeatTransactionList": {
+            "get": {
+                "summary": "Transaction For Auto payment",
+                "tags": [
+                    "Split Payment Module"
+                ],
+                "security": [
+                    {
+                        "Bearer": []
+                    }
+                ],
+                "operationId": "transactionforautopayment",
+                "deprecated": false,
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [],
+                "responses": {
+                    "200": {
+                        "description": "",
+                        "headers": {}
+                    }
+                }
+            }
+        },
+        "/transaction/reFailedPayment": {
+            "post": {
+                "summary": "Make Failed Transaction",
+                "tags": [
+                    "Split Payment Module"
+                ],
+                "security": [
+                    {
+                        "Bearer": []
+                    }
+                ],
+                "operationId": "reFailedPaymentMake",
+                "deprecated": false,
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "Body",
+                        "in": "body",
+                        "required": true,
+                        "description": "",
+                        "schema": {
+                            "$ref": "#/definitions/transactionreFailedPayment"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "",
+                        "headers": {}
+                    }
+                }
+            }
+        },
+        "/notification/getNotification": {
+            "get": {
+                "summary": "Get Notification List",
+                "tags": [
+                    "Notifications"
+                ],
+                "security": [
+                    {
+                        "Bearer": []
+                    }
+                ],
+                "operationId": "notificationList",
+                "deprecated": false,
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "pageNumber",
+                        "in": "query",
+                        "type": "number",
+                        "required": true,
+                        "description": ""
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "",
+                        "headers": {}
+                    }
+                }
+            }
+        },
+        "/notification/viewedNotifications": {
+            "get": {
+                "summary": "view all notification",
+                "tags": [
+                    "Notifications"
+                ],
+                "security": [
+                    {
+                        "Bearer": []
+                    }
+                ],
+                "operationId": "viewAllNotification",
+                "deprecated": false,
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [],
+                "responses": {
+                    "200": {
+                        "description": "",
+                        "headers": {}
+                    }
+                }
+            }
+        },
+        "/notification/readNotificationsAll": {
+            "get": {
+                "summary": "read all notification",
+                "tags": [
+                    "Notifications"
+                ],
+                "security": [
+                    {
+                        "Bearer": []
+                    }
+                ],
+                "operationId": "readAllNotification",
+                "deprecated": false,
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [],
+                "responses": {
+                    "200": {
+                        "description": "",
+                        "headers": {}
+                    }
+                }
+            }
+        },
+        "/notification/readNotification": {
+            "get": {
+                "summary": "selected notification read",
+                "tags": [
+                    "Notifications"
+                ],
+                "security": [
+                    {
+                        "Bearer": []
+                    }
+                ],
+                "operationId": "readOnlySelectedNotification",
+                "deprecated": false,
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "query",
+                        "type": "string",
+                        "required": true,
+                        "description": ""
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "",
+                        "headers": {}
+                    }
+                }
+            }
+        },
+        "/notification/reminder": {
+            "post": {
+                "summary": "Split payment Notification reminder",
+                "tags": [
+                    "Split Payment Module"
+                ],
+                "security": [
+                    {
+                        "Bearer": []
+                    }
+                ],
+                "operationId": "splitPaymentNotificationreminder",
+                "deprecated": false,
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "receiverId",
+                        "in": "query",
+                        "type": "string",
+                        "required": true,
+                        "description": ""
+                    },
+                    {
+                        "name": "paymentOrderId",
+                        "in": "query",
+                        "type": "string",
+                        "required": true,
+                        "description": ""
+                    },
+                    {
+                        "name": "splitPaymentId",
+                        "in": "query",
+                        "type": "string",
+                        "required": true,
+                        "description": ""
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "",
+                        "headers": {}
+                    }
+                }
+            }
+        },
+        "/inquiry/create": {
+            "post": {
+                "summary": "Inquiry for Registration Create",
+                "tags": [
+                    "Inquiry Registration"
+                ],
+                "security": [
+                    {
+                        "Bearer": []
+                    }
+                ],
+                "operationId": "inquiryRregistration",
+                "deprecated": false,
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "Body",
+                        "in": "body",
+                        "required": true,
+                        "description": "",
+                        "schema": {
+                            "$ref": "#/definitions/inquiryCreate"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "",
+                        "headers": {}
+                    }
+                }
+            }
+        },
+        "/inquiry/send-emaiOn-inquiry": {
+            "post": {
+                "summary": "Inquiry Send Email for App Lunch",
+                "tags": [
+                    "Inquiry Registration"
+                ],
+                "security": [
+                    {
+                        "Bearer": []
+                    }
+                ],
+                "operationId": "InquirySendEmailAppLunch",
+                "deprecated": false,
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "Body",
+                        "in": "body",
+                        "required": true,
+                        "description": "",
+                        "schema": {
+                            "$ref": "#/definitions/inquiryLunch"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "",
+                        "headers": {}
+                    }
+                }
+            }
+        },
+        "/newLetterSubscription/create": {
+            "post": {
+                "summary": "Subscribe through email",
+                "tags": [
+                    "News Letter Subscription"
+                ],
+                "security": [
+                    {
+                        "Bearer": []
+                    }
+                ],
+                "operationId": "newsLettersubscriptionemail",
+                "deprecated": false,
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "Body",
+                        "in": "body",
+                        "required": true,
+                        "description": "",
+                        "schema": {
+                            "$ref": "#/definitions/newsLetterSubscription"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "",
+                        "headers": {}
+                    }
+                }
+            }
+        },
+        "/autoPaymentCreate/create": {
+            "post": {
+                "summary": "Create New Auto Payment",
+                "tags": [
+                    "Set Auto Payment API's"
+                ],
+                "security": [
+                    {
+                        "Bearer": []
+                    }
+                ],
+                "operationId": "setAutoPaymentApiCreate",
+                "deprecated": false,
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "Body",
+                        "in": "body",
+                        "required": true,
+                        "description": "",
+                        "schema": {
+                            "$ref": "#/definitions/setAutoPaymentCreateUpdate"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "",
+                        "headers": {}
+                    }
+                }
+            }
+        },
+        "/autoPaymentCreate/update": {
+            "post": {
+                "summary": "update Auto Payment",
+                "tags": [
+                    "Set Auto Payment API's"
+                ],
+                "security": [
+                    {
+                        "Bearer": []
+                    }
+                ],
+                "operationId": "setAutoPaymentApiUpdate",
+                "deprecated": false,
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "query",
+                        "type": "string",
+                        "required": true,
+                        "description": ""
+                    },
+                    {
+                        "name": "amount",
+                        "in": "query",
+                        "type": "number",
+                        "required": true,
+                        "description": ""
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "",
+                        "headers": {}
+                    }
+                }
+            }
+        },
+        "/autoPaymentCreate/delete": {
+            "delete": {
+                "summary": "Delete Auto Payment",
+                "tags": [
+                    "Set Auto Payment API's"
+                ],
+                "security": [
+                    {
+                        "Bearer": []
+                    }
+                ],
+                "operationId": "setAutoPaymentApidelete",
+                "deprecated": false,
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "query",
+                        "type": "string",
+                        "required": true,
+                        "description": ""
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "",
+                        "headers": {}
+                    }
+                }
+            }
+        },
+        "/autoPaymentCreate/activeDeactive": {
+            "get": {
+                "summary": "Active Deactive Auto Payment",
+                "tags": [
+                    "Set Auto Payment API's"
+                ],
+                "security": [
+                    {
+                        "Bearer": []
+                    }
+                ],
+                "operationId": "setActiveDeactiveAutoPayment",
+                "deprecated": false,
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "query",
+                        "type": "string",
+                        "required": true,
+                        "description": ""
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "",
+                        "headers": {}
+                    }
+                }
+            }
+        },
+        "/transaction/failureTransactionDetails": {
+            "get": {
+                "summary": "get fail transaction wise receiver user details",
+                "tags": [
+                    "Split Payment Module"
+                ],
+                "security": [
+                    {
+                        "Bearer": []
+                    }
+                ],
+                "operationId": "failedTransactionDetails",
+                "deprecated": false,
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "query",
+                        "type": "string",
+                        "required": true,
+                        "description": ""
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "",
+                        "headers": {}
+                    }
+                }
+            }
+        }
+    },
+    "definitions": {
+        "loginMPIN": {
+            "title": "login with mpin",
+            "example": {
+                "id": "",
+                "mpin": 234567,
+                "email": "bhargavsankaliya2320@gmail.com"
+            },
+            "type": "object",
+            "properties": {
+                "id": {
+                    "type": "string"
+                },
+                "mpin": {
+                    "type": "number"
+                },
+                "email": {
+                    "type": "string"
+                }
+            },
+            "required": []
+        },
+        "sendOTP-forgotMPIN": {
+            "title": "send otp",
+            "example": {
+                "email": "admin@yopmail.com"
+            },
+            "type": "object",
+            "properties": {
+                "email": {
+                    "type": "string"
+                }
+            },
+            "required": [
+                "email"
+            ]
+        },
+        "verifyOTP-forgotMPIN": {
+            "title": "verify otp",
+            "example": {
+                "id": "6576bf867857a719486b4af4",
+                "otp": "8287"
+            },
+            "type": "object",
+            "properties": {
+                "id": {
+                    "type": "string"
+                },
+                "otp": {
+                    "type": "string"
+                }
+            },
+            "required": [
+                "id",
+                "otp"
+            ]
+        },
+        "updateMPIN": {
+            "title": "Update MPIN",
+            "example": {
+                "id": "6576bf867857a719486b4af4",
+                "mpin": 234567
+            },
+            "type": "object",
+            "properties": {
+                "id": {
+                    "type": "string"
+                },
+                "mpin": {
+                    "type": "number"
+                }
+            },
+            "required": [
+                "id",
+                "mpin"
+            ]
+        },
+        "changeMPIN": {
+            "title": "Change mpin",
+            "example": {
+                "id": "6576bf867857a719486b4af4",
+                "oldmpin": 123456,
+                "newmpin": 456789
+            },
+            "type": "object",
+            "properties": {
+                "id": {
+                    "type": "string"
+                },
+                "oldmpin": {
+                    "type": "number"
+                },
+                "newmpin": {
+                    "type": "number"
+                }
+            },
+            "required": [
+                "id",
+                "oldmpin",
+                "newmpin"
+            ]
+        },
+        "makePaymentData": {
+            "title": "Make Payment",
+            "example": {
+                "paymentOrderId": "1704881313813168966158",
+                "senderAccountId": "1704260260992771358428",
+                "amount": 9,
+                "platformFees": 1,
+                "netAmount": 10
+            },
+            "type": "object",
+            "properties": {
+                "paymentOrderId": {
+                    "type": "string"
+                },
+                "senderAccountId": {
+                    "type": "string"
+                },
+                "amount": {
+                    "type": "number"
+                },
+                "platformFees": {
+                    "type": "number"
+                },
+                "netAmount": {
+                    "type": "number"
+                }
+            },
+            "required": [
+                "paymentOrderId",
+                "senderAccountId",
+                "amount",
+                "platformFees",
+                "netAmount"
+            ]
+        },
+        "updateUpcomingLoanAmount": {
+            "title": "Change Amount of Upcoming loan Amount",
+            "example": {
+                "accountId": "1704881313813168966158",
+                "loanPurpose": "HOME",
+                "amount": 9
+            },
+            "type": "object",
+            "properties": {
+                "accountId": {
+                    "type": "string"
+                },
+                "loanPurpose": {
+                    "type": "string"
+                },
+                "amount": {
+                    "type": "number"
+                }
+            },
+            "required": [
+                "accountId",
+                "loanPurpose",
+                "amount"
+            ]
+        },
+        "updateFinancialGoals": {
+            "title": "Update Financial Goals",
+            "example": {
+                "financialGoals": [
+                    "1706766951453649924126",
+                    "1706766901978569867773"
+                ]
+            },
+            "type": "object",
+            "properties": {
+                "accountId": {
+                    "type": "array"
+                }
+            },
+            "required": []
+        },
+        "updateUserorRemoveUser": {
+            "title": "Update User or Remove User from splitPayment",
+            "example": {
+                "forWhom": [
+                    {
+                        "userId": "1705582947734211144699",
+                        "splitAmount": 2
+                    },
+                    {
+                        "userId": "1705642771217383532819",
+                        "splitAmount": 2
+                    },
+                    {
+                        "userId": "1705660971700442327658",
+                        "splitAmount": 2
+                    },
+                    {
+                        "userId": "1705660894134160948455",
+                        "splitAmount": 2
+                    }
+                ]
+            },
+            "type": "object",
+            "properties": {
+                "forWhom": {
+                    "type": "array"
+                }
+            },
+            "required": [
+                "forWhom"
+            ]
+        },
+        "inquiryCreate": {
+            "title": "inquiry of registration create",
+            "example": {
+                "firstName": " example",
+                "lastName": " example",
+                "email": "bhargavsankaliya2320@gmail.com",
+                "phone": "+1925964697",
+                "description": "example test",
+                "isNewZealandBankAccount": true
+            },
+            "type": "object",
+            "properties": {
+                "firstName": {
+                    "type": "string"
+                },
+                "lastName": {
+                    "type": "string"
+                },
+                "email": {
+                    "type": "string"
+                },
+                "phone": {
+                    "type": "string"
+                },
+                "description": {
+                    "type": "string"
+                },
+                "isNewZealandBankAccount": {
+                    "type": "boolean"
+                }
+            },
+            "required": [
+                "firstName",
+                "lastName",
+                "email",
+                "phone",
+                "isNewZealandBankAccount"
+            ]
+        },
+        "inquiryLunch": {
+            "title": "inquiry of registration send email",
+            "example": {
+                "inquiryIds": []
+            },
+            "type": "object",
+            "properties": {
+                "id": {
+                    "type": "array"
+                }
+            },
+            "required": []
+        },
+        "newsLetterSubscription": {
+            "title": "news letter subscription",
+            "example": {
+                "email": "bhargavsankaliya2320@gmail.com"
+            },
+            "type": "object",
+            "properties": {
+                "email": {
+                    "type": "string"
+                }
+            },
+            "required": [
+                "email"
+            ]
+        },
+        "setAutoPaymentCreateUpdate": {
+            "title": "set new Auto payment transaction",
+            "example": {
+                "purpose": "ABC etc",
+                "receiverName": "Les Mills",
+                "autoPaymentDate": "2024-01-25T07:40:49.658Z",
+                "receiverAccountNumber": "03-0104-0952866-00",
+                "amount": 5.5,
+                "paymentType": 2
+            },
+            "type": "object",
+            "properties": {
+                "purpose": {
+                    "type": "string"
+                },
+                "receiverName": {
+                    "type": "string"
+                },
+                "receiverAccountNumber": {
+                    "type": "string"
+                },
+                "amount": {
+                    "type": "number"
+                },
+                "autoPaymentDate": {
+                    "type": "string"
+                },
+                "paymentType": {
+                    "type": "number"
+                }
+            },
+            "required": [
+                "purpose",
+                "receiverName",
+                "receiverAccountNumber",
+                "amount",
+                "autoPaymentDate",
+                "paymentType"
+            ]
+        },
+        "transactionreFailedPayment": {
+            "title": "make failed payment transaction",
+            "example": {
+                "isAuto": 1,
+                "senderAccountId": "1704260260992771358428",
+                "receiverId": "1704260260992771358428",
+                "amount": 5.5,
+                "receiverName": "Les Mills"
+            },
+            "type": "object",
+            "properties": {
+                "isAuto": {
+                    "type": "number"
+                },
+                "senderAccountId": {
+                    "type": "string"
+                },
+                "receiverId": {
+                    "type": "string"
+                },
+                "amount": {
+                    "type": "number"
+                },
+                "receiverName": {
+                    "type": "string"
+                }
+            },
+            "required": [
+                "isAuto",
+                "senderAccountId",
+                "receiverId",
+                "amount",
+                "receiverName"
+            ]
+        }
+    },
+    "tags": [
+        {
+            "name": "Monitization Module"
+        },
+        {
+            "name": "Financial Goals"
+        },
+        {
+            "name": "Akahu API's"
+        },
+        {
+            "name": "Akahu API's For Accounts"
+        },
+        {
+            "name": "Support Ticket Module"
+        },
+        {
+            "name": "Split Payment Module"
+        },
+        {
+            "name": "Notifications"
+        },
+        {
+            "name": "Inquiry Registration"
+        },
+        {
+            "name": "News Letter Subscription"
+        },
+        {
+            "name": "Set Auto Payment API's"
+        }
+    ]
+}

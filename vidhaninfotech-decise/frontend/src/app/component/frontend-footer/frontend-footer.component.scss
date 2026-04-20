@@ -1,0 +1,169 @@
+footer {
+    background: linear-gradient(20deg, #01204C -0.18%, #2269CF 118.88%);
+    padding-top: 60px;
+
+    .logo-sec {
+        .footer-logo {
+            margin-bottom: 2rem;
+        }
+
+        p {
+            color: #FFF;
+            font-size: 14px;
+            font-weight: 400;
+            margin-bottom: 1.5rem;
+        }
+
+        ul {
+            padding: 0;
+            margin: 0;
+            list-style: none;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+    }
+
+    .company {
+        .title {
+            margin-bottom: 30px;
+
+            h3 {
+                color: #FFF;
+                font-size: 18px;
+                font-weight: 600;
+            }
+        }
+
+        ul {
+            padding: 0;
+            margin: 0;
+            list-style: none;
+
+            li {
+                color: #FFF;
+                font-size: 16px;
+                font-weight: 400;
+                margin-bottom: 10px;
+                cursor: pointer;
+
+                &:last-child {
+                    margin-bottom: 0;
+                }
+            }
+        }
+    }
+
+    .subscribe {
+        .title {
+            margin-bottom: 30px;
+
+            h3 {
+                color: #FFF;
+                font-size: 18px;
+                font-weight: 600;
+            }
+        }
+
+        .form-group {
+            display: flex;
+
+            .form-control {
+                border-radius: 6px 0 0 6px;
+                background: #FFF;
+            }
+
+            button {
+                border: 0;
+                padding: 0 1rem;
+                border-radius: 0px 6px 6px 0px;
+                background-color: #FF9567;
+            }
+        }
+
+        span {
+            color: #FF9567;
+            margin-bottom: 1rem;
+            display: block;
+        }
+
+        p {
+            color: rgba(255, 255, 255, 0.60);
+            font-size: 13px;
+            font-weight: 400;
+            margin: 0;
+        }
+    }
+
+    .copyright {
+        border-top: 1px solid #ffffff24;
+        padding: 1rem 0;
+        margin-top: 60px;
+
+        p {
+            color: #FFF;
+            font-size: 16px;
+            font-weight: 400;
+        }
+
+        ul {
+            padding: 0;
+            margin: 0;
+            display: flex;
+            align-items: center;
+            gap: 1.5rem;
+            justify-content: flex-end;
+
+            li {
+                a {
+                    color: #fff;
+                    font-size: 16px;
+                    font-weight: 400;
+                }
+            }
+        }
+    }
+}
+
+@media only screen and (min-width: 320px) and (max-width: 479px) {
+    footer {
+        padding-top: 40px;
+
+        .row {
+            gap: 2rem;
+        }
+
+        .title {
+            margin-bottom: 20px;
+        }
+
+        .copyright {
+            margin-top: 30px;
+
+            .row {
+                gap: 1rem;
+            }
+
+            p {
+                text-align: center;
+                font-size: 14px;
+            }
+
+            ul {
+                gap: 0.5rem;
+                justify-content: center;
+
+                li {
+                    &:first-child {
+                        padding-right: 0.5rem;
+                        border-right: 1px solid gainsboro;
+                    }
+
+                    a {
+                        font-size: 14px;
+                    }
+                }
+            }
+        }
+    }
+}

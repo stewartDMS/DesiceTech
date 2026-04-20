@@ -1,0 +1,22 @@
+{
+    "APP": {
+        "WEB": {
+            "PORT" : 80,
+            "PUB_DIR": "/../frontend/dist/decise_development"
+        }
+    },
+    "LOGGER": {
+        "LEVEL": 0,
+        "DATA_PATH": "bg_info.log",
+        "INFO_PATH": "bg_info.log",
+        "ERROR_PATH": "bg_err.log",
+        "CRITICAL_PATH": "bg_err.log"
+    },
+    "MAIL": {
+        "HOST": "gmail",
+        "SECURE": false,
+        "PORT": 587,
+        "MAILID": "bhargav.sankaliya.vidhaninfotech@gmail.com",
+        "PASSWORD": "evluywcfqatuynrx"
+    }
+}

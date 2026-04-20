@@ -1,0 +1,102 @@
+<section class="register">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-xl-8 col-lg-8 col-md-12 col-12">
+                <div class="title">
+                    <span>Register</span>
+                    <h1>We'd love to talk about how we can help you.</h1>
+                </div>
+            </div>
+            <!-- <div class="col-xl-6 col-lg-6 col-md-12 col-12">
+                <div class="right-side">
+                    <img src="../../../assets/images/contact.svg" class="img-fluid" alt="">
+                    <span>Contact Us</span>
+                </div>
+            </div> -->
+        </div>
+    </div>
+</section>
+<section class="lets-talk">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-xl-12 col-lg-12 col-md-12 col-12">
+                <h1>Register for early access</h1>
+                <form [formGroup]="registerForm" class="row">
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            <label for="">First Name</label>
+                            <input name="firstname" id="firstname" formControlName="firstname" type="text"
+                                class="form-control" placeholder="Enter your first name" />
+                            <div *ngIf="submittedData && fRegisterData['firstname'].errors">
+                                <div *ngIf="fRegisterData['firstname'].errors['required']">
+                                    <span class="text-danger">This Field is Required.</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            <label for="">Last Name</label>
+                            <input name="lastname" id="lastname" formControlName="lastname" type="text" class="form-control" placeholder="Enter your last name" />
+                            <div *ngIf="submittedData && fRegisterData['lastname'].errors">
+                                <div *ngIf="fRegisterData['lastname'].errors['required']">
+                                    <span class="text-danger">This Field is Required.</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            <label for="">Email</label>
+                            <input name="email" id="email" formControlName="email" type="text" class="form-control" placeholder="Enter your email address" />
+                            <div *ngIf="submittedData && fRegisterData['email'].errors">
+                                <div *ngIf="fRegisterData['email'].errors['required']">
+                                    <span class="text-danger">This Field is Required.</span>
+                                </div>
+                                <div *ngIf="fRegisterData['email'].hasError('pattern')">
+                                    <span class="text-danger">Invalid email format.</span>
+                                </div>
+                            </div>
+                            <!-- <div *ngIf="submittedData && fRegisterData['email'].errors">
+                                <div *ngIf="fRegisterData['email'].errors['required']">
+                                    <span class="text-danger">This Field is Required.</span>
+                                </div>
+                            </div> -->
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            <label for="">Phone</label>
+                            <input name="phone" id="phone" formControlName="phone" type="number" class="form-control" placeholder="Enter your contact number" />
+                            <div *ngIf="submittedData && fRegisterData['phone'].errors">
+                                <div *ngIf="fRegisterData['phone'].errors['required']">
+                                    <span class="text-danger">This Field is Required.</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <label>Tell us why you want to use the</label>
+                            <textarea name="description" id="description" formControlName="description" class="form-control" rows="5" placeholder="Enter your message..."></textarea>
+                        </div>
+                    </div>
+                    <div class="col-md-12">
+                        <div class="form-group d-flex gap-2">
+                            <input type="checkbox" id="isNewZealandBankAccount" name="isNewZealandBankAccount" formControlName="isNewZealandBankAccount">
+                            <label class="m-0" for="isNewZealandBankAccount">Do you have a New Zealand back account?</label>
+                            <!-- <div *ngIf="newZealandBankAccount">
+                                <div>
+                                    <span class="text-danger">This Field is Required.</span>
+                                </div>
+                            </div> -->
+                        </div>
+                    </div>
+                    <div class="col-md-12">
+                        <button class="theme_btn" (click)="save()">Submit</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</section>

@@ -1,0 +1,106 @@
+<div class="app-page-title mb-3">
+    <div class="page-title-wrapper">
+        <div class="d-flex align-items-center justify-content-between">
+            <div class="page-title-heading">
+                <div>
+                    <h4 class="mb-0">
+                        <strong>Ticket Details</strong>
+                    </h4>
+                </div>
+            </div>
+            <div class="page-title-actions">
+                <div class="d-inline-block">
+                    <button type="button" *ngIf="supportTicketData?.status == 'Created'"
+                        class="btn-shadow  btn btn-secondary" (click)="closeTicket(tID)">
+                        Close Ticket
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="main-card mb-3 card">
+    <div class="card-body pt-4">
+        <div class="row fs-16 mb-3">
+            <div class="col-lg-12 d-flex mb-3">
+                <div class="col-lg-2 pl-0"><strong>Ticket ID :</strong> </div>
+                <div class="col-lg-10 pl-0 border-bottom-dashed">{{supportTicketData?.id}}</div>
+            </div>
+            <div class="col-lg-12 d-flex mb-3">
+                <div class="col-lg-2 pl-0"><strong>Created Time :</strong> </div>
+                <div class="col-lg-10 pl-0 border-bottom-dashed">
+                    {{supportTicketData?.createdAt | date : 'dd-MM-yyyy hh:mm:ss a'}}</div>
+            </div>
+            <div class="col-lg-12 d-flex mb-3">
+                <div class="col-lg-2 pl-0"><strong>Priority :</strong> </div>
+                <div class="col-lg-10 pl-0 border-bottom-dashed">{{supportTicketData?.priority}}</div>
+            </div>
+            <div class="col-lg-12 d-flex mb-3">
+                <div class="col-lg-2 pl-0"><strong>Category :</strong> </div>
+                <div class="col-lg-10 pl-0 border-bottom-dashed">{{supportTicketData?.categoryName}}</div>
+            </div>
+            <div class="col-lg-12 d-flex mb-3">
+                <div class="col-lg-2 pl-0"><strong>Subject :</strong> </div>
+                <div class="col-lg-10 pl-0 border-bottom-dashed">{{supportTicketData?.subject}}</div>
+            </div>
+        </div>
+        <hr>
+        <div class="mb-3" *ngFor="let item of supportTicketData?.repliedData">
+            <div class="row" [ngClass]="item?.isSendByAdminSupport == 0 ? 'border-left-akahu':'border-left-admin'">
+                <div class="col-lg-12">
+                    <span><strong>{{item?.createdByName}} : &nbsp;</strong></span>
+                    <span> {{item?.createdAt | date : 'dd-MM-yyyy hh:mm:ss a'}}</span>
+                </div>
+                <div class="col-lg-12">
+                    <span>{{item?.description}}</span>
+                </div>
+                <div class="col-lg-12" *ngIf="item?.files?.length > 0">
+                    <span class="mr-3" *ngFor="let file of item?.files">
+                        <a [href]="file?.filePath"
+                            target="_blank">
+                            {{file?.fileName}}
+                        </a>
+                        <br>
+                    </span>
+                </div>
+            </div>
+        </div>
+        <hr>
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="position-relative form-group">
+                    <label for="Reply">Reply<span class="text-danger">*</span></label>
+                    <textarea placeholder="Write your reply here..." class="form-control" name="Reply" id="Reply"
+                        rows="7" [(ngModel)]="replyData"></textarea>
+                    <div *ngIf="!replyData && submittedReplyData">
+                        <span class="text-danger">This Field is Required.</span>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-12">
+                <div class="position-relative form-group">
+                    <label for="Reply">Attachments</label>
+                    <input type="file" #attachment multiple (change)="preview(attachment.files)"
+                        class="form-control mb-1" style="line-height: 1.1;">
+                </div>
+                <div *ngIf="attachmentList.length > 0">
+                    <div class="file-box align-items-center d-flex justify-content-between"
+                        *ngFor="let file of attachmentList;let fIndex = index;">
+                        <span class="">
+                            {{file.name}}
+                        </span>
+                        <span class="">
+                            <button class="btn btn-danger" (click)="removeuploadFile(fIndex)">
+                                <i class="fa fa-remove"></i>
+                            </button>
+                        </span>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-12">
+                <button class="btn btn-primary" (click)="reply()">Reply</button>
+            </div>
+        </div>
+    </div>
+</div>

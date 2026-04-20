@@ -1,0 +1,242 @@
+<!-- <div class="parelx">
+    <div class="background">
+        <div class="shape"></div>
+        <div class="shape"></div>
+    </div>
+    <form [formGroup]="loginForm" *ngIf="isLoginFlag == true" role="form" autocomplete="on">
+        <h3>Login Here</h3>
+
+        <label>Email</label>
+        <input type="text" placeholder="Email" formControlName="email">
+        <div *ngIf="submittedLoginData && fLoginData['email'].errors">
+            <div *ngIf="fLoginData['email'].errors['required']">
+                <span class="text-danger">This Field is Required.</span>
+            </div>
+            <div *ngIf="fLoginData['email'].hasError('pattern')">
+                <span class="text-danger">Invalid email format.</span>
+            </div>
+        </div>
+
+        <label>Password</label>
+        <input type="password" placeholder="Password" formControlName="password" id="password">
+        <div *ngIf="submittedLoginData && fLoginData['password'].errors">
+            <div *ngIf="fLoginData['password'].errors['required']">
+                <span class="text-danger">This Field is Required.</span>
+            </div>
+        </div>
+
+        <button (click)="login()">Log In</button>
+        <div class="login-foot text-center">
+            <span (click)="otpSend()">Forgot Password</span>
+        </div>
+    </form>
+    <form [formGroup]="otpForm" *ngIf="isSendOTPFlag == true">
+        <h3>Forgot Password</h3>
+        <p>Enter your email for otp send</p>
+        <label>Email</label>
+        <input type="text" formControlName="email" placeholder="Email" id="username">
+        <div *ngIf="submittedOtpData && fotpData['email'].errors">
+            <div *ngIf="fotpData['email'].errors['required']">
+                <span class="text-danger">This Field is Required.</span>
+            </div>
+            <div *ngIf="fotpData['email'].hasError('pattern')">
+                <span class="text-danger">Invalid email format.</span>
+            </div>
+        </div>
+
+        <button type="button" (click)="SendOTP()">Send OTP</button>
+        <div class="login-foot text-center">
+            <span (click)="loginPage()">Back To Login</span>
+        </div>
+    </form>
+    <form *ngIf="isOTPVerifyFlag == true">
+        <h3>OTP Verification</h3>
+
+        <label>Enter OTP</label>
+        <ng-otp-input [config]="config" (onInputChange)="onOTPChange($event)" class="otpSec"></ng-otp-input>
+        <div class=""><span class="text-danger">{{otpMessage}}</span></div>
+
+        <button type="button" (click)="verifyOTP()">OTP Verify</button>
+        <div class="login-foot text-center">
+            <span (click)="loginPage()">Back To Login</span>
+        </div>
+    </form>
+    <form [formGroup]="newPasswordForm" *ngIf="isNewPassword == true">
+        <h3>Reset Password</h3>
+
+        <label>Password</label>
+        <input type="password" formControlName="password" placeholder="Password" id="password">
+        <div *ngIf="submittedNewPasswordData && fnewPasswordData['password'].errors">
+            <div *ngIf="fnewPasswordData['password'].errors['required']">
+                <span class="text-danger">This Field is Required.</span>
+            </div>
+        </div>
+
+        <label>Confirm Password</label>
+        <input type="password" formControlName="confirmPassword" placeholder="Confirm Password" id="password">
+        <div *ngIf="submittedNewPasswordData && fnewPasswordData['confirmPassword'].errors">
+            <div *ngIf="fnewPasswordData['confirmPassword'].errors['required']">
+                <span class="text-danger">This Field is Required.</span>
+            </div>
+            <div *ngIf="fnewPasswordData['confirmPassword'].errors['confirmedValidator']">
+                <span class="text-danger">Password and Confirm Password must be match.</span>
+            </div>
+        </div>
+
+
+        <button type="button" (click)="updatePassword()">Change Password</button>
+        <div class="login-foot text-center">
+            <span (click)="loginPage()">Back To Login</span>
+        </div>
+    </form>
+</div> -->
+
+<div id="main-wrapper">
+    <div class="position-relative overflow-hidden radial-gradient min-vh-100 w-100">
+        <div class="position-relative z-index-5">
+            <div class="row">
+                <div class="col-xl-7 col-xxl-8">
+                    <div class="d-none d-xl-flex align-items-center justify-content-center"
+                        style="height: calc(100vh - 80px);">
+                        <img src="../../../assets/images/login-security.svg" alt="" class="img-fluid" width="500">
+                    </div>
+                </div>
+                <div class="col-xl-5 col-xxl-4">
+                    <div
+                        class="authentication-login min-vh-100 bg-body row justify-content-center align-items-center p-4">
+                        <div class="col-sm-8 col-md-6 col-xl-9">
+                            <div class="text-center mb-5">
+                                <a href="/" class="text-nowrap logo-img d-block w-100">
+                                    <img src="../../../assets/images/logo.png" class="dark-logo" alt="Logo-Dark"
+                                        width="150" />
+                                </a>
+                            </div>
+                            <div *ngIf="isLoginFlag == true">
+                                <h2 class="mb-3 fs-6 fw-bolder">Welcome to Desice | The smart way to manage money</h2>
+                                <p class=" mb-9">Your Admin Dashboard</p>
+                            </div>
+                            <div *ngIf="isSendOTPFlag == true">
+                                <h2 class="mb-3 fs-7 fw-bolder">Forgot Password</h2>
+                                <p class=" mb-9">Enter your email for otp send</p>
+                            </div>
+                            <div *ngIf="isOTPVerifyFlag == true">
+                                <h2 class="mb-3 fs-7 fw-bolder">OTP Verification</h2>
+                                <p class=" mb-9">Enter your otp and verify</p>
+                            </div>
+                            <div *ngIf="isNewPassword == true">
+                                <h2 class="mb-3 fs-7 fw-bolder">Reset Password</h2>
+                                <p class=" mb-9">Enter your new creditional</p>
+                            </div>
+                            <form [formGroup]="loginForm" *ngIf="isLoginFlag == true" role="form" autocomplete="on">
+                                <div class="mb-3">
+                                    <label for="exampleInputEmail1" class="form-label">Username</label>
+                                    <input type="email" class="form-control" formControlName="email">
+                                    <div *ngIf="submittedLoginData && fLoginData['email'].errors">
+                                        <div *ngIf="fLoginData['email'].errors['required']">
+                                            <span class="text-danger">This Field is Required.</span>
+                                        </div>
+                                        <div *ngIf="fLoginData['email'].hasError('pattern')">
+                                            <span class="text-danger">Invalid email format.</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="mb-4">
+                                    <label for="exampleInputPassword1" class="form-label">Password</label>
+                                    <input type="password" class="form-control" formControlName="password"
+                                        id="password">
+                                    <div *ngIf="submittedLoginData && fLoginData['password'].errors">
+                                        <div *ngIf="fLoginData['password'].errors['required']">
+                                            <span class="text-danger">This Field is Required.</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="d-flex align-items-center justify-content-between mb-4">
+                                    <div class="form-check">
+                                        <input class="form-check-input primary" type="checkbox" value=""
+                                            id="flexCheckChecked" checked>
+                                        <label class="form-check-label text-dark" for="flexCheckChecked">
+                                            Remeber this Device
+                                        </label>
+                                    </div>
+                                    <a class="text-primary fw-medium" (click)="otpSend()">Forgot Password ?</a>
+                                </div>
+                                <a class="btn btn-primary w-100 py-8 mb-4 rounded-2" (click)="login()">Sign
+                                    In</a>
+                                <p>
+                                    Don't have an account ?
+                                    <a routerLink="register">Register</a>
+                                </p>
+                            </form>
+                            <form [formGroup]="otpForm" *ngIf="isSendOTPFlag == true">
+                                <div class="mb-3">
+                                    <label for="exampleInputEmail1" class="form-label">Email</label>
+                                    <input type="text" formControlName="email" placeholder="Email" id="username"
+                                        class="form-control">
+                                    <div *ngIf="submittedOtpData && fotpData['email'].errors">
+                                        <div *ngIf="fotpData['email'].errors['required']">
+                                            <span class="text-danger">This Field is Required.</span>
+                                        </div>
+                                        <div *ngIf="fotpData['email'].hasError('pattern')">
+                                            <span class="text-danger">Invalid email format.</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <a class="btn btn-primary w-100 py-8 mb-2 rounded-2" (click)="SendOTP()">Send
+                                    OTP</a>
+                                <div class="login-foot text-center">
+                                    <span (click)="loginPage()">Back To Login</span>
+                                </div>
+                            </form>
+                            <form *ngIf="isOTPVerifyFlag == true">
+                                <div class="mb-3">
+                                    <label for="exampleInputEmail1" class="form-label">Enter OTP</label>
+                                    <ng-otp-input [config]="config" (onInputChange)="onOTPChange($event)"
+                                        class="otpSec"></ng-otp-input>
+                                    <div class=""><span class="text-danger">{{otpMessage}}</span></div>
+                                </div>
+                                <a class="btn btn-primary w-100 py-8 mb-2 rounded-2" (click)="verifyOTP()">OTP
+                                    Verify</a>
+                                <div class="login-foot text-center">
+                                    <span (click)="loginPage()">Back To Login</span>
+                                </div>
+                            </form>
+                            <form [formGroup]="newPasswordForm" *ngIf="isNewPassword == true">
+                                <div class="mb-3">
+                                    <label for="exampleInputEmail1" class="form-label">Password</label>
+                                    <input type="password" class="form-control" formControlName="password"
+                                        placeholder="Password" id="password">
+                                    <div *ngIf="submittedNewPasswordData && fnewPasswordData['password'].errors">
+                                        <div *ngIf="fnewPasswordData['password'].errors['required']">
+                                            <span class="text-danger">This Field is Required.</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="mb-4">
+                                    <label for="exampleInputPassword1" class="form-label">Confirm Password</label>
+                                    <input type="password" class="form-control" formControlName="confirmPassword"
+                                        placeholder="Confirm Password" id="password">
+                                    <div *ngIf="submittedNewPasswordData && fnewPasswordData['confirmPassword'].errors">
+                                        <div *ngIf="fnewPasswordData['confirmPassword'].errors['required']">
+                                            <span class="text-danger">This Field is Required.</span>
+                                        </div>
+                                        <div *ngIf="fnewPasswordData['confirmPassword'].errors['confirmedValidator']">
+                                            <span class="text-danger">Password and Confirm Password must be
+                                                match.</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <a class="btn btn-primary w-100 py-8 mb-2 rounded-2" (click)="updatePassword()">Change
+                                    Password</a>
+                                <div class="login-foot text-center">
+                                    <span (click)="loginPage()">Back To Login</span>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+</div>
