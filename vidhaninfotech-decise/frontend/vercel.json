@@ -1,0 +1,8 @@
+{
+  "installCommand": "npm install --legacy-peer-deps",
+  "buildCommand": "node scripts/set-env.js && npm run build",
+  "outputDirectory": "dist/decise_development",
+  "rewrites": [
+    { "source": "/(.*)", "destination": "/index.html" }
+  ]
+}

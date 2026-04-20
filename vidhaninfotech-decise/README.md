@@ -13,10 +13,11 @@ The database layer was migrated from **AWS DynamoDB → PostgreSQL** using **Pri
 4. [Database migration guide](#database-migration-guide)
 5. [Deploying to Railway ⭐ recommended](#deploying-to-railway)
 6. [Deploying to Render](#deploying-to-render)
-7. [Building the Angular frontend](#building-the-angular-frontend)
-8. [Useful npm scripts](#useful-npm-scripts)
-9. [Project structure](#project-structure)
-10. [Security notes](#security-notes)
+7. [Deploying the Angular frontend to Vercel](#deploying-the-angular-frontend-to-vercel)
+8. [Building the Angular frontend](#building-the-angular-frontend)
+9. [Useful npm scripts](#useful-npm-scripts)
+10. [Project structure](#project-structure)
+11. [Security notes](#security-notes)
 
 ---
 
@@ -245,6 +246,59 @@ A `render.yaml` file is included in the repo for one-click Render deployment.
 
 ---
 
+## Deploying the Angular frontend to Vercel
+
+The Angular SPA lives in `frontend/` and is configured for Vercel via `frontend/vercel.json`.  
+Deploy it as a **separate Vercel project** while the Express API stays on Railway or Render.
+
+### How it works
+
+- **`frontend/vercel.json`** tells Vercel:
+  - Install: `npm install --legacy-peer-deps`
+  - Build: `node scripts/set-env.js && npm run build`
+  - Output: `dist/decise_development`
+  - Rewrite all routes → `index.html` (required for Angular Router)
+- **`frontend/scripts/set-env.js`** runs before `ng build` and writes `environment.prod.ts` from the Vercel environment variables below.
+
+### Step-by-step
+
+1. **Create a Vercel account** at [vercel.com](https://vercel.com) and install the [Vercel CLI](https://vercel.com/docs/cli) (optional).
+
+2. **Import the project in Vercel**  
+   - Go to **Add New Project** → import `stewartDMS/DesiceTech`  
+   - Set **Root Directory** to `vidhaninfotech-decise/frontend`  
+   - Vercel auto-detects `vercel.json` — no further framework settings needed.
+
+3. **Set environment variables** in the Vercel dashboard → your project → **Settings → Environment Variables**:
+
+   | Variable | Value |
+   |---|---|
+   | `VITE_API_URL` | URL of your deployed API — e.g. `https://your-app.railway.app/v1/` |
+   | `VITE_UPLOADS_URL` | e.g. `https://your-app.railway.app/uploads/` |
+   | `VITE_UPLOAD_FILE` | AWS Lambda upload endpoint (optional, defaults to the existing value) |
+
+   > **Tip:** if the API is on the same domain (custom domain with a reverse proxy), `VITE_API_URL` can stay as `https://desice.co.nz/v1/`.
+
+4. **Deploy** — Vercel triggers a build on every push to the connected branch.  
+   The deploy log will show `[set-env] environment.prod.ts written` confirming the URL injection.
+
+5. **Verify** — visit your Vercel-provided URL (e.g. `https://decise.vercel.app`).  
+   All routes (including deep links) should resolve to the Angular app.
+
+### CORS
+
+Because the Angular frontend is now on a different origin from the Express API, add the Vercel domain to the CORS allowlist in the backend (`web/middleware.js`):
+
+```js
+// web/middleware.js — add your Vercel domain:
+const allowedOrigins = [
+  'https://decise.vercel.app',
+  'https://decise.co.nz',  // custom domain if set
+];
+```
+
+---
+
 ## Building the Angular frontend
 
 The Angular app is in `frontend/`. The compiled output is served as static files by the Express backend (already wired up in `web/middleware.js`).
@@ -307,6 +361,8 @@ vidhaninfotech-decise/
 │   ├── middleware.js          ← Express setup, auth, S3 upload, routing
 │   └── routes/v1/             ← API route definitions
 └── frontend/                  ← Angular SPA source
+    ├── vercel.json            ← Vercel deployment config (build, output, SPA rewrites)
+    └── scripts/set-env.js     ← Injects VITE_API_URL etc. into environment.prod.ts at build time
 ```
 
 ---
