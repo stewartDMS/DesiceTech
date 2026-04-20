@@ -1,13 +1,11 @@
 let autoPaymentCreateCtrl = {};
 const HttpRespose = require("../../../common/httpResponse");
-const ObjectID = require("mongodb").ObjectID;
 const CONFIG = require("../../../config");
 const async = require("async");
 const AppCode = require("../../../common/constant/appCods");
-const { ObjectId } = require("mongodb");
 const { query } = require("express");
 const _ = require("lodash");
-const moment = require("moment");
+const { format, addWeeks, addMonths, addYears, parseISO } = require("date-fns");
 
 const paymentTransactionModel = new (require("../../../common/model/split-payment/paymentTransactionModel"))();
 const splitPaymentCategoryModel = new (require("../../../common/model/split-payment/splitPaymentCategoryModel"))();
@@ -22,11 +20,8 @@ const akahuAccountModel = new (require("../../../common/model/akahu-details/akah
 const adminAccountModel = new (require("../../../common/model/adminAccountModel"))();
 const adminUserModel = new (require("../../../common/model/adminUserModel"))();
 
-// const appToken = 'app_token_clpu6ruwg000108kx8j0ldurc';
-// const appSecret = '7598a85e5b371ac0b4b4e00d0e3d70b39a6d0a8ac7b3eae990461fc6f0e8d6d1';
-
-const appToken = 'app_token_clswintdk000008l5di0dbxvp';
-const appSecret = '449f5e4dfa6abcc8aafdda08924ba6316a38c1556917d57b114f4748fd247115';
+const appToken = process.env.AKAHU_APP_TOKEN || CONFIG.AKAHU.APP_TOKEN;
+const appSecret = process.env.AKAHU_APP_SECRET || CONFIG.AKAHU.APP_SECRET;
 
 const akahu = new AkahuClient({ appToken: appToken, appSecret: appSecret });
 const cron = require('node-cron');
@@ -98,7 +93,7 @@ cron.schedule("0 0 * * *", async () => {
                     })
                 },
                 function (cb) {
-                    let date = moment().format("yyyy-MM-DD");
+                    let date = format(new Date(), 'yyyy-MM-dd');
 
                     // account list map
                     if (accountList.length > 0) {
@@ -108,7 +103,7 @@ cron.schedule("0 0 * * *", async () => {
                             // check date if current or not means today date or not 
                             const todayDate = new Date();
 
-                            x.autoPaymentDate = x.paymentType == 1 ? moment(x.autoPaymentDate).add(1, 'week') : x.paymentType == 2 ? moment(x.autoPaymentDate).add(1, 'month') : x.paymentType == 3 ? moment(x.autoPaymentDate).add(1, 'year') : x.autoPaymentDate;
+                            x.autoPaymentDate = x.paymentType == 1 ? addWeeks(new Date(x.autoPaymentDate), 1) : x.paymentType == 2 ? addMonths(new Date(x.autoPaymentDate), 1) : x.paymentType == 3 ? addYears(new Date(x.autoPaymentDate), 1) : x.autoPaymentDate;
                             
                             let autoPaymentDate = new Date(x.autoPaymentDate);
                             autoPaymentDate.setMonth(todayDate.getMonth() + 1)
@@ -118,9 +113,9 @@ cron.schedule("0 0 * * *", async () => {
                                 setAutoPaymentDate = autoPaymentDate
                             }
                             else {
-                                setAutoPaymentDate = moment(autoPaymentDate).add(1, 'M');
+                                setAutoPaymentDate = addMonths(autoPaymentDate instanceof Date ? autoPaymentDate : new Date(autoPaymentDate), 1);
                             }
-                            let repaymentDate = moment(setAutoPaymentDate).format("yyyy-MM-DD");
+                            let repaymentDate = format(setAutoPaymentDate instanceof Date ? setAutoPaymentDate : new Date(setAutoPaymentDate), 'yyyy-MM-dd');
                             // match current date with repayment date
 
                             if (date == repaymentDate) {

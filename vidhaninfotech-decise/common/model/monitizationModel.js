@@ -2,8 +2,7 @@ const ModelBase = require("./modelBase");
 const CONFIG = require("../../config");
 const _ = require("lodash");
 const uuid = require('uuid');
-
-// Generate a unique ID
+const prisma = require("../db/prismaClient");
 
 class monitizationModel extends ModelBase {
     constructor() {
@@ -33,19 +32,12 @@ class monitizationModel extends ModelBase {
         });
     }
 
-    /**
-     * @description create Always return an unique id after inserting new user
-     * @param {*} data
-     * @param {*} cb
-     */
-
     async create(data, cb) {
         var err = this.validate(data);
         if (err) {
             return cb(err);
         }
 
-        // set createdAt date and status
         data.createdAt = new Date().toISOString();
         data.status = 1;
         this.insert(data, (err, result) => {
@@ -73,43 +65,28 @@ class monitizationModel extends ModelBase {
     }
 
     async getRangeWiseData(amount, cb) {
-        const getTable = await this.getModel();
-        const params = {
-            TableName: this.tableName,
-            FilterExpression: 'minAmount <= :amount and maxAmount >= :amount',
-            ExpressionAttributeValues: {
-                ':amount': amount,
-            },
-            ProjectionExpression: 'amount,percentage,paymentMode',
-        };
-
         try {
-            const Items = await this.db.scan(params).promise()
-            cb(null, Items.Items[0]);
-
+            const item = await prisma.monitization.findFirst({
+                where: {
+                    minAmount: { lte: amount },
+                    maxAmount: { gte: amount },
+                },
+                select: { amount: true, percentage: true, paymentMode: true },
+            });
+            cb(null, item);
         } catch (error) {
             cb(error);
         }
-
-
     }
 
     async aggregate(query, cb) {
-        const getTable = await this.getModel();
-        const params = {
-            TableName: this.tableName,
-        };
         try {
-            const { Items = [] } = await this.db.scan(params).promise();
-            cb(null, Items);
-
+            const items = await prisma.monitization.findMany();
+            cb(null, items);
         } catch (error) {
             cb(error);
         }
     }
-
-
-
 }
 
 module.exports = monitizationModel;

@@ -1,10 +1,7 @@
 const ModelBase = require("../modelBase");
 const CONFIG = require("../../../config");
 const _ = require("lodash")
-const jwt = require("jsonwebtoken");
-const bcrypt = require("bcryptjs");
-const randToken = require('rand-token');
-const saltRounds = 10;
+const prisma = require("../../db/prismaClient");
 
 class akahuAccountModel extends ModelBase {
     constructor() {
@@ -20,19 +17,12 @@ class akahuAccountModel extends ModelBase {
         });
     }
 
-    /**
-     * @description create Always return an unique id after inserting new user
-     * @param {*} data
-     * @param {*} cb
-     */
-
     create(data, cb) {
         var err = this.validate(data);
         if (err) {
             return cb(err);
         }
 
-        // set createdAt date and status
         data.createdAt = new Date().toISOString();
         data.status = 1;
 
@@ -78,7 +68,6 @@ class akahuAccountModel extends ModelBase {
 
     async updateMultipleAccountData(data, cb) {
         const updatePromises = data.map(async (queryData) => {
-
             return new Promise((resolve, reject) => {
                 let odata = {
                     accountData: queryData.accountData,
@@ -108,21 +97,20 @@ class akahuAccountModel extends ModelBase {
             await this.findByMultipleAttribute({ akahuUserId: userId, setAsPrimary: true }, (err, data) => {
                 if (err) {
                     reject(err)
-                }
-                else {
+                } else {
                     data.accountData = this.decryptObject(data.accountData);
                     resolve(data)
                 }
             })
         })
     }
+
     async getAccountDetailsOfUserWise(userId) {
         return new Promise(async (resolve, reject) => {
             await this.aggregate({ akahuUserId: userId }, (err, data) => {
                 if (err) {
                     reject(err)
-                }
-                else {
+                } else {
                     data.map((x) => {
                         x.accountData = this.decryptObject(x.accountData);
                     })
@@ -137,8 +125,7 @@ class akahuAccountModel extends ModelBase {
             await this.findByMultipleAttribute({ id: accountId }, (err, data) => {
                 if (err) {
                     reject(err)
-                }
-                else {
+                } else {
                     data.accountData = this.decryptObject(data.accountData);
                     resolve(data)
                 }
@@ -146,50 +133,16 @@ class akahuAccountModel extends ModelBase {
         })
     }
 
-    // async aggregate(query, cb) {
-    //     const getTable = await this.getModel();
-
-    //     const params = {
-    //         TableName: this.tableName,
-    //     }
-
-    //     if (query.id) {
-    //         params.Key = query.id
-    //     }
-
-    //     if (query.projection) {
-    //         params.ProjectionExpression = "id,mobile,email,first_name,last_name,preferred_name,createdAt"
-    //     }
-
-
-    //     try {
-    //         const { Items = [] } = await this.db.scan(params).promise();
-    //         cb(null, Items);
-
-    //     } catch (error) {
-    //         cb(error);
-    //     }
-    // }
-
     async getSetPrimaryForData(id, akahuUserId, cb) {
-        const getTable = await this.getModel();
-        const params = {
-            TableName: this.tableName,
-            FilterExpression: "#id <> :id AND #akahuUserId = :akahuUserId",
-            ExpressionAttributeNames: {
-                "#id": "id",
-                "#akahuUserId": "akahuUserId",
-            },
-            ExpressionAttributeValues: {
-                ":id": id,
-                ":akahuUserId": akahuUserId,
-            },
-            ProjectionExpression: 'id',
-        };
         try {
-            const { Items = [] } = await this.db.scan(params).promise();
-            cb(null, Items);
-
+            const items = await prisma.akahuUserAccount.findMany({
+                where: {
+                    id: { not: id },
+                    akahuUserId: akahuUserId,
+                },
+                select: { id: true },
+            });
+            cb(null, items);
         } catch (error) {
             cb(error);
         }

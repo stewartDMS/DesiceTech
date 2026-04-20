@@ -1,10 +1,8 @@
 let supportTicketCtrl = {};
 const HttpRespose = require("../../../common/httpResponse");
-const ObjectID = require("mongodb").ObjectID;
 const CONFIG = require("../../../config");
 const async = require("async");
 const AppCode = require("../../../common/constant/appCods");
-const { ObjectId } = require("mongodb");
 const { query } = require("express");
 const _ = require("lodash");
 const firebaseToken = require("firebase-admin");
@@ -16,23 +14,16 @@ const supportTicketModel = new (require("../../../common/model/support-ticket/su
 const supportTicketTransactionModel = new (require("../../../common/model/support-ticket/supportTicketTransactionModel"))();
 const supportTicketCategoryModel = new (require("../../../common/model/support-ticket/supportTicketCategoryModel"))();
 const notificationModel = new (require("../../../common/model/notificationModel"))();
-var request = require('request');
+const { S3Client, PutObjectCommand } = require("@aws-sdk/client-s3");
+const { getSignedUrl } = require("@aws-sdk/s3-request-presigner");
 
-
-const AWS = require('aws-sdk');
-// AWS.config.update({
-//     region: "eu-north-1",
-//     signatureVersion: 'v4',
-//     accessKeyId: 'AKIA5J3ADIJ2N74DA775',
-//     secretAccessKey: "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"
-// })
-
-const s3 = new AWS.S3({
-    accessKeyId: "AKIA5J3ADIJ2N74DA775",
-    signatureVersion: 'v4',
-    secretAccessKey: "EwKv30y5/JGQWRLFWom77ImlkgP+28HbAtO+NpLj",
-    region: "eu-north-1" // could be different in your case
-})
+const s3 = new S3Client({
+    region: CONFIG.AWS.REGION,
+    credentials: {
+        accessKeyId: process.env.AWS_ACCESS_KEY_ID,
+        secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY,
+    },
+});
 
 
 supportTicketCtrl.ticketCreate = async (req, res) => {
@@ -394,25 +385,18 @@ supportTicketCtrl.closeSupportTicket = (req, res) => {
 supportTicketCtrl.uploadTicketFile = (req, res) => {
     var response = new HttpRespose();
 
-    var fileurls = [];
-
-    const params = {
+    const command = new PutObjectCommand({
         Bucket: 'desice-uploaded-files',
         Key: req.query.fileName,
-        // ACL: 'public-read',
         ContentType: req.query.fileType
-    };
+    });
 
-    s3.getSignedUrl('putObject', params, function async(err, url) {
-        if (err) {
-            response.setError(AppCode.Fail);
-            response.send(res);
-        }
-        else {
-            fileurls[0] = url;
-            response.setData(AppCode.Success, fileurls[0]);
-            response.send(res);
-        }
+    getSignedUrl(s3, command, { expiresIn: 3600 }).then(url => {
+        response.setData(AppCode.Success, url);
+        response.send(res);
+    }).catch(err => {
+        response.setError(AppCode.Fail);
+        response.send(res);
     });
 };
 

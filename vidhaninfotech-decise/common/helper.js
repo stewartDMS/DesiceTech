@@ -1,13 +1,9 @@
-/*
- * @Purpose : All common methods
- */
 var path = require('path');
 var fs = require("fs");
 const CONFIG = require("./../config");
-const moment = require("moment");
+const { format, parse, addMonths } = require("date-fns");
 var nodemailer = require('nodemailer');
-//var smtpTransport = require('nodemailer-smtp-transport');
-var request = require('request');
+const axios = require('axios');
 
 /*
  * Send OTP
@@ -18,28 +14,15 @@ var request = require('request');
  */
 exports.sendOtp = function (params, callback) {
     console.log("OTP params========================================================================= : ", params);
-    let message = "Your NUCARE New OTP is " + params.token ; // otp send at register time, forgot password time, etc
-    //console.log("OTP is : ", message);
+    let message = "Your NUCARE New OTP is " + params.token;
 
-    request({
-        //// (For this use :  sms itworld)
-        url: "https://www.smsidea.co.in/smsstatuswithid.aspx?mobile=7567359398&pass=vijay&senderid=NUCARE&to=" + params.to + "&msg=" + message,
-        // url: "http://smsindia.itworldindia.com/api/sendhttp.php?authkey=" + CONFIG.SMSGAPI + "&mobiles=" + params.to + " &message=" + message + "&sender=BUSNET&route=4&country=91",
-
-        //// (For this use : sms gateway key)
-        // url: "https://www.smsgatewayhub.com/api/mt/SendSMS?APIKey=" + CONFIG.SMSGAPI + "&senderid=TESTIN&channel=2&DCS=0&number=" + req.body.mobile + "&message=" + message + "&text=test",        
-        method: "GET"
-    },
-        function (error, response, body) {
-            if (error) {
-                console.log("777777777777777777777777", err)
-                callback(error);
-            } else {
-                console.log("--------------------------------------------", response)
-                callback(null, "Sent successfully....");
-            }
-        }
-    );
+    axios.get("https://www.smsidea.co.in/smsstatuswithid.aspx?mobile=7567359398&pass=vijay&senderid=NUCARE&to=" + params.to + "&msg=" + encodeURIComponent(message))
+        .then(response => {
+            callback(null, "Sent successfully....");
+        })
+        .catch(error => {
+            callback(error);
+        });
 };
 
 /*
@@ -100,13 +83,12 @@ exports.getMainEmailTemplate = function (params, callback) {
     callback(emailTemplatesHtml);
 };
 
-getMomentObject = (date) => {
-    return moment(date, "DD/MM/YYYY, hh:mm:ss");
+const getMomentObject = (date) => {
+    return parse(date, "dd/MM/yyyy, hh:mm:ss", new Date());
 }
-
 
 exports.getDatefromNumberValue = (from, months) => {
     from = getMomentObject(from);
-    return from.add(months, 'M');
+    return addMonths(from, months);
 }
 

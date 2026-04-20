@@ -1,0 +1,22 @@
+services:
+  - type: web
+    name: desice-api
+    env: node
+    buildCommand: npm install --legacy-peer-deps && npx prisma generate && npx prisma migrate deploy
+    startCommand: npm run start
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: DATABASE_URL
+        fromDatabase:
+          name: desice-db
+          property: connectionString
+      - key: JWT_TOKEN_KEY
+        generateValue: true
+      - key: COOKIE_PRIVATE_KEY
+        generateValue: true
+
+databases:
+  - name: desice-db
+    databaseName: desice
+    plan: free

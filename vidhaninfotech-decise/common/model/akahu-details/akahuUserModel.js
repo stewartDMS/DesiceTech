@@ -4,8 +4,9 @@ const _ = require("lodash")
 const jwt = require("jsonwebtoken");
 const bcrypt = require("bcryptjs");
 const randToken = require('rand-token');
-const AppCode = require("../../../common/constant/appCods");
+const AppCode = require("../../constant/appCods");
 const saltRounds = 10;
+const prisma = require("../../db/prismaClient");
 
 class akahuUserModel extends ModelBase {
     constructor() {
@@ -33,19 +34,12 @@ class akahuUserModel extends ModelBase {
         });
     }
 
-    /**
-     * @description create Always return an unique id after inserting new user
-     * @param {*} data
-     * @param {*} cb
-     */
-
     create(data, cb) {
         var err = this.validate(data);
         if (err) {
             return cb(err);
         }
 
-        // set createdAt date and status
         data.createdAt = new Date().toISOString();
         data.status = 1;
         data.jti = "";
@@ -64,8 +58,6 @@ class akahuUserModel extends ModelBase {
         var self = this;
         if (!!paramsObj && (paramsObj.id || paramsObj.email)) {
 
-
-
             self.findByAttribute(paramsObj, function (err, user) {
                 if (err) {
                     callback(AppCode.InternalServerError);
@@ -73,7 +65,6 @@ class akahuUserModel extends ModelBase {
                     if (user === null || user === undefined) {
                         callback(AppCode.NoUserFound);
                     } else {
-                        user = user;
                         let tokenData = {};
                         tokenData.id = user.id;
                         tokenData.first_name = user.first_name;
@@ -87,26 +78,25 @@ class akahuUserModel extends ModelBase {
                         tokenData.profile_picture = user.profile_picture;
 
                         if (!!user.email && !!user.mpin) {
-                            user.isProfileComplete = true
-                        }
-                        else {
-                            user.isProfileComplete = false
+                            user.isProfileComplete = true;
+                        } else {
+                            user.isProfileComplete = false;
                         }
 
                         user.jti = user.id + "_" + randToken.generator({ chars: '0-9' }).generate(6);
                         tokenData.jti = user.id + "_" + randToken.generator({ chars: '0-9' }).generate(6);
                         user.tokenId = jwt.sign(tokenData, CONFIG.JWTTOKENKEY, {
-                            expiresIn: '5y' //365 days
+                            expiresIn: '5y'
                         });
 
-                        let deviceTokenInfo = {};
+                        let deviceTokenInfo = {
+                            tokenId: user.tokenId,
+                            jti: user.jti,
+                        };
 
-                        deviceTokenInfo.tokenId = user.tokenId;
-                        deviceTokenInfo.jti = user.jti;
-
-                        delete user.akahuUserId
-                        delete user.access_token
-                        delete user.access_granted_at
+                        delete user.akahuUserId;
+                        delete user.access_token;
+                        delete user.access_granted_at;
 
                         if (!!deviceTokenInfo) {
                             self.updateData({ id: user.id }, { tokenId: deviceTokenInfo.tokenId, jti: deviceTokenInfo.jti }, function (err, UpdatedMasterUser) {
@@ -114,7 +104,7 @@ class akahuUserModel extends ModelBase {
                                     console.log(err)
                                     callback(AppCode.SomethingWrong);
                                 } else {
-                                    delete user.deviceTokens
+                                    delete user.deviceTokens;
                                     callback(null, user);
                                 }
                             });
@@ -147,45 +137,30 @@ class akahuUserModel extends ModelBase {
     }
 
     async aggregate(query, cb) {
-        const getTable = await this.getModel();
-
-        const params = {
-            TableName: this.tableName,
-        }
-
-        // if (query.id) {
-        //     params.Key = { id: query.id }
-        // }
-
-        if (query.projection) {
-            params.ProjectionExpression = "id,mobile,email,first_name,last_name,preferred_name,createdAt"
-        }
-
-
         try {
-            const { Items = [] } = await this.db.query(params).promise();
-            cb(null, Items);
-
+            const items = await prisma.akahuUser.findMany({
+                select: {
+                    id: true,
+                    mobile: true,
+                    email: true,
+                    first_name: true,
+                    last_name: true,
+                    preferred_name: true,
+                    createdAt: true,
+                }
+            });
+            cb(null, items);
         } catch (error) {
             cb(error);
         }
     }
 
     async userNotAggregate(query, cb) {
-        const getTable = await this.getModel();
-
-        const params = {
-            TableName: this.tableName,
-            FilterExpression: "id <> :id",
-            ExpressionAttributeValues: {
-                ":id": query,
-            },
-        }
-
         try {
-            const { Items = [] } = await this.db.scan(params).promise();
-            cb(null, Items);
-
+            const items = await prisma.akahuUser.findMany({
+                where: { id: { not: query } },
+            });
+            cb(null, items);
         } catch (error) {
             cb(error);
         }
@@ -196,13 +171,9 @@ class akahuUserModel extends ModelBase {
             await this.findByAttribute(query, (err, data) => {
                 if (err) {
                     reject(err)
-                }
-                else {
-                    // access token encrypted to decrypted
+                } else {
                     data.access_token = this.decrypt(data.access_token);
-                    // akahu user id encrypted to decrypted
                     data.akahuUserId = this.decrypt(data.akahuUserId);
-                    console.log("userData", data);
                     resolve(data)
                 }
             })

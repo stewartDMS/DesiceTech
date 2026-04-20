@@ -1,5 +1,6 @@
 (function () {
     'use strict';
+    require('dotenv').config();
     const _ = require('lodash');
     const path = require('path');
     let CONST = require('./../common/constant/basic.json');
@@ -29,7 +30,16 @@
     CONF.LOGGER.ERROR_PATH = path.join(__dirname, '/../log/' + CONF.LOGGER.ERROR_PATH);
     CONF.LOGGER.CRITICAL_PATH = path.join(__dirname, '/../log/' + CONF.LOGGER.CRITICAL_PATH);
 
-    //For getting directory and db path to store in 
+    // Override MAIL config from environment variables (keep JSON only as fallback)
+    CONF.MAIL = {
+        HOST: process.env.MAIL_HOST || CONF.MAIL.HOST,
+        PORT: parseInt(process.env.MAIL_PORT) || CONF.MAIL.PORT,
+        SECURE: process.env.MAIL_SECURE === 'true' || CONF.MAIL.SECURE,
+        MAILID: process.env.MAIL_ID || CONF.MAIL.MAILID,
+        PASSWORD: process.env.MAIL_PASSWORD || '',
+    };
+
+    //For getting directory and db path to store in
     CONF.UPLOADS = {
         ROOT_PATH: path.join(__dirname, '/..'),
         DEFAULT: path.join(__dirname, '/../uploads/'),
@@ -45,13 +55,24 @@
         DB_PATH_DOCUMENTS: 'uploads/documents/'
     };
 
-    //JWT token
-    CONF.JWTTOKENKEY = "bnRox$@2019";
+    // JWT / auth – must be set via environment variables in production
+    CONF.JWTTOKENKEY = process.env.JWT_TOKEN_KEY || 'change-me-in-production';
     CONF.JWTTOKENALLOWACCESS = {};
-    CONF.JWTTIMEOUT = 0; // 30 days
-    // CONF.JWTTIMEOUT = 60 * 60 * 24 * 30 * 1000; // 30 days
-    CONF.COOKIE_PRIVATE_KEY = 'bnRox$@2019##';
+    CONF.JWTTIMEOUT = 0;
+    CONF.COOKIE_PRIVATE_KEY = process.env.COOKIE_PRIVATE_KEY || 'change-me-in-production';
     CONF.NODE_ENV = process.env.NODE_ENV;
+
+    // AWS / S3
+    CONF.AWS = {
+        REGION: process.env.AWS_REGION || 'eu-north-1',
+        S3_BUCKET: process.env.AWS_S3_BUCKET || 'desicefilesupload',
+    };
+
+    // Akahu (NZ open banking)
+    CONF.AKAHU = {
+        APP_TOKEN: process.env.AKAHU_APP_TOKEN || '',
+        APP_SECRET: process.env.AKAHU_APP_SECRET || '',
+    };
 
     module.exports = CONF;
 })();

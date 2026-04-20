@@ -1,6 +1,7 @@
 const ModelBase = require("../modelBase");
 const CONFIG = require("../../../config");
 const _ = require("lodash")
+const prisma = require("../../db/prismaClient");
 
 class splitPaymentOrderModel extends ModelBase {
     constructor() {
@@ -25,19 +26,12 @@ class splitPaymentOrderModel extends ModelBase {
         });
     }
 
-    /**
-     * @description create Always return an unique id after inserting new user
-     * @param {*} data
-     * @param {*} cb
-     */
-
     create(data, cb) {
         var err = this.validate(data);
         if (err) {
             return cb(err);
         }
 
-        // set createdAt date and status
         data.createdAt = new Date().toISOString();
         data.status = 1;
         data.type = 1;
@@ -68,28 +62,17 @@ class splitPaymentOrderModel extends ModelBase {
     }
 
     async findByMultipleAttribute(query, cb) {
-
-        const params = {
-            TableName: this.tableName,
-            FilterExpression: "#attName = :attValue AND #attName1 <> :attValue1",
-            ExpressionAttributeNames: {
-                "#attName": "userId",
-                "#attName1": "type",
-            },
-            ExpressionAttributeValues: {
-                ":attValue": query.userId,
-                ":attValue1": query.type,
-            },
-        };
-
         try {
-            const { Items = [] } = await this.db.scan(params).promise();
-            cb(null, Items);
-        }
-        catch (err) {
+            const items = await prisma.splitPaymentOrder.findMany({
+                where: {
+                    userId: query.userId,
+                    type: { not: query.type },
+                },
+            });
+            cb(null, items);
+        } catch (err) {
             cb(err)
         }
-
     }
 
     createMany(data, cb) {

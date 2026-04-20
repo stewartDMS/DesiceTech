@@ -6,6 +6,7 @@ const bcrypt = require("bcryptjs");
 const randToken = require('rand-token');
 const saltRounds = 10;
 const AppCode = require("../constant/appCods");
+const prisma = require("../db/prismaClient");
 
 class adminUserModel extends ModelBase {
     constructor() {
@@ -108,20 +109,9 @@ class adminUserModel extends ModelBase {
     }
 
     async findOneByEmail(email, cb) {
-        const params = {
-            TableName: this.tableName,
-            FilterExpression: "#email = :email",
-            ExpressionAttributeNames: {
-                "#email": "email",
-            },
-            ExpressionAttributeValues: {
-                ":email": email,
-            },
-        };
         try {
-            const { Items = [] } = await this.db.scan(params).promise();
-            cb(null, Items[0]);
-
+            const user = await prisma.adminUser.findFirst({ where: { email } });
+            cb(null, user);
         } catch (error) {
             cb(error);
         }

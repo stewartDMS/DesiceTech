@@ -1,13 +1,24 @@
 let transactionCtrl = {};
 const HttpRespose = require("../../../common/httpResponse");
-const ObjectID = require("mongodb").ObjectID;
 const CONFIG = require("../../../config");
 const async = require("async");
 const AppCode = require("../../../common/constant/appCods");
-const { ObjectId } = require("mongodb");
 const { query } = require("express");
 const _ = require("lodash");
-const moment = require("moment");
+const moment_format_compat = (dateStr, fmt) => {
+    const { format, parseISO } = require("date-fns");
+    // Map moment.js format tokens to date-fns tokens
+    const dfmt = fmt
+        .replace(/MMMM/g, 'MMMM')
+        .replace(/MM/g, 'MM')
+        .replace(/DD/g, 'dd')
+        .replace(/yyyy/g, 'yyyy');
+    try {
+        return format(parseISO(dateStr), dfmt);
+    } catch {
+        return '';
+    }
+};
 
 const paymentTransactionModel = new (require("../../../common/model/split-payment/paymentTransactionModel"))();
 const splitPaymentCategoryModel = new (require("../../../common/model/split-payment/splitPaymentCategoryModel"))();
@@ -21,11 +32,8 @@ const crypto = require('crypto');
 const akahuAccountModel = new (require("../../../common/model/akahu-details/akahuAccountModel"))();
 const adminAccountModel = new (require("../../../common/model/adminAccountModel"))();
 const adminUserModel = new (require("../../../common/model/adminUserModel"))();
-// const appToken = 'app_token_clpu6ruwg000108kx8j0ldurc';
-// const appSecret = '7598a85e5b371ac0b4b4e00d0e3d70b39a6d0a8ac7b3eae990461fc6f0e8d6d1';
-
-const appToken = 'app_token_clswintdk000008l5di0dbxvp';
-const appSecret = '449f5e4dfa6abcc8aafdda08924ba6316a38c1556917d57b114f4748fd247115';
+const appToken = process.env.AKAHU_APP_TOKEN || CONFIG.AKAHU.APP_TOKEN;
+const appSecret = process.env.AKAHU_APP_SECRET || CONFIG.AKAHU.APP_SECRET;
 
 const akahu = new AkahuClient({ appToken: appToken, appSecret: appSecret });
 const cron = require('node-cron');
@@ -98,7 +106,7 @@ const monitizationModel = new (require("../../../common/model/monitizationModel"
 //                     })
 //                 },
 //                 function (cb) {
-//                     let date = moment().format("yyyy-MM-DD");
+//                     let date = moment_format_compat(, "yyyy-MM-DD");
 
 //                     // account list map
 //                     accountList.map(async (x) => {
@@ -107,7 +115,7 @@ const monitizationModel = new (require("../../../common/model/monitizationModel"
 //                             // check loan details type if array
 //                             if (typeof (x.accountData.meta) == 'object') {
 //                                 x.accountData.meta.map(async (y) => {
-//                                     let repaymentDate = moment(y.loan_details.repayment.next_date).format("yyyy-MM-DD");
+//                                     let repaymentDate = moment_format_compat(y.loan_details.repayment.next_date, "yyyy-MM-DD");
 //                                     // match current date with repayment date
 //                                     if (date == repaymentDate) {
 
@@ -128,7 +136,7 @@ const monitizationModel = new (require("../../../common/model/monitizationModel"
 //                             }
 //                             // check loan details type if object 
 //                             else if (typeof (x.accountData.meta) == 'string') {
-//                                 let repaymentDate = moment(x.accountData.meta.loan_details.repayment.next_date).format("yyyy-MM-DD");
+//                                 let repaymentDate = moment_format_compat(x.accountData.meta.loan_details.repayment.next_date, "yyyy-MM-DD");
 //                                 if (date == repaymentDate) {
 //                                     let paymentObject = {
 //                                         "from": x.accountData._id,
@@ -1115,12 +1123,12 @@ transactionCtrl.monthYearList = async (req, res) => {
                         else {
                             splitPaymentTransactions = splitPaymentTransactions.sort((a, b) => akahuUserModel.sortAccendingDate(a.createdAt, b.createdAt))
                             splitPaymentTransactions.map(x => {
-                                x.createdMonth = moment(x.createdAt).format('MM');
-                                x.createdMonthYearName = moment(x.createdAt).format('MMMM-yyyy');
-                                x.createdMonthYearValue = moment(x.createdAt).format('MM-yyyy');
-                                x.createdDate = moment(x.createdAt).format('DD');
-                                x.createdFullDate = moment(x.createdAt).format('yyyy-MM-02');
-                                x.createdYear = moment(x.createdAt).format('yyyy');
+                                x.createdMonth = moment_format_compat(x.createdAt, 'MM');
+                                x.createdMonthYearName = moment_format_compat(x.createdAt, 'MMMM-yyyy');
+                                x.createdMonthYearValue = moment_format_compat(x.createdAt, 'MM-yyyy');
+                                x.createdDate = moment_format_compat(x.createdAt, 'DD');
+                                x.createdFullDate = moment_format_compat(x.createdAt, 'yyyy-MM-02');
+                                x.createdYear = moment_format_compat(x.createdAt, 'yyyy');
                             })
 
                             splitPaymentTransactions.map(x => {
@@ -1167,12 +1175,12 @@ transactionCtrl.monthYearList = async (req, res) => {
 
 
                             newAccountList.map(x => {
-                                x.createdMonth = moment(x.loan_details.repayment.next_date).format('MM');
-                                x.createdMonthYearName = moment(x.loan_details.repayment.next_date).format('MMMM-yyyy');
-                                x.createdMonthYearValue = moment(x.loan_details.repayment.next_date).format('MM-yyyy');
-                                x.createdDate = moment(x.loan_details.repayment.next_date).format('DD');
-                                x.createdFullDate = moment(x.loan_details.repayment.next_date).format('yyyy-MM-02');
-                                x.createdYear = moment(x.loan_details.repayment.next_date).format('yyyy');
+                                x.createdMonth = moment_format_compat(x.loan_details.repayment.next_date, 'MM');
+                                x.createdMonthYearName = moment_format_compat(x.loan_details.repayment.next_date, 'MMMM-yyyy');
+                                x.createdMonthYearValue = moment_format_compat(x.loan_details.repayment.next_date, 'MM-yyyy');
+                                x.createdDate = moment_format_compat(x.loan_details.repayment.next_date, 'DD');
+                                x.createdFullDate = moment_format_compat(x.loan_details.repayment.next_date, 'yyyy-MM-02');
+                                x.createdYear = moment_format_compat(x.loan_details.repayment.next_date, 'yyyy');
 
                                 let obj = {
                                     amount: x.loan_details.repayment.next_amount,
@@ -1343,12 +1351,12 @@ transactionCtrl.revenuseUpdate = async (req, res) => {
                         else {
                             splitPaymentTransactions = splitPaymentTransactions.sort((a, b) => akahuUserModel.sortAccendingDate(a.createdAt, b.createdAt))
                             splitPaymentTransactions.map(x => {
-                                x.createdMonth = moment(x.createdAt).format('MM');
-                                x.createdMonthYearName = moment(x.createdAt).format('MMMM-yyyy');
-                                x.createdMonthYearValue = moment(x.createdAt).format('MM-yyyy');
-                                x.createdDate = moment(x.createdAt).format('DD');
-                                x.createdFullDate = moment(x.createdAt).format('DD-MM-yyyy');
-                                x.createdYear = moment(x.createdAt).format('yyyy');
+                                x.createdMonth = moment_format_compat(x.createdAt, 'MM');
+                                x.createdMonthYearName = moment_format_compat(x.createdAt, 'MMMM-yyyy');
+                                x.createdMonthYearValue = moment_format_compat(x.createdAt, 'MM-yyyy');
+                                x.createdDate = moment_format_compat(x.createdAt, 'DD');
+                                x.createdFullDate = moment_format_compat(x.createdAt, 'DD-MM-yyyy');
+                                x.createdYear = moment_format_compat(x.createdAt, 'yyyy');
                             })
 
                             splitPaymentTransactions.map(x => {
@@ -1395,12 +1403,12 @@ transactionCtrl.revenuseUpdate = async (req, res) => {
 
 
                             newAccountList.map(x => {
-                                x.createdMonth = moment(x.loan_details.repayment.next_date).format('MM');
-                                x.createdMonthYearName = moment(x.loan_details.repayment.next_date).format('MMMM-yyyy');
-                                x.createdMonthYearValue = moment(x.loan_details.repayment.next_date).format('MM-yyyy');
-                                x.createdDate = moment(x.loan_details.repayment.next_date).format('DD');
-                                x.createdFullDate = moment(x.loan_details.repayment.next_date).format('DD-MM-yyyy');
-                                x.createdYear = moment(x.loan_details.repayment.next_date).format('yyyy');
+                                x.createdMonth = moment_format_compat(x.loan_details.repayment.next_date, 'MM');
+                                x.createdMonthYearName = moment_format_compat(x.loan_details.repayment.next_date, 'MMMM-yyyy');
+                                x.createdMonthYearValue = moment_format_compat(x.loan_details.repayment.next_date, 'MM-yyyy');
+                                x.createdDate = moment_format_compat(x.loan_details.repayment.next_date, 'DD');
+                                x.createdFullDate = moment_format_compat(x.loan_details.repayment.next_date, 'DD-MM-yyyy');
+                                x.createdYear = moment_format_compat(x.loan_details.repayment.next_date, 'yyyy');
 
                                 let obj = {
                                     amount: x.loan_details.repayment.next_amount,

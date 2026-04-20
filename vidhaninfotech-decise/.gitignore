@@ -5,6 +5,15 @@
 
 frontend/.angular/cache
 
+# Environment variables – NEVER commit secrets
+.env
+.env.*
+!.env.example
+
+# Firebase service account key
+config/serviceAccountKey.json
+config/serviceAccountKey*.json
+
 # Node artifact files
 node_modules/
 dist/

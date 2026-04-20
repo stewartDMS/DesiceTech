@@ -122,25 +122,9 @@ class errorLogModel extends ModelBase {
     }
 
     async aggregate(query, cb) {
-        const getTable = await this.getModel();
-
-        const params = {
-            TableName: this.tableName,
-            FilterExpression: "#attName = :attValue",
-            ExpressionAttributeNames: {
-                "#attName": Object.keys(query)[0],
-            },
-            ExpressionAttributeValues: {
-                ":attValue": Object.values(query)[0],
-            },
-            // ProjectionExpression: "id,senderId,receiverId,msg,isRead,isView,createdAt,type"
-        }
-
-
         try {
-            const { Items = [] } = await this.db.scan(params).promise();
-            cb(null, Items);
-
+            const items = await this._model().findMany({ where: query });
+            cb(null, items);
         } catch (error) {
             cb(error);
         }
