@@ -83,12 +83,12 @@ exports.getMainEmailTemplate = function (params, callback) {
     callback(emailTemplatesHtml);
 };
 
-const getMomentObject = (date) => {
+const parseDateString = (date) => {
     return parse(date, "dd/MM/yyyy, hh:mm:ss", new Date());
 }
 
 exports.getDatefromNumberValue = (from, months) => {
-    from = getMomentObject(from);
+    from = parseDateString(from);
     return addMonths(from, months);
 }
 

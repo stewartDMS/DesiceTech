@@ -23,6 +23,9 @@ const s3Client = new S3Client({
   },
 });
 
+// Note: multer-s3 v3 removed per-upload ACL support.
+// To make uploaded files publicly accessible, configure a bucket policy
+// on your S3 bucket (e.g., allow s3:GetObject for Principal: "*").
 const upload = multer({
   storage: multerS3({
     s3: s3Client,

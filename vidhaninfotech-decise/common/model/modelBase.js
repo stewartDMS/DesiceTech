@@ -41,6 +41,9 @@ class ModelBase {
         if (!this.modelName) {
             throw new Error(`ModelBase: unknown table name "${tableName}"`);
         }
+        if (process.env.NODE_ENV === 'production' && !process.env.ENCRYPTION_KEY) {
+            throw new Error('ENCRYPTION_KEY environment variable is required in production');
+        }
         this.secretKeyForEncryptDecrypt = process.env.ENCRYPTION_KEY || '47ae4317c21980aa2c00d3e310224689';
         this.iv = this.secretKeyForEncryptDecrypt.substring(0, 16);
     }
@@ -148,8 +151,8 @@ class ModelBase {
 
     async updateMany(query, data, cb) {
         try {
-            const updated = await this._model().update({ where: query, data });
-            cb(null, updated);
+            const result = await this._model().updateMany({ where: query, data });
+            cb(null, result);
         } catch (err) {
             cb(err);
         }

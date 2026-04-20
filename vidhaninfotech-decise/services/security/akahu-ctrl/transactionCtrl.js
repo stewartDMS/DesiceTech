@@ -7,12 +7,8 @@ const { query } = require("express");
 const _ = require("lodash");
 const moment_format_compat = (dateStr, fmt) => {
     const { format, parseISO } = require("date-fns");
-    // Map moment.js format tokens to date-fns tokens
-    const dfmt = fmt
-        .replace(/MMMM/g, 'MMMM')
-        .replace(/MM/g, 'MM')
-        .replace(/DD/g, 'dd')
-        .replace(/yyyy/g, 'yyyy');
+    // Only convert 'DD' (moment day-of-month) to date-fns 'dd'
+    const dfmt = fmt.replace(/DD/g, 'dd');
     try {
         return format(parseISO(dateStr), dfmt);
     } catch {

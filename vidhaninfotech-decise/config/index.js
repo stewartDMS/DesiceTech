@@ -56,6 +56,14 @@
     };
 
     // JWT / auth – must be set via environment variables in production
+    if (process.env.NODE_ENV === 'production') {
+        if (!process.env.JWT_TOKEN_KEY) {
+            throw new Error('JWT_TOKEN_KEY environment variable is required in production');
+        }
+        if (!process.env.COOKIE_PRIVATE_KEY) {
+            throw new Error('COOKIE_PRIVATE_KEY environment variable is required in production');
+        }
+    }
     CONF.JWTTOKENKEY = process.env.JWT_TOKEN_KEY || 'change-me-in-production';
     CONF.JWTTOKENALLOWACCESS = {};
     CONF.JWTTIMEOUT = 0;
