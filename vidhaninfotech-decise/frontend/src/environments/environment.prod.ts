@@ -1,17 +1,10 @@
+// When deploying to Vercel (or any CI), this file is overwritten at build time
+// by scripts/set-env.js using the VITE_API_URL / VITE_UPLOADS_URL / VITE_UPLOAD_FILE
+// environment variables you set in the Vercel project dashboard.
+// The values below are the defaults used when those variables are not set.
 export const environment = {
   production: true,
-  // apiUrl: 'http://decisedevelopment.vidhaninfotech.com/v1/',
-  // uploadsUrl: 'http://decisedevelopment.vidhaninfotech.com/uploads/',
-
-
-  // apiUrl: 'http://13.50.94.246/v1/',
-  // uploadsUrl: 'http://13.50.94.246/uploads/',
-
   apiUrl: 'https://desice.co.nz/v1/',
-  uploadFile: 'https://17imjsjqd8.execute-api.eu-north-1.amazonaws.com/dev/desice-uploaded-files/',
   uploadsUrl: 'https://desice.co.nz/uploads/',
-
-
-  // apiUrl: 'http://decisedevelopmentapp.vidhaninfotech.com/v1/',
-  // uploadsUrl: 'http://decisedevelopmentapp.vidhaninfotech.com/uploads/',
+  uploadFile: 'https://17imjsjqd8.execute-api.eu-north-1.amazonaws.com/dev/desice-uploaded-files/',
 };

@@ -1,10 +1,8 @@
 let splitPaymentTransactionCtrl = {};
 const HttpRespose = require("../../../common/httpResponse");
-const ObjectID = require("mongodb").ObjectID;
 const CONFIG = require("../../../config");
 const async = require("async");
 const AppCode = require("../../../common/constant/appCods");
-const { ObjectId } = require("mongodb");
 const { query } = require("express");
 const firebaseToken = require("firebase-admin");
 const _ = require("lodash");
@@ -27,11 +25,9 @@ const adminPaymentTransactionModel = new (require("../../../common/model/split-p
 
 const { AkahuClient } = require('akahu');
 const e = require("express");
-// const appToken = 'app_token_clpu6ruwg000108kx8j0ldurc';
-// const appSecret = '7598a85e5b371ac0b4b4e00d0e3d70b39a6d0a8ac7b3eae990461fc6f0e8d6d1';
 
-const appToken = 'app_token_clswintdk000008l5di0dbxvp';
-const appSecret = '449f5e4dfa6abcc8aafdda08924ba6316a38c1556917d57b114f4748fd247115';
+const appToken = process.env.AKAHU_APP_TOKEN || CONFIG.AKAHU.APP_TOKEN;
+const appSecret = process.env.AKAHU_APP_SECRET || CONFIG.AKAHU.APP_SECRET;
 const akahu = new AkahuClient({ appToken: appToken, appSecret: appSecret });
 const errorLogModel = new (require("../../../common/model/errorLogModel"))();
 

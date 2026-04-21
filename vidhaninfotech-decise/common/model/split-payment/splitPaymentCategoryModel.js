@@ -1,6 +1,7 @@
 const ModelBase = require("../modelBase");
 const CONFIG = require("../../../config");
 const _ = require("lodash")
+const prisma = require("../../db/prismaClient");
 
 class splitPaymentCategoryModel extends ModelBase {
     constructor() {
@@ -17,19 +18,12 @@ class splitPaymentCategoryModel extends ModelBase {
         });
     }
 
-    /**
-     * @description create Always return an unique id after inserting new user
-     * @param {*} data
-     * @param {*} cb
-     */
-
     create(data, cb) {
         var err = this.validate(data);
         if (err) {
             return cb(err);
         }
 
-        // set createdAt date and status
         data.createdAt = new Date().toISOString();
         data.status = 1;
         data.isEditable = true;
@@ -60,21 +54,9 @@ class splitPaymentCategoryModel extends ModelBase {
     }
 
     async getActiveList(cb) {
-        const getTable = await this.getModel();
-        const params = {
-            TableName: this.tableName,
-            FilterExpression: "#status = :status",
-            ExpressionAttributeNames: {
-                "#status": "status",
-            },
-            ExpressionAttributeValues: {
-                ":status": 1,
-            },
-        };
         try {
-            const { Items = [] } = await this.db.scan(params).promise();
-            cb(null, Items);
-
+            const items = await prisma.splitPaymentCategory.findMany({ where: { status: 1 } });
+            cb(null, items);
         } catch (error) {
             cb(error);
         }

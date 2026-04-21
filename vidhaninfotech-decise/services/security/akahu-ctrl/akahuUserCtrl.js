@@ -1,10 +1,8 @@
 let akahuUserCtrl = {};
 const HttpRespose = require("../../../common/httpResponse");
-const ObjectID = require("mongodb").ObjectID;
 const CONFIG = require("../../../config");
 const async = require("async");
 const AppCode = require("../../../common/constant/appCods");
-const { ObjectId } = require("mongodb");
 const { query } = require("express");
 const _ = require("lodash");
 
@@ -18,18 +16,13 @@ const splitPaymentOrderModel = new (require("../../../common/model/split-payment
 const nodemailer = require("nodemailer");
 const fs = require("fs");
 const handlebars = require("handlebars");
-const moment = require("moment")
+const { addMonths, parseISO } = require("date-fns");
 
 const { AkahuClient } = require('akahu');
 const e = require("express");
 
-// old data
-// const appToken = 'app_token_clpu6ruwg000108kx8j0ldurc';
-// const appSecret = '7598a85e5b371ac0b4b4e00d0e3d70b39a6d0a8ac7b3eae990461fc6f0e8d6d1';
-
-// production 
-const appToken = 'app_token_clswintdk000008l5di0dbxvp';
-const appSecret = '449f5e4dfa6abcc8aafdda08924ba6316a38c1556917d57b114f4748fd247115';
+const appToken = process.env.AKAHU_APP_TOKEN || CONFIG.AKAHU.APP_TOKEN;
+const appSecret = process.env.AKAHU_APP_SECRET || CONFIG.AKAHU.APP_SECRET;
 const akahu = new AkahuClient({ appToken: appToken, appSecret: appSecret });
 const path = require("path");
 const base64Img = require('base64-img');
@@ -1257,7 +1250,7 @@ akahuUserCtrl.getLoanDetails = async (req, res) => {
                     setAutoPaymentDate = autoPaymentDate
                 }
                 else {
-                    setAutoPaymentDate = moment(autoPaymentDate).add(1, 'M');
+                    setAutoPaymentDate = addMonths(autoPaymentDate instanceof Date ? autoPaymentDate : new Date(autoPaymentDate), 1);
                 }
 
                 let loanObject = {

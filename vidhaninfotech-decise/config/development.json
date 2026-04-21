@@ -13,10 +13,10 @@
         "CRITICAL_PATH": "bg_err.log"
     },
     "MAIL": {
-        "HOST": "gmail",
+        "HOST": "smtp.example.com",
         "SECURE": false,
         "PORT": 587,
-        "MAILID": "bhargav.sankaliya.vidhaninfotech@gmail.com",
-        "PASSWORD": "evluywcfqatuynrx"
+        "MAILID": "",
+        "PASSWORD": ""
     }
 }

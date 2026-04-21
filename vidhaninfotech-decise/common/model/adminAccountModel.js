@@ -1,6 +1,7 @@
 const ModelBase = require("./modelBase");
 const CONFIG = require("../../config");
 const _ = require("lodash")
+const prisma = require("../db/prismaClient");
 
 class adminAccountModel extends ModelBase {
     constructor() {
@@ -19,19 +20,12 @@ class adminAccountModel extends ModelBase {
         });
     }
 
-    /**
-     * @description create Always return an unique id after inserting new user
-     * @param {*} data
-     * @param {*} cb
-     */
-
     create(data, cb) {
         var err = this.validate(data);
         if (err) {
             return cb(err);
         }
 
-        // set createdAt date and status
         data.createdAt = new Date().toISOString();
         data.status = 1;
         data.isPrimary = data.isPrimary ? data.isPrimary : false;
@@ -51,9 +45,7 @@ class adminAccountModel extends ModelBase {
         }
 
         data.updatedAt = new Date().toISOString();
-        console.log("yes");
         this.updateData(query, data, (err, result) => {
-            console.log("yes");
             if (err) {
                 return cb(err);
             }
@@ -62,43 +54,21 @@ class adminAccountModel extends ModelBase {
     }
 
     async getPrimaryAccountDetails(cb) {
-        const getTable = await this.getModel();
-        const params = {
-            TableName: this.tableName,
-            FilterExpression: "#isPrimary = :isPrimary",
-            ExpressionAttributeNames: {
-                "#isPrimary": "isPrimary",
-            },
-            ExpressionAttributeValues: {
-                ":isPrimary": true,
-            },
-        };
         try {
-            const { Items = [] } = await this.db.scan(params).promise();
-            cb(null, Items);
-
+            const items = await prisma.adminAccount.findMany({ where: { isPrimary: true } });
+            cb(null, items);
         } catch (error) {
             cb(error);
         }
     }
 
     async getSetPrimaryForData(id, cb) {
-        const getTable = await this.getModel();
-        const params = {
-            TableName: this.tableName,
-            FilterExpression: "#id <> :id",
-            ExpressionAttributeNames: {
-                "#id": "id",
-            },
-            ExpressionAttributeValues: {
-                ":id": id,
-            },
-            ProjectionExpression: 'id',
-        };
         try {
-            const { Items = [] } = await this.db.scan(params).promise();
-            cb(null, Items);
-
+            const items = await prisma.adminAccount.findMany({
+                where: { id: { not: id } },
+                select: { id: true },
+            });
+            cb(null, items);
         } catch (error) {
             cb(error);
         }

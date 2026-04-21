@@ -1,0 +1,375 @@
+// Prisma schema for Decise – PostgreSQL (replaces AWS DynamoDB)
+// Run `npx prisma migrate dev --name init` to create the database tables.
+// Run `npx prisma studio` to open the visual database editor.
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+// ── Admin panel ────────────────────────────────────────────────────────────
+
+model AdminUser {
+  id        String  @id
+  firstName String
+  lastName  String
+  role      Int
+  email     String  @unique
+  password  String
+  jti       String?
+  tokenId   String?
+  status    Int     @default(1)
+  createdAt String?
+  updatedAt String?
+
+  @@map("admin_user")
+}
+
+model AdminAccount {
+  id                String   @id
+  accountID         String?
+  bankName          String?
+  accountHolderName String?
+  prefixCode        String?
+  isPrimary         Boolean?
+  status            Int      @default(1)
+  createdAt         String?
+  updatedAt         String?
+
+  @@map("admin_account")
+}
+
+// ── Akahu (NZ open banking) users & accounts ──────────────────────────────
+
+model AkahuUser {
+  id               String   @id
+  profile_picture  String?
+  akahuUserId      String?
+  first_name       String?
+  last_name        String?
+  preferred_name   String?
+  mobile           String?
+  email            String?
+  mpin             String?
+  access_token     String?
+  access_granted_at String?
+  jti              String?
+  tokenId          String?
+  autoPayment      Boolean?
+  financialGoals   Json?
+  status           Int?
+  createdAt        String?
+  updatedAt        String?
+
+  @@map("akahu_user")
+}
+
+model AkahuUserAccount {
+  id           String   @id
+  akahuUserId  String?
+  accountData  String?
+  setAsPrimary Boolean?
+  status       Int?
+  createdAt    String?
+  updatedAt    String?
+
+  @@map("akahu_user_account")
+}
+
+// ── Auto payments ──────────────────────────────────────────────────────────
+
+model AutoPayment {
+  id                    String   @id
+  userId                String
+  purpose               String?
+  receiverName          String
+  receiverAccountNumber String
+  amount                Float
+  autoPaymentDate       String
+  createdBy             String?
+  updatedBy             String?
+  userAccountId         String?
+  isDeleted             Boolean?
+  paymentType           Int?
+  type                  Int?
+  status                Int?
+  createdAt             String?
+  updatedAt             String?
+
+  @@map("auto_payment")
+}
+
+// ── Inquiry / registration ─────────────────────────────────────────────────
+
+model InquiryRegistration {
+  id                      String   @id
+  firstName               String
+  lastName                String
+  email                   String
+  phone                   String
+  description             String?
+  isNewZealandBankAccount Boolean
+  status                  Int?
+  createdAt               String?
+  updatedAt               String?
+
+  @@map("inquiry_registration")
+}
+
+// ── Split payments ─────────────────────────────────────────────────────────
+
+model SplitPayment {
+  id                  String  @id
+  categoryId          String
+  purpose             String
+  splitPaymentPicture String?
+  totalAmount         Float
+  whoPaid             String
+  forWhom             Json
+  createdBy           String
+  status              Int     @default(1)
+  createdAt           String?
+  updatedAt           String?
+
+  @@map("split_payment")
+}
+
+model SplitPaymentOrder {
+  id                   String  @id
+  splitPaymentId       String
+  receivePaymentUserId String
+  userId               String
+  categoryId           String
+  amount               Float
+  type                 Int     @default(1)
+  status               Int     @default(1)
+  createdAt            String?
+  updatedAt            String?
+
+  @@map("split_payment_order")
+}
+
+model SplitPaymentHistory {
+  id             String  @id
+  splitPaymentId String
+  message        String?
+  createdBy      String?
+  status         Int     @default(1)
+  createdAt      String?
+  updatedAt      String?
+
+  @@map("split_payment_history")
+}
+
+model SplitPaymentCategory {
+  id           String   @id
+  name         String
+  akahuGroupId String?
+  categoryId   String?
+  isEditable   Boolean  @default(true)
+  status       Int      @default(1)
+  createdAt    String?
+  updatedAt    String?
+
+  @@map("split_payment_category")
+}
+
+// ── Transactions ───────────────────────────────────────────────────────────
+
+model PaymentTransaction {
+  id             String  @id
+  trans_id       String?
+  netAmount      Float?
+  description    String?
+  amount         Float?
+  platformFees   Float?
+  userId         String?
+  categoryId     String?
+  type           String?
+  isAuto         Int?
+  status         String?
+  senderName     String?
+  receiverId     String?
+  receiverName   String?
+  connectionName String?
+  reason         String?
+  createdAt      String?
+  updatedAt      String?
+
+  @@map("payment_transaction")
+}
+
+model AdminPaymentTransaction {
+  id                 String  @id
+  senderId           String
+  receiverId         String?
+  receiverName       String?
+  transactionId      String
+  amount             Float?
+  parentTransctionId String
+  transactionData    String
+  paymentObject      String
+  createdAt          String?
+  updatedAt          String?
+
+  @@map("admin_payment_transaction")
+}
+
+// ── Support tickets ────────────────────────────────────────────────────────
+
+model SupportTicket {
+  id         String  @id
+  userID     String?
+  priority   Int?
+  categoryID String?
+  subject    String?
+  status     Int?
+  isActive   Int?
+  createdBy  String?
+  updatedBy  String?
+  createdAt  String?
+  updatedAt  String?
+
+  @@map("support_ticket")
+}
+
+model SupportTicketCategory {
+  id        String  @id
+  name      String?
+  status    Int     @default(1)
+  createdAt String?
+  updatedAt String?
+
+  @@map("support_ticket_category")
+}
+
+model SupportTicketTransaction {
+  id                   String  @id
+  ticketID             String?
+  description          String?
+  files                Json?
+  isActive             Int?
+  isSendByAdminSupport Int?
+  createdBy            String?
+  createdByName        String?
+  updatedBy            String?
+  createdAt            String?
+  updatedAt            String?
+
+  @@map("support_ticket_transaction")
+}
+
+// ── Financial goals ────────────────────────────────────────────────────────
+
+model FinancialGoal {
+  id        String  @id
+  name      String
+  group     Int
+  status    Int     @default(1)
+  createdAt String?
+  updatedAt String?
+
+  @@map("financial_goal")
+}
+
+// ── Monetisation ───────────────────────────────────────────────────────────
+
+model Monitization {
+  id          String  @id
+  description String?
+  minAmount   Float
+  maxAmount   Float
+  percentage  Float?
+  amount      Float?
+  paymentMode Int
+  paymentType Int
+  status      Int     @default(1)
+  createdAt   String?
+  updatedAt   String?
+
+  @@map("monitization")
+}
+
+// ── Notifications ──────────────────────────────────────────────────────────
+
+model Notification {
+  id              String   @id
+  senderId        String?
+  receiverId      String?
+  splitPaymentId  String?
+  supportTicketId String?
+  msg             String?
+  isRead          Boolean?
+  isView          Boolean?
+  type            Int?
+  createdAt       String?
+  updatedAt       String?
+
+  @@map("notification")
+}
+
+// ── Device tokens (Firebase push notifications) ────────────────────────────
+
+model DeviceToken {
+  id          String  @id
+  deviceToken String?
+  deviceType  Int?
+  deviceId    String?
+  akahuUserId String?
+  createdAt   String?
+  updatedAt   String?
+
+  @@map("device_token")
+}
+
+// ── Newsletter subscriptions ───────────────────────────────────────────────
+
+model NewsLetterSubscription {
+  id               String  @id
+  email            String?
+  subscriptionDate String?
+
+  @@map("news_letter_subscription")
+}
+
+// ── OTP / verification codes ───────────────────────────────────────────────
+
+model VerificationCode {
+  id          String  @id
+  adminUserId String?
+  token       String?
+  status      Int?
+  createdAt   String?
+  expiredAt   String?
+  updatedAt   String?
+
+  @@map("verification_code")
+}
+
+// ── Webhook events ─────────────────────────────────────────────────────────
+
+model Webhook {
+  id        String  @id
+  payload   String?
+  status    Int?
+  createdAt String?
+  updatedAt String?
+
+  @@map("webhook")
+}
+
+// ── Error logs ─────────────────────────────────────────────────────────────
+
+model ErrorLog {
+  id           String  @id
+  errorMessage String?
+  tableName    String?
+  createdAt    String?
+  updatedAt    String?
+
+  @@map("error_log")
+}
