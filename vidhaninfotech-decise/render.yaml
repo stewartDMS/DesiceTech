@@ -2,21 +2,23 @@ services:
   - type: web
     name: desice-api
     env: node
+    rootDir: vidhaninfotech-decise
     buildCommand: npm install --legacy-peer-deps && npx prisma generate && npx prisma migrate deploy
     startCommand: npm run start
     envVars:
       - key: NODE_ENV
         value: production
+      # Set DATABASE_URL to the connection string from your Neon project.
+      # In Neon dashboard: Project → Connection Details → copy the "Pooled connection" string.
+      # It looks like: postgresql://user:password@ep-xxx.eu-central-1.aws.neon.tech/desice?sslmode=require
       - key: DATABASE_URL
-        fromDatabase:
-          name: desice-db
-          property: connectionString
+        sync: false
       - key: JWT_TOKEN_KEY
         generateValue: true
       - key: COOKIE_PRIVATE_KEY
         generateValue: true
+      # Add the remaining secrets in the Render dashboard → your service → Environment:
+      # ENCRYPTION_KEY, AWS_ACCESS_KEY_ID, AWS_SECRET_ACCESS_KEY, AWS_REGION, AWS_S3_BUCKET,
+      # AKAHU_APP_TOKEN, AKAHU_APP_SECRET, MAIL_HOST, MAIL_PORT, MAIL_SECURE,
+      # MAIL_ID, MAIL_PASSWORD, FIREBASE_SERVICE_ACCOUNT_JSON
 
-databases:
-  - name: desice-db
-    databaseName: desice
-    plan: free
