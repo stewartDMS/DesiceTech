@@ -93,6 +93,11 @@ Copy `.env.example` to `.env` and fill in every value before starting the server
 The app uses **Prisma Migrate** to manage the PostgreSQL schema.  
 All 23 models are defined in `prisma/schema.prisma`.
 
+> **Prisma 7.x note:** The database connection URL is no longer configured in
+> `schema.prisma`. It is provided via `prisma.config.ts` for CLI commands and
+> via `datasourceUrl` in `prismaClient.js` for the application runtime.
+> See [Prisma 7 config guide](https://pris.ly/d/config-datasource).
+
 ### Running migrations
 
 | Scenario | Command |
@@ -358,10 +363,11 @@ In hosted environments (Railway/Render), run this build step before or during yo
 vidhaninfotech-decise/
 ├── .env.example               ← copy to .env, fill in values
 ├── .nvmrc                     ← Node 20 LTS
+├── prisma.config.ts           ← Prisma 7.x config: supplies DATABASE_URL to Prisma CLI
 ├── railway.toml               ← Railway deployment config
 ├── render.yaml                ← Render deployment config
 ├── prisma/
-│   └── schema.prisma          ← Database schema (23 models)
+│   └── schema.prisma          ← Database schema (23 models; URL now in prisma.config.ts)
 ├── config/
 │   ├── index.js               ← Loads config + env vars; throws on missing secrets in prod
 │   ├── all.json / development.json / production.json
