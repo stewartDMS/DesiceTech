@@ -135,9 +135,14 @@ module.exports = (app) => {
     }
   });
 
-  app.get('*', (req, res) => {
-    res.sendFile(path.join(__dirname + '/../frontend/dist/decise_development/index.html'));
-  });
+  // Serve the Angular SPA only when the frontend dist folder is present
+  // (traditional server deployment).  On Vercel the frontend is deployed
+  // separately, so this catch-all is skipped.
+  if (!process.env.VERCEL) {
+    app.get('*', (req, res) => {
+      res.sendFile(path.join(__dirname + '/../frontend/dist/decise_development/index.html'));
+    });
+  }
 
   return app;
 };

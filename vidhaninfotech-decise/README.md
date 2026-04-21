@@ -273,6 +273,60 @@ Render runs **all** commands (install, build, start) relative to that subdirecto
 
 ---
 
+## Deploying the backend to Vercel (dev / serverless)
+
+The Express backend can be deployed to Vercel as a serverless function — useful for development previews and branch deployments.  
+`vercel.json` (at the backend root) routes every incoming request to `api/index.js`, which initialises the Express app on the first cold-start and reuses it for subsequent requests.
+
+> **Serverless caveats (dev use only):**  
+> - `express-session` uses an in-memory store — sessions are **not** persisted across invocations.  
+> - There is no persistent background process, so any future cron jobs won't run.  
+> - For production use, Railway or Render (long-lived Node.js process) is recommended.
+
+### Step-by-step
+
+1. **Create a Vercel account** at [vercel.com](https://vercel.com) (or reuse your existing one).
+
+2. **Import the project in Vercel**  
+   - Go to **Add New Project** → import `stewartDMS/DesiceTech`  
+   - Set **Root Directory** to `vidhaninfotech-decise`  
+   - Vercel auto-detects `vercel.json` — no framework-preset changes needed.
+
+3. **Set environment variables** in Vercel dashboard → your project → **Settings → Environment Variables**:
+
+   | Variable | Description |
+   |---|---|
+   | `DATABASE_URL` | Neon Postgres connection string (pooled) |
+   | `JWT_TOKEN_KEY` | Long random secret for JWTs |
+   | `COOKIE_PRIVATE_KEY` | Long random secret for session cookies |
+   | `ENCRYPTION_KEY` | Exactly 32 characters — AES-256 field encryption |
+   | `AWS_ACCESS_KEY_ID` | IAM key for S3 uploads |
+   | `AWS_SECRET_ACCESS_KEY` | IAM secret for S3 uploads |
+   | `AWS_REGION` | S3 bucket region (e.g. `eu-north-1`) |
+   | `AWS_S3_BUCKET` | S3 bucket name |
+   | `AKAHU_APP_TOKEN` | Akahu open-banking token |
+   | `AKAHU_APP_SECRET` | Akahu open-banking secret |
+   | `MAIL_HOST` / `MAIL_PORT` / `MAIL_SECURE` | SMTP settings |
+   | `MAIL_ID` / `MAIL_PASSWORD` | SMTP credentials |
+   | `FIREBASE_SERVICE_ACCOUNT_JSON` | Firebase service account as a single-line JSON string |
+   | `NODE_ENV` | Set to `production` |
+
+4. **Deploy** — Vercel runs the build command from `vercel.json`:
+   ```
+   npm install --legacy-peer-deps && npx prisma generate
+   ```
+   Prisma client is generated during the build; migrations must be applied separately against your Neon database (run `npm run db:migrate` locally or via a one-off Vercel CLI invocation).
+
+5. **Verify** — visit your Vercel URL (e.g. `https://desice-api.vercel.app/v1/adminAuth`).
+
+### How it works under the hood
+
+- **`vercel.json`** (backend root) rewrites all routes to `api/index.js`.
+- **`api/index.js`** lazily initialises the Prisma connection and Express middleware on the first request; subsequent requests in the same instance reuse the configured app.
+- **`web/middleware.js`** skips the Angular SPA catch-all route when `process.env.VERCEL` is set — unmatched routes return 404 instead of attempting to serve a non-existent HTML file.
+
+---
+
 ## Deploying the Angular frontend to Vercel
 
 The Angular SPA lives in `frontend/` and is configured for Vercel via `frontend/vercel.json`.  
@@ -349,6 +403,7 @@ In hosted environments (Railway/Render), run this build step before or during yo
 |---|---|
 | `npm run nodemon` | Start dev server with auto-restart |
 | `npm run start` | Start production server (`NODE_ENV=production`) |
+| `npm run vercel-build` | Build step used by Vercel (install deps + `prisma generate`) |
 | `npm run db:migrate` | Apply pending Prisma migrations (`prisma migrate deploy`) |
 | `npm run db:studio` | Open Prisma Studio visual DB editor on port 5555 |
 | `npm run angularBuild` | Build Angular frontend for production |
@@ -366,6 +421,9 @@ vidhaninfotech-decise/
 ├── prisma.config.ts           ← Prisma 7.x config: supplies DATABASE_URL to Prisma CLI
 ├── railway.toml               ← Railway deployment config
 ├── render.yaml                ← Render deployment config
+├── vercel.json                ← Vercel deployment config (backend serverless)
+├── api/
+│   └── index.js               ← Vercel serverless entry point (lazy DB init + Express handler)
 ├── prisma/
 │   └── schema.prisma          ← Database schema (23 models; URL now in prisma.config.ts)
 ├── config/

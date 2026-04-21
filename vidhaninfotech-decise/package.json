@@ -7,6 +7,7 @@
         "serve": "cd web && node index.js",
         "nodemon": "cd web && npx nodemon index.js",
         "test": "cd web && node index.js",
+        "vercel-build": "npm install --legacy-peer-deps && npx prisma generate",
         "start": "NODE_ENV=production node web/index.js",
         "db:migrate": "prisma migrate deploy",
         "db:studio": "prisma studio",
