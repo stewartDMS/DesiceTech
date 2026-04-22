@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
+import { NgApexchartsModule } from 'ng-apexcharts';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -34,6 +35,7 @@ import { FrontLayoutComponent } from './Layout/front-layout/front-layout.compone
     ComponentModule,
     BrowserAnimationsModule,
     DirectivesModule,
+    NgApexchartsModule,
   ],
   providers: [DatePipe, LoaderService,
     {
