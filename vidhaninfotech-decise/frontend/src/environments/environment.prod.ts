@@ -8,6 +8,7 @@ export const environment = {
   uploadsUrl: 'https://desice.co.nz/uploads/',
   uploadFile: 'https://17imjsjqd8.execute-api.eu-north-1.amazonaws.com/dev/desice-uploaded-files/',
 
+  // TODO: Replace with actual App Store / Google Play URLs before deploying to production.
   // App store download links — replace with actual URLs when available
   appStoreUrl: 'https://apps.apple.com/app/desice',
   playStoreUrl: 'https://play.google.com/store/apps/details?id=nz.co.desice',
