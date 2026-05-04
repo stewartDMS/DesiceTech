@@ -4,6 +4,7 @@ import { CommonService } from 'src/app/shared/common.service';
 import { Router } from 'express';
 import { ActivatedRoute } from '@angular/router';
 import { FrontLayoutService } from 'src/app/Layout/front-layout/front-layout.service';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-register',
@@ -14,6 +15,8 @@ export class RegisterComponent implements OnInit {
   newZealandBankAccount: boolean = false;
   submittedData: boolean = false;
   registerForm: FormGroup;
+  appStoreUrl: string = environment.appStoreUrl;
+  playStoreUrl: string = environment.playStoreUrl;
   get fRegisterData() { return this.registerForm.controls }
   constructor(
     public fb: FormBuilder,

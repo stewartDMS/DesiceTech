@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { environment } from 'src/environments/environment';
 // import { OwlOptions } from 'ngx-owl-carousel-o';
 
 declare var $: any
@@ -9,6 +10,8 @@ declare var $: any
   styleUrls: ['./home.component.scss']
 })
 export class HomeComponent implements OnInit {
+  appStoreUrl: string = environment.appStoreUrl;
+  playStoreUrl: string = environment.playStoreUrl;
   // customOptions: OwlOptions = {
   //   loop: true,
   //   mouseDrag: false,

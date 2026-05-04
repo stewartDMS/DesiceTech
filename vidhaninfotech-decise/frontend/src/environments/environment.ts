@@ -9,6 +9,10 @@ export const environment = {
   uploadsUrl: 'http://localhost:80/uploads/', 
   uploadFile: 'https://17imjsjqd8.execute-api.eu-north-1.amazonaws.com/dev/desice-uploaded-files/',
 
+  // App store download links — replace with actual URLs when available
+  appStoreUrl: 'https://apps.apple.com/app/desice',
+  playStoreUrl: 'https://play.google.com/store/apps/details?id=nz.co.desice',
+
   // apiUrl: 'http://13.50.94.246/v1/',
   // uploadsUrl: 'http://13.50.94.246/uploads/',
 
