@@ -23,7 +23,8 @@
     "@angular/router": "~13.3.0",
     "apexcharts": "^3.45.2",
     "jquery": "^3.7.1",
-    "ng-apexcharts": "^1.7.1",
+    "moment": "^2.29.4",
+    "ng-apexcharts": "1.7.7",
     "ng-otp-input": "^1.8.5",
     "ngx-pagination": "^6.0.3",
     "ngx-spinner": "^13.1.1",
@@ -32,6 +33,9 @@
     "sweetalert2": "^11.10.2",
     "tslib": "^2.3.0",
     "zone.js": "~0.11.4"
+  },
+  "overrides": {
+    "core-js": "^3.37.0"
   },
   "devDependencies": {
     "@angular-devkit/build-angular": "~13.3.1",

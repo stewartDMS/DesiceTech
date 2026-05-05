@@ -7,4 +7,8 @@ export const environment = {
   apiUrl: 'https://desice.co.nz/v1/',
   uploadsUrl: 'https://desice.co.nz/uploads/',
   uploadFile: 'https://17imjsjqd8.execute-api.eu-north-1.amazonaws.com/dev/desice-uploaded-files/',
+
+  // App store download links
+  appStoreUrl: 'https://apps.apple.com/au/app/desice/id6477706714',
+  playStoreUrl: 'https://play.google.com/store/apps/details?id=nz.co.desice',
 };
